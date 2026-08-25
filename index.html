@@ -102,21 +102,24 @@
 
   <!-- ============ AKCE (Co u nás můžete zažít) ============ -->
   <section id="akce" class="section" aria-label="Co u nás můžete zažít">
-    <div class="section-head">
-      <h2 class="section-title">Co u nás můžete zažít</h2>
-      <div class="carousel-controls">
-        <button type="button" class="carousel-btn" id="eventsPrev" aria-label="Předchozí akce">←</button>
-        <button type="button" class="carousel-btn" id="eventsNext" aria-label="Další akce">→</button>
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">Co u nás můžete zažít</h2>
+        <div class="carousel-controls">
+          <button type="button" class="carousel-btn" id="eventsPrev" aria-label="Předchozí akce">←</button>
+          <button type="button" class="carousel-btn" id="eventsNext" aria-label="Další akce">→</button>
+        </div>
       </div>
-    </div>
 
-    <div class="events-viewport" id="eventsViewport" tabindex="0" aria-label="Seznam akcí, posuvník">
-      <!-- karty se vykreslují z js/main.js (pole EVENTS) -->
+      <div class="events-viewport" id="eventsViewport" tabindex="0" aria-label="Seznam akcí, posuvník">
+        <!-- karty se vykreslují z js/main.js (pole EVENTS) -->
+      </div>
     </div>
   </section>
 
   <!-- ============ NAPOJE (Nápojový lístek) ============ -->
   <section id="napoje" class="section section--dark" aria-label="Nápojový lístek">
+    <div class="container">
     <div class="section-head">
       <h2 class="section-title section-title--light">Nápojový lístek</h2>
       <a href="#" class="section-link">Zobrazit celý nápojový lístek →</a>
@@ -183,25 +186,29 @@
         <a href="#" class="drink-card__more">Více vín →</a>
       </div>
     </div>
+    </div>
   </section>
 
   <!-- ============ SIGNATURE DRINK ============ -->
   <section id="signature" class="section signature" aria-label="Signature drink Bourák">
-    <div class="signature__inner">
-      <div class="signature__media">
-        <p>Foto: signature drink Bourák</p>
-      </div>
-      <div class="signature__content">
-        <span class="signature__badge">BOURÁK SIGNATURE</span>
-        <h2 class="signature__title">Signature drink Bourák</h2>
-        <p class="signature__text">Náš domácí signature drink – jedinečná směs, kterou nenajdete jinde. Ideální doprovod k dobré hudbě a večeru u nás.</p>
-        <div class="signature__price">115 Kč</div>
+    <div class="container">
+      <div class="signature__inner">
+        <div class="signature__media">
+          <p>Foto: signature drink Bourák</p>
+        </div>
+        <div class="signature__content">
+          <span class="signature__badge">BOURÁK SIGNATURE</span>
+          <h2 class="signature__title">Signature drink Bourák</h2>
+          <p class="signature__text">Náš domácí signature drink – jedinečná směs, kterou nenajdete jinde. Ideální doprovod k dobré hudbě a večeru u nás.</p>
+          <div class="signature__price">115 Kč</div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ============ PROSTORY A ZÁŽITKY ============ -->
   <section id="prostory" class="section" aria-label="Prostory a zážitky">
+    <div class="container">
     <h2 class="section-title">Prostory a zážitky</h2>
     <div class="spaces-grid">
 
@@ -272,10 +279,12 @@
       </div>
 
     </div>
+    </div>
   </section>
 
   <!-- ============ SLUZBY NAVIC ============ -->
   <section id="sluzby" class="section section--dark" aria-label="Služby navíc">
+    <div class="container">
     <h2 class="section-title section-title--light">Služby navíc</h2>
     <div class="services-grid">
       <div class="service-card reveal">
@@ -299,23 +308,27 @@
         <p class="service-card__desc">Rezervujte si stůl na míru.</p>
       </div>
     </div>
+    </div>
   </section>
 
   <!-- ============ FACEBOOK ============ -->
   <section id="facebook" class="section" aria-label="Zeď z Facebooku">
-    <div class="section-head">
-      <h2 class="section-title">Zeď z Facebooku</h2>
-      <a href="#" class="section-link">Sledujte nás na Facebooku →</a>
-    </div>
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">Zeď z Facebooku</h2>
+        <a href="#" class="section-link">Sledujte nás na Facebooku →</a>
+      </div>
 
-    <!-- Desktop / tablet grid -->
-    <div class="fb-grid" id="fbGrid" aria-label="Příspěvky z Facebooku"></div>
-    <!-- Mobile swipe carousel (stejná data, jiný layout) -->
-    <div class="fb-carousel" id="fbCarousel" aria-label="Příspěvky z Facebooku, posuvník"></div>
+      <!-- Desktop / tablet grid -->
+      <div class="fb-grid" id="fbGrid" aria-label="Příspěvky z Facebooku"></div>
+      <!-- Mobile swipe carousel (stejná data, jiný layout) -->
+      <div class="fb-carousel" id="fbCarousel" aria-label="Příspěvky z Facebooku, posuvník"></div>
+    </div>
   </section>
 
   <!-- ============ KONTAKT ============ -->
   <section id="kontakt" class="section section--dark" aria-label="Kontakt a otevírací doba">
+    <div class="container">
     <h2 class="section-title section-title--light">Kontakt a otevírací doba</h2>
     <div class="contact-grid">
       <div class="contact-info">
@@ -362,12 +375,14 @@
         <a href="#" class="btn btn--primary btn--sm map-box__cta" target="_blank" rel="noopener">Zobrazit na mapě →</a>
       </div>
     </div>
+    </div>
   </section>
 
 </main>
 
 <!-- ============ FOOTER ============ -->
 <footer class="site-footer">
+  <div class="container">
   <div class="footer-grid">
     <div class="footer-brand">
       <img src="images/logo-bourak.png" alt="Music Bar Bourák" width="180" height="43" loading="lazy">
@@ -416,6 +431,7 @@
   <div class="footer-bottom">
     <span>© <span id="copyrightYear">2026</span> Music Bar Bourák. Všechna práva vyhrazena.</span>
     <span>Webdesign by StudioWeb</span>
+  </div>
   </div>
 </footer>
 

@@ -44,6 +44,12 @@
 
   --section-pad-x: 48px;
   --section-pad-y: 56px;
+
+  /* Single content-width system, matching the header/nav width. */
+  --container-max-width: 1440px;
+
+  --events-gap: 18px;
+  --events-visible: 4;
 }
 
 /* ---------- Reset ---------- */
@@ -68,13 +74,17 @@ input { font-family: inherit; }
 
 section[id] { scroll-margin-top: var(--header-height); }
 
+/* Shared content container — same max-width/padding as the header/nav,
+   used inside every section so full-bleed section backgrounds stay
+   full-width while the actual content lines up consistently. */
 .container {
-  max-width: 1280px;
-  margin: 0 auto;
+  max-width: var(--container-max-width);
+  margin-inline: auto;
+  padding-inline: var(--section-pad-x);
 }
 
 .section {
-  padding: var(--section-pad-y) var(--section-pad-x);
+  padding-block: var(--section-pad-y);
 }
 
 .section--dark {
@@ -184,9 +194,10 @@ input:focus-visible {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 12px 48px;
-  max-width: 1440px;
-  margin: 0 auto;
+  padding-block: 12px;
+  padding-inline: var(--section-pad-x);
+  max-width: var(--container-max-width);
+  margin-inline: auto;
 }
 
 .nav__logo img {
@@ -266,10 +277,12 @@ input:focus-visible {
   grid-template-columns: 1fr 1fr;
   align-items: stretch;
   background: var(--color-white);
+  max-width: var(--container-max-width);
+  margin-inline: auto;
 }
 
 .hero__content {
-  padding: 48px 60px;
+  padding: 48px var(--section-pad-x);
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -392,7 +405,7 @@ input:focus-visible {
 
 .events-viewport {
   display: flex;
-  gap: 18px;
+  gap: var(--events-gap);
   overflow-x: auto;
   scroll-behavior: smooth;
   padding-bottom: 10px;
@@ -403,7 +416,9 @@ input:focus-visible {
 .events-viewport::-webkit-scrollbar-thumb { background: var(--color-border-3); border-radius: 6px; }
 
 .event-card {
-  flex: 0 0 280px;
+  /* N equal cards + (N-1) gaps exactly fill the viewport width;
+     the rest of the cards are reached by scrolling/the arrow buttons. */
+  flex: 0 0 calc((100% - (var(--events-visible) - 1) * var(--events-gap)) / var(--events-visible));
   scroll-snap-align: start;
   border: 1px solid var(--color-border-2);
   border-radius: var(--radius-md);
@@ -509,8 +524,6 @@ input:focus-visible {
   grid-template-columns: 1fr 1fr;
   gap: 48px;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
 .signature__media {
@@ -787,7 +800,7 @@ input:focus-visible {
 .site-footer {
   background: var(--color-charcoal-2);
   color: var(--dark-text-muted-2);
-  padding: 56px 48px 24px;
+  padding-block: 56px 24px;
 }
 
 .footer-grid {
@@ -917,6 +930,7 @@ input:focus-visible {
   :root {
     --section-pad-x: 32px;
     --section-pad-y: 44px;
+    --events-visible: 3;
   }
 
   .hero { grid-template-columns: 1fr; }
@@ -932,6 +946,8 @@ input:focus-visible {
 
 /* ----- Tablet (<= 900px) ----- */
 @media (max-width: 900px) {
+  :root { --events-visible: 2; }
+
   .spaces-grid { grid-template-columns: repeat(2, 1fr); }
   .fb-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -944,7 +960,6 @@ input:focus-visible {
     --section-pad-y: 40px;
   }
 
-  .nav { padding: 12px 20px; }
   .nav__logo img { height: 44px; }
 
   .hero__content { padding: 32px 20px; gap: 16px; }
