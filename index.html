@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music Bar Bourák – místo, kde žije hudba a zábava | Ostrava</title>
+<meta name="description" content="Music Bar Bourák v Ostravě-Zábřehu: živé koncerty, chytrý kvíz, disco 80ky &amp; 90ky, signature drinky a soukromé akce. Rezervujte si stůl ještě dnes.">
+<meta name="theme-color" content="#1a1816">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Music Bar Bourák">
+<meta property="og:title" content="Music Bar Bourák – místo, kde žije hudba a zábava">
+<meta property="og:description" content="Živé koncerty, chytrý kvíz, disco párty, signature drinky a soukromé akce v srdci Ostravy-Zábřehu.">
+<meta property="og:image" content="images/logo-bourak.png">
+<meta property="og:locale" content="cs_CZ">
+
+<link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="images/favicon-16.png" sizes="16x16">
+<link rel="apple-touch-icon" href="images/favicon-180.png">
+<link rel="icon" href="images/favicon.ico" sizes="any">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Přeskočit na obsah</a>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <nav class="nav" aria-label="Hlavní navigace">
+    <a class="nav__logo" href="#hero" aria-label="Music Bar Bourák – domů">
+      <img src="images/logo-bourak.png" alt="Music Bar Bourák" width="240" height="58">
+    </a>
+
+    <ul class="nav__links">
+      <li><a href="#hero" class="is-active">Úvod</a></li>
+      <li><a href="#akce">Akce</a></li>
+      <li><a href="#napoje">Nápoje</a></li>
+      <li><a href="#prostory">Prostory</a></li>
+      <li><a href="#sluzby">Služby</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+
+    <div class="nav__actions">
+      <a href="#" class="btn btn--primary btn--sm"><span aria-hidden="true">📅</span> Rezervace</a>
+      <a href="#" class="btn btn--outline btn--sm"><span aria-hidden="true">☰</span> Jídelní / Nápojový lístek</a>
+    </div>
+
+    <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Otevřít menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span id="hamburgerIcon" aria-hidden="true">☰</span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#hero">Úvod</a>
+    <a href="#akce">Akce</a>
+    <a href="#napoje">Nápoje</a>
+    <a href="#prostory">Prostory</a>
+    <a href="#sluzby">Služby</a>
+    <a href="#kontakt">Kontakt</a>
+    <div class="mobile-menu__actions">
+      <a href="#" class="btn btn--primary btn--block"><span aria-hidden="true">📅</span> Rezervace</a>
+      <a href="#" class="btn btn--outline btn--block"><span aria-hidden="true">☰</span> Jídelní / Nápojový lístek</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section id="hero" class="hero" aria-label="Úvod">
+    <div class="hero__content">
+      <h1 class="hero__title">Music Bar Bourák – místo, kde žije <em>hudba a zábava</em></h1>
+
+      <ul class="hero__features">
+        <li><span aria-hidden="true">🍺</span> Skvělé drinky a pivo</li>
+        <li><span aria-hidden="true">🧠</span> Chytrý kvíz</li>
+        <li><span aria-hidden="true">🎤</span> Živé koncerty</li>
+        <li><span aria-hidden="true">🎉</span> Soukromé akce</li>
+        <li><span aria-hidden="true">🕺</span> Disco pátek &amp; sobota</li>
+        <li><span aria-hidden="true">🎊</span> Firemní akce</li>
+      </ul>
+
+      <div class="hero__actions">
+        <a href="#" class="btn btn--primary"><span aria-hidden="true">📅</span> Rezervovat stůl</a>
+        <a href="#napoje" class="btn btn--outline">Nápojový lístek</a>
+      </div>
+    </div>
+
+    <div class="hero__media">
+      <div class="hero__media-pattern" aria-hidden="true"></div>
+      <span class="hero__media-tag" aria-hidden="true">Captain Morgan</span>
+      <p class="hero__media-caption">Foto: hosté s pivem u baru</p>
+      <div class="hero__circle hero__circle--beer" aria-hidden="true">pivo</div>
+      <div class="hero__circle hero__circle--party" aria-hidden="true">koncert</div>
+    </div>
+  </section>
+
+  <!-- ============ AKCE (Co u nás můžete zažít) ============ -->
+  <section id="akce" class="section" aria-label="Co u nás můžete zažít">
+    <div class="section-head">
+      <h2 class="section-title">Co u nás můžete zažít</h2>
+      <div class="carousel-controls">
+        <button type="button" class="carousel-btn" id="eventsPrev" aria-label="Předchozí akce">←</button>
+        <button type="button" class="carousel-btn" id="eventsNext" aria-label="Další akce">→</button>
+      </div>
+    </div>
+
+    <div class="events-viewport" id="eventsViewport" tabindex="0" aria-label="Seznam akcí, posuvník">
+      <!-- karty se vykreslují z js/main.js (pole EVENTS) -->
+    </div>
+  </section>
+
+  <!-- ============ NAPOJE (Nápojový lístek) ============ -->
+  <section id="napoje" class="section section--dark" aria-label="Nápojový lístek">
+    <div class="section-head">
+      <h2 class="section-title section-title--light">Nápojový lístek</h2>
+      <a href="#" class="section-link">Zobrazit celý nápojový lístek →</a>
+    </div>
+
+    <div class="drinks-grid">
+      <div class="drink-card reveal">
+        <div class="drink-card__head">
+          <span class="drink-card__icon" aria-hidden="true">🍺</span>
+          <h3 class="drink-card__title">Alkoholické nápoje</h3>
+        </div>
+        <div class="drink-list">
+          <div class="drink-list__row"><span>Vodka Finlandia 0,04 l</span><span class="drink-list__price">65 Kč</span></div>
+          <div class="drink-list__row"><span>Jack Daniel's 0,04 l</span><span class="drink-list__price">85 Kč</span></div>
+          <div class="drink-list__row"><span>Captain Morgan 0,04 l</span><span class="drink-list__price">70 Kč</span></div>
+          <div class="drink-list__row"><span>Beefeater Gin 0,04 l</span><span class="drink-list__price">75 Kč</span></div>
+          <div class="drink-list__row"><span>Tullamore D.E.W. 0,04 l</span><span class="drink-list__price">75 Kč</span></div>
+        </div>
+        <a href="#" class="drink-card__more">Více nápojů →</a>
+      </div>
+
+      <div class="drink-card reveal">
+        <div class="drink-card__head">
+          <span class="drink-card__icon" aria-hidden="true">🥤</span>
+          <h3 class="drink-card__title">Nealkoholické nápoje</h3>
+        </div>
+        <div class="drink-list">
+          <div class="drink-list__row"><span>Pepsi 0,33 l</span><span class="drink-list__price">45 Kč</span></div>
+          <div class="drink-list__row"><span>Kofola 0,5 l</span><span class="drink-list__price">45 Kč</span></div>
+          <div class="drink-list__row"><span>Red Bull 0,25 l</span><span class="drink-list__price">65 Kč</span></div>
+          <div class="drink-list__row"><span>Cappy 0,33 l</span><span class="drink-list__price">45 Kč</span></div>
+          <div class="drink-list__row"><span>Aquila neperlivá 0,5 l</span><span class="drink-list__price">35 Kč</span></div>
+        </div>
+        <a href="#" class="drink-card__more">Více nápojů →</a>
+      </div>
+
+      <div class="drink-card reveal">
+        <div class="drink-card__head">
+          <span class="drink-card__icon" aria-hidden="true">🍹</span>
+          <h3 class="drink-card__title">Speciální drinky</h3>
+        </div>
+        <div class="drink-list">
+          <div class="drink-list__row"><span>Bourák Mojito</span><span class="drink-list__price">125 Kč</span></div>
+          <div class="drink-list__row"><span>Sex on the Beach</span><span class="drink-list__price">125 Kč</span></div>
+          <div class="drink-list__row"><span>Long Island Iced Tea</span><span class="drink-list__price">145 Kč</span></div>
+          <div class="drink-list__row"><span>Cuba Libre</span><span class="drink-list__price">105 Kč</span></div>
+          <div class="drink-list__row"><span>Aperol Spritz</span><span class="drink-list__price">125 Kč</span></div>
+        </div>
+        <a href="#" class="drink-card__more">Více drinků →</a>
+      </div>
+
+      <div class="drink-card reveal">
+        <div class="drink-card__head">
+          <span class="drink-card__icon" aria-hidden="true">🍷</span>
+          <h3 class="drink-card__title">Stáčené víno z vinařství Krist</h3>
+        </div>
+        <div class="drink-list">
+          <div class="drink-list__row"><span>Veltlínské zelené</span><span class="drink-list__price">45 Kč</span></div>
+          <div class="drink-list__row"><span>Ryzlink rýnský</span><span class="drink-list__price">45 Kč</span></div>
+          <div class="drink-list__row"><span>Svatovavřinecké</span><span class="drink-list__price">45 Kč</span></div>
+          <div class="drink-list__row"><span>Frankovka</span><span class="drink-list__price">45 Kč</span></div>
+          <div class="drink-list__row"><span>Růžové polosuché</span><span class="drink-list__price">45 Kč</span></div>
+        </div>
+        <a href="#" class="drink-card__more">Více vín →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SIGNATURE DRINK ============ -->
+  <section id="signature" class="section signature" aria-label="Signature drink Bourák">
+    <div class="signature__inner">
+      <div class="signature__media">
+        <p>Foto: signature drink Bourák</p>
+      </div>
+      <div class="signature__content">
+        <span class="signature__badge">BOURÁK SIGNATURE</span>
+        <h2 class="signature__title">Signature drink Bourák</h2>
+        <p class="signature__text">Náš domácí signature drink – jedinečná směs, kterou nenajdete jinde. Ideální doprovod k dobré hudbě a večeru u nás.</p>
+        <div class="signature__price">115 Kč</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROSTORY A ZÁŽITKY ============ -->
+  <section id="prostory" class="section" aria-label="Prostory a zážitky">
+    <h2 class="section-title">Prostory a zážitky</h2>
+    <div class="spaces-grid">
+
+      <div class="space-card reveal">
+        <div class="space-card__photo" style="background:#5b2a7a;">
+          <span class="space-card__icon" aria-hidden="true">🎁</span>
+          <p>Foto: narozeninová oslava</p>
+        </div>
+        <div class="space-card__body">
+          <h3 class="space-card__title">Narozeninové oslavy</h3>
+          <p class="space-card__desc">Oslavte u nás stylově!</p>
+        </div>
+      </div>
+
+      <div class="space-card reveal">
+        <div class="space-card__photo" style="background:#2a2a2a;">
+          <span class="space-card__icon" aria-hidden="true">💼</span>
+          <p>Foto: firemní setkání</p>
+        </div>
+        <div class="space-card__body">
+          <h3 class="space-card__title">Firemní akce</h3>
+          <p class="space-card__desc">Teambuilding a večírky na míru.</p>
+        </div>
+      </div>
+
+      <div class="space-card reveal">
+        <div class="space-card__photo" style="background:#7a1f2e;">
+          <span class="space-card__icon" aria-hidden="true">🍸</span>
+          <p>Foto: soukromá párty</p>
+        </div>
+        <div class="space-card__body">
+          <h3 class="space-card__title">Soukromé párty</h3>
+          <p class="space-card__desc">Soukromí, hudba, zábava.</p>
+        </div>
+      </div>
+
+      <div class="space-card reveal">
+        <div class="space-card__photo" style="background:#1e2a5b;">
+          <span class="space-card__icon" aria-hidden="true">🎵</span>
+          <p>Foto: DJ pult</p>
+        </div>
+        <div class="space-card__body">
+          <h3 class="space-card__title">Hudba &amp; DJ</h3>
+          <p class="space-card__desc">Pravidelné akce a skvělá hudba.</p>
+        </div>
+      </div>
+
+      <div class="space-card reveal">
+        <div class="space-card__photo" style="background:#3a3a2a;">
+          <span class="space-card__icon" aria-hidden="true">🎯</span>
+          <p>Foto: terč na šipky</p>
+        </div>
+        <div class="space-card__body">
+          <h3 class="space-card__title">Šipky / Fotbálek / Stolní tenis</h3>
+          <p class="space-card__desc">Zábava pro každého.</p>
+        </div>
+      </div>
+
+      <div class="space-card reveal">
+        <div class="space-card__photo" style="background:#8a3a1f;">
+          <span class="space-card__icon" aria-hidden="true">🍕</span>
+          <p>Foto: pizza</p>
+        </div>
+        <div class="space-card__body">
+          <h3 class="space-card__title">TOM'S Pizza</h3>
+          <p class="space-card__desc">Poctivé pizzy z pece!</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ SLUZBY NAVIC ============ -->
+  <section id="sluzby" class="section section--dark" aria-label="Služby navíc">
+    <h2 class="section-title section-title--light">Služby navíc</h2>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-card__icon" aria-hidden="true">📦</div>
+        <h3 class="service-card__title">Zásilkovna</h3>
+        <p class="service-card__desc">Vyzvednutí a odeslání zásilek.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-card__icon" aria-hidden="true">📮</div>
+        <h3 class="service-card__title">PPL Parcelshop</h3>
+        <p class="service-card__desc">Rychle a pohodlně u nás.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-card__icon" aria-hidden="true">📄</div>
+        <h3 class="service-card__title">DPD AlzaBox</h3>
+        <p class="service-card__desc">Vyzvedněte kdykoliv (7:00–22:00).</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-card__icon" aria-hidden="true">📅</div>
+        <h3 class="service-card__title">Rezervace akcí</h3>
+        <p class="service-card__desc">Rezervujte si stůl na míru.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FACEBOOK ============ -->
+  <section id="facebook" class="section" aria-label="Zeď z Facebooku">
+    <div class="section-head">
+      <h2 class="section-title">Zeď z Facebooku</h2>
+      <a href="#" class="section-link">Sledujte nás na Facebooku →</a>
+    </div>
+
+    <!-- Desktop / tablet grid -->
+    <div class="fb-grid" id="fbGrid" aria-label="Příspěvky z Facebooku"></div>
+    <!-- Mobile swipe carousel (stejná data, jiný layout) -->
+    <div class="fb-carousel" id="fbCarousel" aria-label="Příspěvky z Facebooku, posuvník"></div>
+  </section>
+
+  <!-- ============ KONTAKT ============ -->
+  <section id="kontakt" class="section section--dark" aria-label="Kontakt a otevírací doba">
+    <h2 class="section-title section-title--light">Kontakt a otevírací doba</h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-details">
+          <div class="contact-details__row">
+            <span aria-hidden="true">📍</span>
+            <address><strong>Music Bar Bourák</strong><br>Výškovická 3086/44<br>700 30 Ostrava-Zábřeh</address>
+          </div>
+          <div class="contact-details__row">
+            <span aria-hidden="true">📞</span>
+            <a href="tel:+420777123456">+420 777 123 456</a>
+          </div>
+          <div class="contact-details__row">
+            <span aria-hidden="true">✉️</span>
+            <a href="mailto:info@bourakbar.cz">info@bourakbar.cz</a>
+          </div>
+          <div class="contact-details__row">
+            <span aria-hidden="true">📘</span>
+            <a href="#" target="_blank" rel="noopener">facebook.com/musicbarbourak</a>
+          </div>
+          <div class="contact-details__row">
+            <span aria-hidden="true">📷</span>
+            <a href="#" target="_blank" rel="noopener">@musicbarbourak</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="hours-title">Otevírací doba</div>
+          <div class="hours-list">
+            <div class="hours-list__row"><span>Pondělí</span><span>18:00 – 01:00</span></div>
+            <div class="hours-list__row"><span>Úterý</span><span>18:00 – 01:00</span></div>
+            <div class="hours-list__row"><span>Středa</span><span>18:00 – 02:00</span></div>
+            <div class="hours-list__row"><span>Čtvrtek</span><span>18:00 – 02:00</span></div>
+            <div class="hours-list__row"><span>Pátek</span><span>18:00 – 03:00</span></div>
+            <div class="hours-list__row"><span>Sobota</span><span>16:00 – 03:00</span></div>
+            <div class="hours-list__row"><span>Neděle</span><span>16:00 – 01:00</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-box">
+        <div class="map-box__grid" aria-hidden="true"></div>
+        <span class="map-box__pin" aria-hidden="true">📍</span>
+        <a href="#" class="btn btn--primary btn--sm map-box__cta" target="_blank" rel="noopener">Zobrazit na mapě →</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="images/logo-bourak.png" alt="Music Bar Bourák" width="180" height="43" loading="lazy">
+      <p>Music Bar Bourák – místo, kde žije hudba a zábava. Těšíme se na vás!</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Music Bar Bourák na Facebooku" target="_blank" rel="noopener"><span aria-hidden="true">📘</span></a>
+        <a href="#" aria-label="Music Bar Bourák na Instagramu" target="_blank" rel="noopener"><span aria-hidden="true">📷</span></a>
+      </div>
+    </div>
+
+    <div>
+      <div class="footer-col-title">Rychlé odkazy</div>
+      <div class="footer-links">
+        <a href="#hero">Úvod</a>
+        <a href="#akce">Akce</a>
+        <a href="#napoje">Nápoje</a>
+        <a href="#prostory">Prostory</a>
+        <a href="#sluzby">Služby</a>
+        <a href="#kontakt">Kontakt</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="footer-col-title">Užitečné odkazy</div>
+      <div class="footer-links">
+        <a href="#napoje">Nápojový lístek</a>
+        <a href="#">Jídelní lístek</a>
+        <a href="#">Rezervace</a>
+        <a href="#">Facebook</a>
+        <a href="#">Ochrana osobních údajů</a>
+        <a href="#">Obchodní podmínky</a>
+      </div>
+    </div>
+
+    <div class="footer-newsletter">
+      <div class="footer-col-title">Newsletter</div>
+      <p>Nechte si posílat novinky o akcích a speciálních nabídkách.</p>
+      <form class="newsletter-form" action="#" onsubmit="return false;">
+        <label class="visually-hidden" for="newsletterEmail">E-mailová adresa</label>
+        <input type="email" id="newsletterEmail" name="email" placeholder="E-mailová adresa" required autocomplete="email">
+        <button type="submit">Odebírat</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© <span id="copyrightYear">2026</span> Music Bar Bourák. Všechna práva vyhrazena.</span>
+    <span>Webdesign by StudioWeb</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
