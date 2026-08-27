@@ -22,7 +22,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/style.css?v=2">
 </head>
@@ -75,8 +75,7 @@
   <section id="hero" class="hero" aria-label="Úvod">
     <div class="hero__media" aria-hidden="true">
       <div class="hero__media-pattern"></div>
-      <span class="hero__media-tag">Captain Morgan</span>
-      <p class="hero__media-caption">Foto: hosté s pivem u baru</p>
+      <p class="hero__media-caption">Foto: hosté s pivem u baru, večerní atmosféra</p>
     </div>
     <div class="hero__overlay" aria-hidden="true"></div>
 
@@ -119,71 +118,75 @@
   <!-- ============ NAPOJE (Nápojový lístek) ============ -->
   <section id="napoje" class="section section--dark" aria-label="Nápojový lístek">
     <div class="container">
-    <div class="section-head">
-      <h2 class="section-title section-title--light">Nápojový lístek</h2>
-      <a href="#" class="section-link">Zobrazit celý nápojový lístek →</a>
-    </div>
+    <h2 class="section-title section-title--light">Nápojový lístek</h2>
 
-    <div class="drinks-grid">
-      <div class="drink-card reveal">
-        <div class="drink-card__head">
-          <span class="drink-card__icon" aria-hidden="true">🍺</span>
-          <h3 class="drink-card__title">Alkoholické nápoje</h3>
+    <div class="napoje-layout">
+      <div class="napoje-list">
+        <div class="napoje-list__columns">
+          <div class="napoje-category">
+            <div class="napoje-category__head">
+              <span class="napoje-category__icon" aria-hidden="true">🍺</span>
+              <h3 class="napoje-category__title">Alkoholické nápoje</h3>
+            </div>
+            <div class="napoje-row"><span>Vodka Finlandia 0,04 l</span><span class="napoje-row__leader" aria-hidden="true"></span><span class="napoje-row__price">65 Kč</span></div>
+            <div class="napoje-row"><span>Jack Daniel's 0,04 l</span><span class="napoje-row__leader" aria-hidden="true"></span><span class="napoje-row__price">85 Kč</span></div>
+            <div class="napoje-row"><span>Captain Morgan 0,04 l</span><span class="napoje-row__leader" aria-hidden="true"></span><span class="napoje-row__price">70 Kč</span></div>
+            <div class="napoje-row"><span>Beefeater Gin 0,04 l</span><span class="napoje-row__leader" aria-hidden="true"></span><span class="napoje-row__price">75 Kč</span></div>
+            <div class="napoje-row"><span>Tullamore D.E.W. 0,04 l</span><span class="napoje-row__leader" aria-hidden="true"></span><span class="napoje-row__price">75 Kč</span></div>
+          </div>
+
+          <div class="napoje-category">
+            <div class="napoje-category__head">
+              <span class="napoje-category__icon" aria-hidden="true">🥤</span>
+              <h3 class="napoje-category__title">Nealkoholické nápoje</h3>
+            </div>
+            <div class="napoje-row"><span>Pepsi 0,33 l</span><span class="napoje-row__leader" aria-hidden="true"></span><span class="napoje-row__price">45 Kč</span></div>
+            <div class="napoje-row"><span>Kofola 0,5 l</span><span class="napoje-row__leader" aria-hidden="true"></span><span class="napoje-row__price">45 Kč</span></div>
+            <div class="napoje-row"><span>Red Bull 0,25 l</span><span class="napoje-row__leader" aria-hidden="true"></span><span class="napoje-row__price">65 Kč</span></div>
+            <div class="napoje-row"><span>Cappy 0,33 l</span><span class="napoje-row__leader" aria-hidden="true"></span><span class="napoje-row__price">45 Kč</span></div>
+            <div class="napoje-row"><span>Aquila neperlivá 0,5 l</span><span class="napoje-row__leader" aria-hidden="true"></span><span class="napoje-row__price">35 Kč</span></div>
+          </div>
+
+          <div class="napoje-category">
+            <div class="napoje-category__head">
+              <span class="napoje-category__icon" aria-hidden="true">🍹</span>
+              <h3 class="napoje-category__title">Speciální drinky</h3>
+            </div>
+            <div class="napoje-row"><span>Bourák Mojito</span><span class="napoje-row__leader" aria-hidden="true"></span><span class="napoje-row__price">125 Kč</span></div>
+            <div class="napoje-row"><span>Sex on the Beach</span><span class="napoje-row__leader" aria-hidden="true"></span><span class="napoje-row__price">125 Kč</span></div>
+            <div class="napoje-row"><span>Long Island Iced Tea</span><span class="napoje-row__leader" aria-hidden="true"></span><span class="napoje-row__price">145 Kč</span></div>
+            <div class="napoje-row"><span>Cuba Libre</span><span class="napoje-row__leader" aria-hidden="true"></span><span class="napoje-row__price">105 Kč</span></div>
+            <div class="napoje-row"><span>Aperol Spritz</span><span class="napoje-row__leader" aria-hidden="true"></span><span class="napoje-row__price">125 Kč</span></div>
+          </div>
+
+          <div class="napoje-category">
+            <div class="napoje-category__head">
+              <span class="napoje-category__icon" aria-hidden="true">🍷</span>
+              <h3 class="napoje-category__title">Stáčené víno z vinařství Krist</h3>
+            </div>
+            <div class="napoje-row"><span>Veltlínské zelené</span><span class="napoje-row__leader" aria-hidden="true"></span><span class="napoje-row__price">45 Kč</span></div>
+            <div class="napoje-row"><span>Ryzlink rýnský</span><span class="napoje-row__leader" aria-hidden="true"></span><span class="napoje-row__price">45 Kč</span></div>
+            <div class="napoje-row"><span>Svatovavřinecké</span><span class="napoje-row__leader" aria-hidden="true"></span><span class="napoje-row__price">45 Kč</span></div>
+            <div class="napoje-row"><span>Frankovka</span><span class="napoje-row__leader" aria-hidden="true"></span><span class="napoje-row__price">45 Kč</span></div>
+            <div class="napoje-row"><span>Růžové polosuché</span><span class="napoje-row__leader" aria-hidden="true"></span><span class="napoje-row__price">45 Kč</span></div>
+          </div>
         </div>
-        <div class="drink-list">
-          <div class="drink-list__row"><span>Vodka Finlandia 0,04 l</span><span class="drink-list__price">65 Kč</span></div>
-          <div class="drink-list__row"><span>Jack Daniel's 0,04 l</span><span class="drink-list__price">85 Kč</span></div>
-          <div class="drink-list__row"><span>Captain Morgan 0,04 l</span><span class="drink-list__price">70 Kč</span></div>
-          <div class="drink-list__row"><span>Beefeater Gin 0,04 l</span><span class="drink-list__price">75 Kč</span></div>
-          <div class="drink-list__row"><span>Tullamore D.E.W. 0,04 l</span><span class="drink-list__price">75 Kč</span></div>
-        </div>
-        <a href="#" class="drink-card__more">Více nápojů →</a>
+
+        <a href="#" class="napoje-list__cta">Zobrazit celý nápojový lístek →</a>
       </div>
 
-      <div class="drink-card reveal">
-        <div class="drink-card__head">
-          <span class="drink-card__icon" aria-hidden="true">🥤</span>
-          <h3 class="drink-card__title">Nealkoholické nápoje</h3>
+      <!-- Speciální drinky pro speciální akce — až vznikne PDF s nabídkou, doplňte skutečnou URL sem -->
+      <a href="#special-drinks-pdf-placeholder" target="_blank" rel="noopener" class="napoje-promo reveal">
+        <div class="napoje-promo__media" aria-hidden="true">
+          <p>Foto: atraktivní cocktail</p>
         </div>
-        <div class="drink-list">
-          <div class="drink-list__row"><span>Pepsi 0,33 l</span><span class="drink-list__price">45 Kč</span></div>
-          <div class="drink-list__row"><span>Kofola 0,5 l</span><span class="drink-list__price">45 Kč</span></div>
-          <div class="drink-list__row"><span>Red Bull 0,25 l</span><span class="drink-list__price">65 Kč</span></div>
-          <div class="drink-list__row"><span>Cappy 0,33 l</span><span class="drink-list__price">45 Kč</span></div>
-          <div class="drink-list__row"><span>Aquila neperlivá 0,5 l</span><span class="drink-list__price">35 Kč</span></div>
+        <div class="napoje-promo__scrim" aria-hidden="true"></div>
+        <div class="napoje-promo__body">
+          <h3 class="napoje-promo__title">Speciální drinky pro speciální akce</h3>
+          <p class="napoje-promo__text">Tematické drinky, limitované nabídky a speciály připravené pro naše akce.</p>
+          <span class="napoje-promo__cta">Prohlédnout speciální drinky →</span>
         </div>
-        <a href="#" class="drink-card__more">Více nápojů →</a>
-      </div>
-
-      <div class="drink-card reveal">
-        <div class="drink-card__head">
-          <span class="drink-card__icon" aria-hidden="true">🍹</span>
-          <h3 class="drink-card__title">Speciální drinky</h3>
-        </div>
-        <div class="drink-list">
-          <div class="drink-list__row"><span>Bourák Mojito</span><span class="drink-list__price">125 Kč</span></div>
-          <div class="drink-list__row"><span>Sex on the Beach</span><span class="drink-list__price">125 Kč</span></div>
-          <div class="drink-list__row"><span>Long Island Iced Tea</span><span class="drink-list__price">145 Kč</span></div>
-          <div class="drink-list__row"><span>Cuba Libre</span><span class="drink-list__price">105 Kč</span></div>
-          <div class="drink-list__row"><span>Aperol Spritz</span><span class="drink-list__price">125 Kč</span></div>
-        </div>
-        <a href="#" class="drink-card__more">Více drinků →</a>
-      </div>
-
-      <div class="drink-card reveal">
-        <div class="drink-card__head">
-          <span class="drink-card__icon" aria-hidden="true">🍷</span>
-          <h3 class="drink-card__title">Stáčené víno z vinařství Krist</h3>
-        </div>
-        <div class="drink-list">
-          <div class="drink-list__row"><span>Veltlínské zelené</span><span class="drink-list__price">45 Kč</span></div>
-          <div class="drink-list__row"><span>Ryzlink rýnský</span><span class="drink-list__price">45 Kč</span></div>
-          <div class="drink-list__row"><span>Svatovavřinecké</span><span class="drink-list__price">45 Kč</span></div>
-          <div class="drink-list__row"><span>Frankovka</span><span class="drink-list__price">45 Kč</span></div>
-          <div class="drink-list__row"><span>Růžové polosuché</span><span class="drink-list__price">45 Kč</span></div>
-        </div>
-        <a href="#" class="drink-card__more">Více vín →</a>
-      </div>
+      </a>
     </div>
     </div>
   </section>
@@ -287,11 +290,6 @@
     <h2 class="section-title section-title--light">Služby navíc</h2>
     <div class="services-grid">
       <div class="service-card reveal">
-        <div class="service-card__icon" aria-hidden="true">📦</div>
-        <h3 class="service-card__title">Zásilkovna</h3>
-        <p class="service-card__desc">Vyzvednutí a odeslání zásilek.</p>
-      </div>
-      <div class="service-card reveal">
         <div class="service-card__icon" aria-hidden="true">📮</div>
         <h3 class="service-card__title">PPL Parcelshop</h3>
         <p class="service-card__desc">Rychle a pohodlně u nás.</p>
@@ -334,15 +332,15 @@
         <div class="contact-details">
           <div class="contact-details__row">
             <span aria-hidden="true">📍</span>
-            <address><strong>Music Bar Bourák</strong><br>Výškovická 3086/44<br>700 30 Ostrava-Zábřeh</address>
+            <address><strong>Music Bar Bourák</strong><br>Ke Kateřinkám 1411/17<br>Praha 4, Háje, 149 00</address>
           </div>
           <div class="contact-details__row">
             <span aria-hidden="true">📞</span>
-            <a href="tel:+420777123456">+420 777 123 456</a>
+            <a href="tel:+420604214486">+420 604 214 486</a>
           </div>
           <div class="contact-details__row">
             <span aria-hidden="true">✉️</span>
-            <a href="mailto:info@bourakbar.cz">info@bourakbar.cz</a>
+            <a href="mailto:musicbarbourak@seznam.cz">musicbarbourak@seznam.cz</a>
           </div>
           <div class="contact-details__row">
             <span aria-hidden="true">📘</span>
@@ -357,13 +355,13 @@
         <div>
           <div class="hours-title">Otevírací doba</div>
           <div class="hours-list">
-            <div class="hours-list__row"><span>Pondělí</span><span>18:00 – 01:00</span></div>
-            <div class="hours-list__row"><span>Úterý</span><span>18:00 – 01:00</span></div>
-            <div class="hours-list__row"><span>Středa</span><span>18:00 – 02:00</span></div>
-            <div class="hours-list__row"><span>Čtvrtek</span><span>18:00 – 02:00</span></div>
-            <div class="hours-list__row"><span>Pátek</span><span>18:00 – 03:00</span></div>
-            <div class="hours-list__row"><span>Sobota</span><span>16:00 – 03:00</span></div>
-            <div class="hours-list__row"><span>Neděle</span><span>16:00 – 01:00</span></div>
+            <div class="hours-list__row"><span>Pondělí</span><span>zavřeno</span></div>
+            <div class="hours-list__row"><span>Úterý</span><span>12:00 – 21:00</span></div>
+            <div class="hours-list__row"><span>Středa</span><span>12:00 – 21:00</span></div>
+            <div class="hours-list__row"><span>Čtvrtek</span><span>12:00 – 21:00</span></div>
+            <div class="hours-list__row"><span>Pátek</span><span>12:00–16:00, 21:00–5:00</span></div>
+            <div class="hours-list__row"><span>Sobota</span><span>21:00 – 5:00</span></div>
+            <div class="hours-list__row"><span>Neděle</span><span>zavřeno</span></div>
           </div>
         </div>
       </div>
