@@ -1258,27 +1258,28 @@ body.drinks-page::after {
   align-items: center;
   justify-content: center;
 }
-/* Close-up bar backdrop directly behind each drink: the real bar photo
-   (blurred, but noticeably less than the page-wide background — this
-   is the "near" layer), tinted with each card's hue, plus a grounding
-   contact shadow and a darkened band suggesting the counter surface
-   the glass is standing on. Closer and more concrete than the
-   page-wide wash, per the brief's near/far distinction. */
+/* Close-up bar backdrop directly behind each drink: a dedicated bokeh
+   crop (warm out-of-focus bottles/lights, no readable labels) — closer
+   and more concrete than the page-wide wash, tinted with each card's
+   hue, plus a grounding contact shadow and a darkened band for the
+   counter surface the glass is standing on. Blur here is deliberately
+   stronger than a single "close" reading would need, so the sharp
+   drink photo on top reads as popping forward off a soft backdrop. */
 .drink-card__photo::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   background-image:
-    radial-gradient(ellipse 42% 14% at 50% 86%, rgba(0, 0, 0, .55), transparent 72%),
-    linear-gradient(180deg, transparent 52%, rgba(8, 6, 4, .32) 76%, rgba(8, 6, 4, .6) 100%),
+    radial-gradient(ellipse 44% 16% at 50% 86%, rgba(0, 0, 0, .6), transparent 72%),
+    linear-gradient(180deg, rgba(8, 6, 4, .18), rgba(8, 6, 4, .32) 55%, rgba(8, 6, 4, .68) 100%),
     linear-gradient(var(--tone-tint), var(--tone-tint)),
-    url("../images/bar-atmosphere.webp");
+    url("../images/bar-bottles-bokeh.webp");
   background-size: auto, auto, auto, cover;
-  background-position: center, center, center, center 28%;
+  background-position: center, center, center, center;
   background-repeat: no-repeat;
   background-blend-mode: normal, normal, color, normal;
-  filter: blur(2.5px) saturate(1.05);
+  filter: blur(4px) saturate(1.1);
 }
 .drink-card__photo img {
   position: relative;
