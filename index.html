@@ -98,6 +98,12 @@
     </div>
   </section>
 
+  <!-- ============ TYPOGRAFICKÝ PŘEDĚL ============ -->
+  <div class="type-divider" aria-hidden="true">
+    <span class="type-divider__text">HUDBA&nbsp;·&nbsp;DRINKY&nbsp;·&nbsp;ZÁBAVA</span>
+    <span class="type-divider__ring"></span>
+  </div>
+
   <!-- ============ AKCE (Co u nás můžete zažít) ============ -->
   <section id="akce" class="section" aria-label="Co u nás můžete zažít">
     <div class="container">
@@ -175,10 +181,9 @@
         <a href="#" class="napoje-list__cta">Zobrazit celý nápojový lístek →</a>
       </div>
 
-      <!-- Speciální drinky pro speciální akce — až vznikne PDF s nabídkou, doplňte skutečnou URL sem -->
-      <a href="#special-drinks-pdf-placeholder" target="_blank" rel="noopener" class="napoje-promo reveal">
+      <a href="specialni-drinky.html" class="napoje-promo reveal">
         <div class="napoje-promo__media" aria-hidden="true">
-          <p>Foto: atraktivní cocktail</p>
+          <img src="images/drinks/drink-04.webp" alt="" loading="lazy">
         </div>
         <div class="napoje-promo__scrim" aria-hidden="true"></div>
         <div class="napoje-promo__body">
@@ -191,18 +196,19 @@
     </div>
   </section>
 
-  <!-- ============ SIGNATURE DRINK ============ -->
-  <section id="signature" class="section signature" aria-label="Signature drink Bourák">
+  <!-- ============ SPECIÁLNÍ DRINK BOURÁKU — BOURÁČEK ============ -->
+  <section id="signature" class="section signature" aria-label="Speciální drink Bouráku – Bouráček">
     <div class="container">
       <div class="signature__inner">
         <div class="signature__media">
-          <p>Foto: signature drink Bourák</p>
+          <img src="images/drinks/bouracek-signature.webp" alt="Bouráček – speciální drink Music Bar Bourák" loading="lazy" width="1122" height="1402">
         </div>
         <div class="signature__content">
-          <span class="signature__badge">BOURÁK SIGNATURE</span>
-          <h2 class="signature__title">Signature drink Bourák</h2>
-          <p class="signature__text">Náš domácí signature drink – jedinečná směs, kterou nenajdete jinde. Ideální doprovod k dobré hudbě a večeru u nás.</p>
+          <span class="signature__badge">Speciální drink Bouráku</span>
+          <h2 class="signature__title">Bouráček</h2>
+          <p class="signature__tagline"><strong>Drink, který jinde nedostanete.</strong></p>
           <div class="signature__price">115 Kč</div>
+          <a href="specialni-drinky.html" class="signature__link">Objevit další speciální drinky →</a>
         </div>
       </div>
     </div>
@@ -214,67 +220,67 @@
     <h2 class="section-title">Prostory a zážitky</h2>
     <div class="spaces-grid">
 
-      <div class="space-card reveal">
-        <div class="space-card__photo" style="background:#5b2a7a;">
-          <span class="space-card__icon" aria-hidden="true">🎁</span>
-          <p>Foto: narozeninová oslava</p>
-        </div>
-        <div class="space-card__body">
-          <h3 class="space-card__title">Narozeninové oslavy</h3>
-          <p class="space-card__desc">Oslavte u nás stylově!</p>
-        </div>
-      </div>
-
-      <div class="space-card reveal">
-        <div class="space-card__photo" style="background:#2a2a2a;">
-          <span class="space-card__icon" aria-hidden="true">💼</span>
-          <p>Foto: firemní setkání</p>
-        </div>
-        <div class="space-card__body">
-          <h3 class="space-card__title">Firemní akce</h3>
-          <p class="space-card__desc">Teambuilding a večírky na míru.</p>
-        </div>
-      </div>
-
-      <div class="space-card reveal">
-        <div class="space-card__photo" style="background:#7a1f2e;">
-          <span class="space-card__icon" aria-hidden="true">🍸</span>
-          <p>Foto: soukromá párty</p>
-        </div>
-        <div class="space-card__body">
-          <h3 class="space-card__title">Soukromé párty</h3>
-          <p class="space-card__desc">Soukromí, hudba, zábava.</p>
-        </div>
-      </div>
-
-      <div class="space-card reveal">
+      <div class="space-card space-card--music reveal">
         <div class="space-card__photo" style="background:#1e2a5b;">
-          <span class="space-card__icon" aria-hidden="true">🎵</span>
           <p>Foto: DJ pult</p>
         </div>
-        <div class="space-card__body">
+        <span class="space-card__icon" aria-hidden="true">🎵</span>
+        <div class="space-card__overlay">
           <h3 class="space-card__title">Hudba &amp; DJ</h3>
           <p class="space-card__desc">Pravidelné akce a skvělá hudba.</p>
         </div>
       </div>
 
-      <div class="space-card reveal">
+      <div class="space-card space-card--birthday reveal">
+        <div class="space-card__photo" style="background:#5b2a7a;">
+          <p>Foto: narozeninová oslava</p>
+        </div>
+        <span class="space-card__icon" aria-hidden="true">🎁</span>
+        <div class="space-card__overlay">
+          <h3 class="space-card__title">Narozeninové oslavy</h3>
+          <p class="space-card__desc">Oslavte u nás stylově!</p>
+        </div>
+      </div>
+
+      <div class="space-card space-card--corporate reveal">
+        <div class="space-card__photo" style="background:#2a2a2a;">
+          <p>Foto: firemní setkání</p>
+        </div>
+        <span class="space-card__icon" aria-hidden="true">💼</span>
+        <div class="space-card__overlay">
+          <h3 class="space-card__title">Firemní akce</h3>
+          <p class="space-card__desc">Teambuilding a večírky na míru.</p>
+        </div>
+      </div>
+
+      <div class="space-card space-card--private reveal">
+        <div class="space-card__photo" style="background:#7a1f2e;">
+          <p>Foto: soukromá párty</p>
+        </div>
+        <span class="space-card__icon" aria-hidden="true">🍸</span>
+        <div class="space-card__overlay">
+          <h3 class="space-card__title">Soukromé párty</h3>
+          <p class="space-card__desc">Soukromí, hudba, zábava.</p>
+        </div>
+      </div>
+
+      <div class="space-card space-card--games reveal">
         <div class="space-card__photo" style="background:#3a3a2a;">
-          <span class="space-card__icon" aria-hidden="true">🎯</span>
           <p>Foto: terč na šipky</p>
         </div>
-        <div class="space-card__body">
+        <span class="space-card__icon" aria-hidden="true">🎯</span>
+        <div class="space-card__overlay">
           <h3 class="space-card__title">Šipky / Fotbálek / Stolní tenis</h3>
           <p class="space-card__desc">Zábava pro každého.</p>
         </div>
       </div>
 
-      <div class="space-card reveal">
+      <div class="space-card space-card--pizza reveal">
         <div class="space-card__photo" style="background:#8a3a1f;">
-          <span class="space-card__icon" aria-hidden="true">🍕</span>
           <p>Foto: pizza</p>
         </div>
-        <div class="space-card__body">
+        <span class="space-card__icon" aria-hidden="true">🍕</span>
+        <div class="space-card__overlay">
           <h3 class="space-card__title">TOM'S Pizza</h3>
           <p class="space-card__desc">Poctivé pizzy z pece!</p>
         </div>
