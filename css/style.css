@@ -1128,7 +1128,25 @@ body.drinks-page {
   background: #100c09;
   color: #fff;
 }
-/* Wide, very soft ambient wash — the room as a whole, well out of focus. */
+/* Real bar photo, filling the viewport — the room as a whole, well out
+   of focus and darkened well below the card backgrounds (see below),
+   so it reads purely as atmosphere behind the content. Scaled up and
+   given a fixed wrapper (rather than filter on body::before itself) so
+   the blur has room to breathe without fringing at the edges. */
+.drinks-photo-bg {
+  position: fixed;
+  inset: -30px;
+  z-index: -3;
+  pointer-events: none;
+  background-image:
+    linear-gradient(180deg, rgba(8, 6, 4, .78), rgba(8, 6, 4, .72) 45%, rgba(8, 6, 4, .88)),
+    url("../images/bar-atmosphere.webp");
+  background-size: cover;
+  background-position: center 30%;
+  filter: blur(14px) saturate(1.05);
+}
+/* Soft brand-color wash on top of the photo, for warmth and continuity
+   with the rest of the site's palette. */
 body.drinks-page::before {
   content: "";
   position: fixed;
@@ -1136,16 +1154,14 @@ body.drinks-page::before {
   z-index: -2;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 900px 550px at 12% 8%, rgba(219, 74, 31, .20), transparent 60%),
-    radial-gradient(ellipse 700px 550px at 88% 12%, rgba(130, 100, 255, .14), transparent 60%),
-    radial-gradient(ellipse 800px 500px at 20% 55%, rgba(255, 255, 255, .05), transparent 65%),
-    radial-gradient(ellipse 1000px 650px at 55% 95%, rgba(255, 170, 80, .12), transparent 60%),
-    radial-gradient(ellipse 600px 500px at 92% 80%, rgba(80, 140, 255, .10), transparent 60%),
-    linear-gradient(180deg, #1e1712, #100c09 55%, #0b0807);
+    radial-gradient(ellipse 900px 550px at 12% 8%, rgba(219, 74, 31, .18), transparent 60%),
+    radial-gradient(ellipse 700px 550px at 88% 12%, rgba(130, 100, 255, .12), transparent 60%),
+    radial-gradient(ellipse 1000px 650px at 55% 95%, rgba(255, 170, 80, .10), transparent 60%),
+    radial-gradient(ellipse 600px 500px at 92% 80%, rgba(80, 140, 255, .08), transparent 60%);
 }
-/* Distant bokeh — soft, blurred points of light standing in for
-   bottles/glassware/fixtures beyond the counter, plus a faint vertical
-   rhythm hinting at shelving. Abstract on purpose: no shapes, no text. */
+/* A few extra soft highlights + a faint vertical rhythm hinting at
+   shelving, layered above the photo for a touch more sparkle. Abstract
+   on purpose: no shapes, no text. */
 body.drinks-page::after {
   content: "";
   position: fixed;
@@ -1153,14 +1169,10 @@ body.drinks-page::after {
   z-index: -1;
   pointer-events: none;
   background-image:
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, .025) 0px, rgba(255, 255, 255, .025) 26px, transparent 26px, transparent 90px),
-    radial-gradient(circle at 18% 22%, rgba(255, 255, 255, .16) 0px, transparent 3px),
-    radial-gradient(circle at 78% 14%, rgba(255, 210, 150, .30) 0px, transparent 4px),
-    radial-gradient(circle at 64% 48%, rgba(255, 255, 255, .14) 0px, transparent 3px),
-    radial-gradient(circle at 30% 78%, rgba(190, 150, 255, .22) 0px, transparent 4px),
-    radial-gradient(circle at 85% 70%, rgba(255, 150, 90, .24) 0px, transparent 4px),
-    radial-gradient(circle at 45% 30%, rgba(255, 255, 255, .12) 0px, transparent 3px),
-    radial-gradient(circle at 10% 55%, rgba(130, 210, 160, .14) 0px, transparent 4px);
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .02) 0px, rgba(255, 255, 255, .02) 26px, transparent 26px, transparent 90px),
+    radial-gradient(circle at 78% 14%, rgba(255, 210, 150, .16) 0px, transparent 4px),
+    radial-gradient(circle at 30% 78%, rgba(190, 150, 255, .12) 0px, transparent 4px),
+    radial-gradient(circle at 85% 70%, rgba(255, 150, 90, .14) 0px, transparent 4px);
   filter: blur(9px);
 }
 
@@ -1246,23 +1258,27 @@ body.drinks-page::after {
   align-items: center;
   justify-content: center;
 }
-/* Close-up bar backdrop directly behind each drink: a hint of counter
-   the glass is standing on, a grounding contact shadow, and a few
-   soft out-of-focus highlights standing in for bottles/lights just
-   behind it — closer and more concrete than the page-wide wash. */
+/* Close-up bar backdrop directly behind each drink: the real bar photo
+   (blurred, but noticeably less than the page-wide background — this
+   is the "near" layer), tinted with each card's hue, plus a grounding
+   contact shadow and a darkened band suggesting the counter surface
+   the glass is standing on. Closer and more concrete than the
+   page-wide wash, per the brief's near/far distinction. */
 .drink-card__photo::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    radial-gradient(ellipse 42% 12% at 50% 84%, rgba(0, 0, 0, .55), transparent 72%),
-    linear-gradient(180deg, transparent 58%, rgba(8, 6, 4, .35) 78%, rgba(8, 6, 4, .62) 100%),
-    radial-gradient(circle at 16% 20%, rgba(255, 225, 180, .28) 0%, transparent 9%),
-    radial-gradient(circle at 82% 16%, rgba(255, 200, 140, .22) 0%, transparent 8%),
-    radial-gradient(circle at 72% 62%, rgba(255, 255, 255, .12) 0%, transparent 7%),
-    radial-gradient(circle at 26% 70%, rgba(255, 170, 110, .16) 0%, transparent 8%);
-  filter: blur(3px);
+  background-image:
+    radial-gradient(ellipse 42% 14% at 50% 86%, rgba(0, 0, 0, .55), transparent 72%),
+    linear-gradient(180deg, transparent 52%, rgba(8, 6, 4, .32) 76%, rgba(8, 6, 4, .6) 100%),
+    linear-gradient(var(--tone-tint), var(--tone-tint)),
+    url("../images/bar-atmosphere.webp");
+  background-size: auto, auto, auto, cover;
+  background-position: center, center, center, center 28%;
+  background-repeat: no-repeat;
+  background-blend-mode: normal, normal, color, normal;
+  filter: blur(2.5px) saturate(1.05);
 }
 .drink-card__photo img {
   position: relative;
@@ -1296,17 +1312,20 @@ body.drinks-page::after {
   line-height: 1.9;
 }
 
-/* Tonal card backgrounds — one shared recipe, five subtle hues,
-   so the grid reads as one series rather than mismatched cards. */
-.drink-card--tone-brown  { background: radial-gradient(circle at 20% 20%, rgba(219, 74, 31, .22), transparent 45%), radial-gradient(circle at 80% 75%, rgba(255, 200, 120, .10), transparent 40%), #2a2117; }
-.drink-card--tone-orange { background: radial-gradient(circle at 75% 20%, rgba(240, 140, 60, .24), transparent 45%), radial-gradient(circle at 20% 80%, rgba(219, 74, 31, .12), transparent 40%), #2f2013; }
-.drink-card--tone-purple { background: radial-gradient(circle at 75% 25%, rgba(130, 90, 255, .18), transparent 45%), radial-gradient(circle at 20% 80%, rgba(219, 74, 31, .14), transparent 40%), #241f24; }
-.drink-card--tone-blue   { background: radial-gradient(circle at 25% 25%, rgba(80, 140, 255, .18), transparent 45%), radial-gradient(circle at 80% 80%, rgba(219, 74, 31, .10), transparent 40%), #1c232c; }
-.drink-card--tone-green  { background: radial-gradient(circle at 30% 75%, rgba(90, 200, 140, .16), transparent 45%), radial-gradient(circle at 80% 20%, rgba(219, 74, 31, .12), transparent 40%), #1c2620; }
+/* Tonal card backgrounds — one shared recipe, five subtle hues, so the
+   grid reads as one series rather than mismatched cards. --tone-tint
+   is the same hue, reused to color the bar photo in each card's
+   .drink-card__photo (see above) via background-blend-mode. */
+.drink-card--tone-brown  { --tone-tint: rgba(200, 110, 55, .40); background: radial-gradient(circle at 20% 20%, rgba(219, 74, 31, .22), transparent 45%), radial-gradient(circle at 80% 75%, rgba(255, 200, 120, .10), transparent 40%), #2a2117; }
+.drink-card--tone-orange { --tone-tint: rgba(230, 120, 45, .42); background: radial-gradient(circle at 75% 20%, rgba(240, 140, 60, .24), transparent 45%), radial-gradient(circle at 20% 80%, rgba(219, 74, 31, .12), transparent 40%), #2f2013; }
+.drink-card--tone-purple { --tone-tint: rgba(120, 85, 210, .38); background: radial-gradient(circle at 75% 25%, rgba(130, 90, 255, .18), transparent 45%), radial-gradient(circle at 20% 80%, rgba(219, 74, 31, .14), transparent 40%), #241f24; }
+.drink-card--tone-blue   { --tone-tint: rgba(70, 120, 210, .38); background: radial-gradient(circle at 25% 25%, rgba(80, 140, 255, .18), transparent 45%), radial-gradient(circle at 80% 80%, rgba(219, 74, 31, .10), transparent 40%), #1c232c; }
+.drink-card--tone-green  { --tone-tint: rgba(80, 175, 125, .34); background: radial-gradient(circle at 30% 75%, rgba(90, 200, 140, .16), transparent 45%), radial-gradient(circle at 80% 20%, rgba(219, 74, 31, .12), transparent 40%), #1c2620; }
 
 /* Bouráček — featured drink, spans both columns and reads bigger
    than every other card. Name size is fluid so it can never clip. */
 .drink-card--featured {
+  --tone-tint: rgba(219, 74, 31, .46);
   grid-column: 1 / -1;
   background: radial-gradient(circle at 18% 25%, rgba(219, 74, 31, .35), transparent 48%), radial-gradient(circle at 82% 78%, rgba(255, 190, 120, .16), transparent 45%), #2e2015;
 }
