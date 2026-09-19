@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10141a">
+  <title>Generátor letáků | Music Bar Bourák</title>
+  <link rel="icon" href="../images/favicon-32.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../index.html" aria-label="Zpět na web Music Bar Bourák">
+      <img src="../images/logo-bourak.png" alt="Music Bar Bourák">
+      <span><strong>GENERÁTOR LETÁKŮ</strong><small>A5 menu během pár minut</small></span>
+    </a>
+    <a class="back-link" href="../index.html">← Zpět na web</a>
+  </header>
+
+  <main class="app-shell">
+    <section class="editor" aria-label="Editor letáku">
+      <div class="section-block">
+        <div class="section-title"><span>1</span><h2>Vyber šablonu</h2></div>
+        <div id="templateGrid" class="template-grid" aria-label="Šablony"></div>
+      </div>
+
+      <div class="section-block compact">
+        <div class="section-title"><span>2</span><h2>Počet položek</h2></div>
+        <div class="count-switch" role="group" aria-label="Počet položek">
+          <button type="button" data-count="3">3</button>
+          <button type="button" data-count="5" class="active">5</button>
+          <button type="button" data-count="7">7</button>
+        </div>
+      </div>
+
+      <div class="section-block entries-block">
+        <div class="section-title"><span>3</span><h2>Zadej koktejly</h2></div>
+        <div id="drinkFields" class="drink-fields"></div>
+      </div>
+
+      <div class="editor-actions">
+        <button type="button" id="clearBtn" class="btn btn-light">Vymazat vše</button>
+        <button type="button" id="loadBtn" class="btn btn-light">Načíst poslední</button>
+        <button type="button" id="pdfBtn" class="btn btn-primary">Vygenerovat PDF (tiskové)</button>
+      </div>
+      <p class="hint">Výstup: A5, 3 mm spadávka, ořezové značky, 300 DPI. Data zůstávají jen v prohlížeči.</p>
+    </section>
+
+    <section class="preview-panel" aria-label="Náhled letáku">
+      <div class="preview-head">
+        <div><h2>Náhled letáku</h2><p>živý náhled A5</p></div>
+        <div class="preview-actions">
+          <button type="button" id="pngBtn" class="btn btn-light">PNG náhled</button>
+          <button type="button" id="resetZoomBtn" class="btn btn-light">100 %</button>
+        </div>
+      </div>
+      <div class="preview-stage"><div id="flyerPreview" class="flyer-preview" aria-live="polite"></div></div>
+      <div class="preview-status"><span id="statusText">Hazbin Hotel · 5 položek</span><span id="saveStatus">Automaticky ukládáno</span></div>
+    </section>
+  </main>
+
+  <template id="drinkRowTemplate">
+    <article class="drink-row">
+      <div class="row-number"></div>
+      <div class="row-fields">
+        <label>Název koktejlu<input class="drink-name" type="text" maxlength="44"></label>
+        <label class="price-label">Cena<input class="drink-price" type="text" maxlength="12" inputmode="numeric"></label>
+        <label class="ingredients-label">Ingredience<textarea class="drink-ingredients" rows="2" maxlength="120"></textarea></label>
+      </div>
+    </article>
+  </template>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="app.js"></script>
+</body>
+</html>
