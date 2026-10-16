@@ -4,13 +4,13 @@ import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Hours from '../components/Hours.astro';
-import { site, tel, downloads } from '../data/site';
+import { site, tel, downloads, hours } from '../data/site';
 import { napoje, nahled, kc } from '../data/napoje';
 import { signature } from '../data/specialni-drinky';
-import { terminy, pravidelne, colors } from '../data/akce';
+import { terminy, pravidelne, colors, ukazkovyPlakat } from '../data/akce';
 import { prostory, sluzby } from '../data/prostory';
 import { url } from '../data/url';
-import heroImg from '../assets/bar-atmosphere.webp';
+import heroImg from '../assets/foto/quiz-crowd.jpg';
 import promoImg from '../assets/drinks/drink-04.webp';
 
 const today = new Date().toISOString().slice(0, 10);
@@ -20,11 +20,25 @@ const nadchazejici = terminy
 const datum = (iso: string) =>
   new Date(iso + 'T12:00:00').toLocaleDateString('cs-CZ', { weekday: 'short', day: 'numeric', month: 'numeric' });
 
+const hlavni = pravidelne.find((a) => a.hlavni);
+const ostatni = pravidelne.filter((a) => a !== hlavni);
+// Týden v Bouráku: po–ne, otevírací doba + co se ten den děje
+const tyden = [1, 2, 3, 4, 5, 6, 0].map((d) => {
+  const h = hours[(d + 6) % 7];
+  return {
+    d,
+    den: h.day.slice(0, 2),
+    zavreno: h.open.length === 0,
+    cas: h.open.map(([a, b]) => `${a.replace(/^0/, '')}–${b.replace(/^0/, '')}`).join(', '),
+    program: pravidelne.filter((a) => a.dny?.includes(d)).map((a) => a.kratce ?? a.title),
+  };
+});
+
 const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'Soukromá párty', 'Jiné'];
 ---
 <Base
-  title="Music Bar Bourák – hudba, drinky a zábava | Praha 4 – Háje"
-  description="Music Bar Bourák na Hájích v Praze 4: chytrý kvíz, disco 80ky & 90ky, živé koncerty, speciální drinky a soukromé akce. Rezervujte si stůl."
+  title="Music Bar Bourák – Chytrý kvíz každé úterý | Praha 4 – Háje"
+  description="Music Bar Bourák na Hájích v Praze 4: každé úterý Chytrý kvíz, v pátek a sobotu disco 80ky & 90ky, koncerty, koktejly a soukromé akce. Rezervujte si stůl."
 >
   <Header />
 
@@ -36,14 +50,15 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
       <div class="hero__overlay" aria-hidden="true"></div>
 
       <div class="hero__content">
-        <h1 class="hero__title">{site.name} – místo, kde žije <em>hudba a zábava</em></h1>
+        <a href="#akce" class="hero__kicker"><span aria-hidden="true">🧠</span> Každé úterý Chytrý kvíz →</a>
+        <h1 class="hero__title">{site.name} – bar na Hájích, kde se každé úterý hraje <em>Chytrý kvíz</em></h1>
         <ul class="hero__features">
           <li><span aria-hidden="true">🍺</span> Skvělé drinky a pivo</li>
-          <li><span aria-hidden="true">🧠</span> Chytrý kvíz</li>
           <li><span aria-hidden="true">🎤</span> Živé koncerty</li>
           <li><span aria-hidden="true">🎉</span> Soukromé akce</li>
           <li><span aria-hidden="true">🕺</span> Disco pátek &amp; sobota</li>
           <li><span aria-hidden="true">🎊</span> Firemní akce</li>
+          <li><span aria-hidden="true">🍕</span> TOM'S Pizza</li>
         </ul>
         <div class="hero__actions">
           <a href={tel(site.phone)} class="btn btn--primary"><span aria-hidden="true">📞</span> Zavolat a rezervovat</a>
@@ -60,18 +75,51 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
 
     <section id="akce" class="section" aria-label="Co u nás můžete zažít">
       <div class="container">
-        <div class="section-head">
-          <h2 class="section-title">Co u nás můžete zažít</h2>
+        <h2 class="section-title">Co u nás můžete zažít</h2>
+
+        {hlavni && (
+          <div class="akce-top">
+            <article class="akce-hlavni reveal">
+              {hlavni.foto && <Image src={hlavni.foto} alt="Vítězné týmy Chytrého kvízu v Music Bar Bourák" class="akce-hlavni__foto" widths={[500, 900]} sizes="(max-width: 900px) 100vw, 60vw" />}
+              <div class="akce-hlavni__body">
+                <span class="akce-hlavni__kdy">{hlavni.when}</span>
+                <h3 class="akce-hlavni__title">{hlavni.title}</h3>
+                <p class="akce-hlavni__desc">{hlavni.desc}</p>
+                <a href="#rezervace" class="btn btn--primary btn--sm">Zarezervovat stůl na kvíz</a>
+              </div>
+              <Image src={ukazkovyPlakat} alt="Plakát Chytrého kvízu" class="akce-hlavni__plakat" widths={[220, 440]} sizes="220px" />
+            </article>
+
+            <div class="tyden reveal" aria-label="Týden v Bouráku">
+              <h3 class="tyden__title">Týden v Bouráku</h3>
+              <ol class="tyden__list">
+                {tyden.map((t) => (
+                  <li class:list={['tyden__den', { 'is-closed': t.zavreno, 'has-program': t.program.length }]} data-day={t.d}>
+                    <span class="tyden__zkratka">{t.den}</span>
+                    <span class="tyden__info">
+                      {t.program.length > 0 && <strong>{t.program.join(' · ')}</strong>}
+                      <span>{t.zavreno ? 'zavřeno' : t.cas}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        )}
+
+        <div class="section-head akce-dalsi">
+          <h3 class="akce-dalsi__title">{nadchazejici.length ? 'Další akce' : 'A taky u nás'}</h3>
           <div class="carousel-controls">
             <button type="button" class="carousel-btn" id="eventsPrev" aria-label="Předchozí akce">←</button>
             <button type="button" class="carousel-btn" id="eventsNext" aria-label="Další akce">→</button>
           </div>
         </div>
-
         <div class="events-viewport" id="eventsViewport" tabindex="0" aria-label="Seznam akcí, posuvník">
           {nadchazejici.map((ev) => (
             <article class="event-card reveal" data-until={ev.until ?? ev.date}>
-              <div class="event-card__poster" style={`background:${colors[ev.color].bg}`} aria-hidden="true">{ev.title.toUpperCase()}</div>
+              {ev.plakat
+                ? <Image src={ev.plakat} alt={`Plakát: ${ev.title}`} class="event-card__plakat" widths={[300, 600]} sizes="300px" />
+                : <div class="event-card__poster" style={`background:${colors[ev.color].bg}`} aria-hidden="true">{ev.title.toUpperCase()}</div>}
               <div class="event-card__body">
                 <h3 class="event-card__title">{ev.title}</h3>
                 <div class="event-card__date">
@@ -82,7 +130,7 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
               </div>
             </article>
           ))}
-          {pravidelne.map((ev) => (
+          {ostatni.map((ev) => (
             <article class="event-card reveal">
               <div class="event-card__poster" style={`background:${colors[ev.color].bg}`} aria-hidden="true">{ev.title.toUpperCase()}</div>
               <div class="event-card__body">
@@ -142,6 +190,10 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
         <div class="signature__inner">
           <div class="signature__media">
             <Image src={signature.img} alt="Bouráček – speciální drink Music Bar Bourák" widths={[500, 900]} sizes="(max-width: 900px) 100vw, 40vw" />
+            <figure class="signature__real">
+              <Image src={signature.foto} alt="Tác Bouráčků na baru" widths={[200, 400]} sizes="200px" />
+              <figcaption>Takhle se nosí u nás</figcaption>
+            </figure>
           </div>
           <div class="signature__content">
             <span class="signature__badge">Speciální drink Bouráku</span>
@@ -159,8 +211,10 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
         <h2 class="section-title">Prostory a zážitky</h2>
         <div class="spaces-grid">
           {prostory.map((p) => (
-            <div class="space-card reveal">
-              <div class="space-card__photo" style={`background:${p.bg}`}><p>Foto: {p.photo}</p></div>
+            <div class={`space-card space-card--${p.size} reveal`}>
+              {p.foto
+                ? <Image src={p.foto} alt={p.title} class="space-card__img" widths={[400, 800]} sizes="(max-width: 1180px) 100vw, 50vw" />
+                : <div class="space-card__photo" style={`background:${p.bg}`}><p>Foto: {p.photo}</p></div>}
               <span class="space-card__icon" aria-hidden="true">{p.icon}</span>
               <div class="space-card__overlay">
                 <h3 class="space-card__title">{p.title}</h3>

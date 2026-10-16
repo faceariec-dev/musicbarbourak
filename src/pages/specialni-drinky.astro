@@ -2,17 +2,21 @@
 import { Image, getImage } from 'astro:assets';
 import barImg from '../assets/bar-atmosphere.webp';
 import '@fontsource/montserrat/900.css';
-import '@fontsource/permanent-marker';
 import Base from '../layouts/Base.astro';
-import { signature, drinky } from '../data/specialni-drinky';
+import { signature, drinky, kategorie } from '../data/specialni-drinky';
 import { kc } from '../data/napoje';
 import { url } from '../data/url';
 const home = url();
 const bg = await getImage({ src: barImg, width: 900 });
+
+const doporucene = drinky.filter((d) => d.doporucujeme && d.img);
+const skupiny = kategorie
+  .map((k) => ({ ...k, items: drinky.filter((d) => d.kategorie === k.id) }))
+  .filter((k) => k.items.length);
 ---
 <Base
-  title="Speciální drinky – Music Bar Bourák | Praha 4 – Háje"
-  description="Speciální drinky Music Bar Bourák: Bouráček a další koktejly – Mojito, Aperol Spritz, Espresso Martini a další. Vyber si, co ti dneska nabourá večer."
+  title="Koktejlový lístek – Music Bar Bourák | Praha 4 – Háje"
+  description="Koktejlový lístek Music Bar Bourák: Bouráček, naše vlastní drinky, klasiky, long drinky, shoty i nealko. Vyber si, co ti dneska nabourá večer."
   bodyClass="drinks-page"
 >
   <div class="drinks-photo-bg" aria-hidden="true" style={`--photo-bg:url(${bg.src})`}></div>
@@ -27,15 +31,15 @@ const bg = await getImage({ src: barImg, width: 900 });
   </header>
 
   <main id="main">
-    <section class="drinks-hero" aria-label="Speciální drinky">
+    <section class="drinks-hero" aria-label="Koktejlový lístek">
       <div class="container">
         <p class="drinks-hero__eyebrow">Music Bar Bourák</p>
-        <h1 class="drinks-hero__title">Speciální drinky</h1>
+        <h1 class="drinks-hero__title">Koktejlový lístek</h1>
         <p class="drinks-hero__subtitle">Vyber si, co ti dneska nabourá večer.</p>
       </div>
     </section>
 
-    <section class="drinks-grid-section" aria-label="Nabídka speciálních drinků">
+    <section class="drinks-grid-section" aria-label="Bouráček a doporučené drinky">
       <div class="container">
         <div class="drinks-grid">
           <article class="drink-card drink-card--featured reveal">
@@ -46,23 +50,79 @@ const bg = await getImage({ src: barImg, width: 900 });
               <p class="drink-card__tagline">{signature.tagline}</p>
               <h2 class="drink-card__name drink-card__name--featured">{signature.name.toUpperCase()}</h2>
               <span class="drink-card__rule" aria-hidden="true"></span>
-              {signature.price && <p class="drink-card__tagline">{kc(signature.price)}</p>}
+              <p class="drink-card__price">{kc(signature.price)}</p>
             </div>
+            <figure class="drink-card__real">
+              <Image src={signature.foto} alt="Tác Bouráčků na baru" widths={[200, 400]} sizes="180px" />
+              <figcaption>Ideálně po tácech</figcaption>
+            </figure>
           </article>
-
-          {drinky.map((d) => (
-            <article class={`drink-card drink-card--tone-${d.tone ?? 'brown'} reveal`}>
-              <div class="drink-card__photo">
-                <Image src={d.img} alt={d.name} widths={[300, 600]} sizes="(max-width: 700px) 50vw, 25vw" />
-              </div>
-              <div class="drink-card__body">
-                <h3 class="drink-card__name">{d.name.toUpperCase()}</h3>
-                <span class="drink-card__rule" aria-hidden="true"></span>
-                <ul class="drink-card__ingredients">{d.ingredients.map((i) => <li>{i}</li>)}</ul>
-              </div>
-            </article>
-          ))}
         </div>
+
+        {doporucene.length > 0 && (
+          <>
+            <h2 class="koktejly-nadpis">Doporučujeme</h2>
+            <div class="doporucene">
+              {doporucene.map((d) => (
+                <article class={`drink-card drink-card--tile drink-card--tone-${d.tone ?? 'brown'} reveal`}>
+                  <div class="drink-card__photo">
+                    <Image src={d.img!} alt={d.name} widths={[300, 600]} sizes="(max-width: 700px) 100vw, 33vw" />
+                  </div>
+                  <div class="drink-card__body">
+                    <div class="drink-badges">
+                      {d.novinka && <span class="drink-badge drink-badge--new">Novinka</span>}
+                      {d.sezonni && <span class="drink-badge">Sezónní</span>}
+                    </div>
+                    <h3 class="drink-card__name">{d.name.toUpperCase()}</h3>
+                    <span class="drink-card__rule" aria-hidden="true"></span>
+                    <p class="drink-card__ingr-line">{d.ingredients.join(' · ')}</p>
+                    {d.price && <p class="drink-card__price">{kc(d.price)}</p>}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </section>
+
+    <nav class="koktejly-chips" aria-label="Kategorie koktejlů">
+      <div class="container koktejly-chips__inner">
+        {skupiny.map((k) => <a href={`#${k.id}`}>{k.title} <span>{k.items.length}</span></a>)}
+      </div>
+    </nav>
+
+    <section class="koktejly" aria-label="Celý koktejlový lístek">
+      <div class="container">
+        {skupiny.map((k) => (
+          <section class="koktejly-skupina" id={k.id} aria-labelledby={`h-${k.id}`}>
+            <header class="koktejly-skupina__head">
+              <h2 id={`h-${k.id}`}>{k.title}</h2>
+              <p>{k.desc}</p>
+            </header>
+            <ul class="koktejly-list">
+              {k.items.map((d) => (
+                <li class={`koktejl ${d.img ? 'koktejl--foto' : ''} drink-card--tone-${d.tone ?? 'brown'}`}>
+                  {d.img && (
+                    <div class="koktejl__thumb">
+                      <Image src={d.img} alt="" widths={[120, 240]} sizes="80px" />
+                    </div>
+                  )}
+                  <div class="koktejl__text">
+                    <h3 class="koktejl__name">
+                      {d.name}
+                      {d.novinka && <span class="drink-badge drink-badge--new">Novinka</span>}
+                      {d.sezonni && <span class="drink-badge">Sezónní</span>}
+                    </h3>
+                    <p class="koktejl__ingr">{d.ingredients.join(' · ')}</p>
+                  </div>
+                  <span class="koktejl__price">{d.price ? kc(d.price) : ''}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+        <p class="koktejly-foot">Ceny jsou uvedeny v Kč.</p>
       </div>
     </section>
 

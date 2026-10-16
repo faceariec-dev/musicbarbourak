@@ -114,6 +114,7 @@ function initOpeningHours() {
   const day = now.getDay(); // 0 = neděle
   const todayRow = rows.find((r) => r.dataset.day === String(day));
   todayRow?.classList.add('is-today');
+  document.querySelector(`.tyden__den[data-day="${day}"]`)?.classList.add('is-today');
 
   const out = document.getElementById('openToday');
   if (!out || !todayRow) return;
