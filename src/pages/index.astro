@@ -13,6 +13,7 @@ import { terminy, pravidelne } from '../data/akce';
 import { kviz } from '../data/kviz';
 import { prostory, sluzby } from '../data/prostory';
 import { galerie } from '../data/galerie';
+import { ilustrace, vecery } from '../data/ilustrace';
 import { url } from '../data/url';
 import barFoto from '../assets/foto/bar-counter.jpg';
 
@@ -130,6 +131,29 @@ const typyAkci = ['Stůl na večer', 'Stůl na kvíz', 'Narozeninová oslava', '
       </div>
     </section>
 
+    <!-- ============ VEČERY V BOURÁKU ============ -->
+    <section id="zazitky" class="h-section vecery" aria-labelledby="vecery-title">
+      <div class="container">
+        <header class="h-head">
+          <p class="eyebrow">Nejen kvíz</p>
+          <h2 class="h-title" id="vecery-title">Večery v Bouráku</h2>
+        </header>
+        <ul class="vecery__grid">
+          {vecery.map((v, i) => (
+            <li class={`vecery__tile vecery__tile--${v.velikost}`}>
+              <Image src={v.foto} alt="" class="vecery__img" widths={v.velikost === 'velka' ? [600, 1000, 1400] : [400, 700]} sizes={v.velikost === 'mala' ? '(max-width: 700px) 100vw, 25vw' : '(max-width: 700px) 100vw, 50vw'} />
+              <div class="vecery__text">
+                <span class="vecery__kdy">{v.kdy}</span>
+                <h3 class="vecery__title">{v.odkaz ? <a href={v.odkaz}>{v.title}</a> : v.title}</h3>
+                <p>{v.text}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <p class="vecery__note">Ilustrační fotografie. Skutečné fotky z Bouráku najdete na <a href="#galerie">nástěnce</a>.</p>
+      </div>
+    </section>
+
     <!-- ============ KVÍZ ============ -->
     <section id="kviz" class="h-section h-section--dark h-kviz" aria-labelledby="kviz-title">
       <div class="container h-split">
@@ -201,8 +225,10 @@ const typyAkci = ['Stůl na večer', 'Stůl na kvíz', 'Narozeninová oslava', '
     <!-- ============ OSLAVY A FIREMNÍ AKCE ============ -->
     <section id="akce-na-miru" class="h-section h-section--dark" aria-labelledby="akce-title">
       <div class="container h-split h-split--reverse">
-        <div class="h-split__media">
+        <div class="h-split__media akce-collage">
           <Image src={barFoto} alt="Hosté u baru v Music Bar Bourák" class="h-split__img" widths={[500, 900]} sizes="(max-width: 900px) 100vw, 45vw" />
+          <Polaroid src={ilustrace.oslava} alt="" caption="Narozeniny u nás" tilt={-6} width={220} ratio="4 / 3" class="akce-collage__a" />
+          <Polaroid src={ilustrace.firemni} alt="" caption="Firemní večírek" tilt={5} width={200} ratio="4 / 3" class="akce-collage__b" />
         </div>
         <div class="h-split__text">
           <p class="eyebrow">Celý bar nebo pár stolů</p>

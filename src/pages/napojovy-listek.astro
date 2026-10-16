@@ -1,10 +1,12 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { napoje, jidlo, kc, type Category } from '../data/napoje';
 import { downloads } from '../data/site';
 import { url } from '../data/url';
+import { ilustrace } from '../data/ilustrace';
 
 const groups: { id: string; title: string; cats: Category[] }[] = [
   { id: 'napoje', title: 'Nápoje', cats: napoje },
@@ -20,6 +22,9 @@ const title = jidlo.length ? 'Jídelní a nápojový lístek' : 'Nápojový lís
   <Header />
   <main id="main" class="section section--dark">
     <div class="container">
+      <figure class="listek-banner">
+        <Image src={ilustrace.pivo} alt="" widths={[700, 1200, 1600]} sizes="(max-width: 1200px) 100vw, 1200px" loading="eager" />
+      </figure>
       <div class="listek-head">
         <h1 class="section-title section-title--light">{title}</h1>
         <div class="listek-head__actions">
