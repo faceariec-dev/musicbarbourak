@@ -1,0 +1,254 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Hours from '../components/Hours.astro';
+import { site, tel, downloads } from '../data/site';
+import { napoje, nahled, kc } from '../data/napoje';
+import { signature } from '../data/specialni-drinky';
+import { terminy, pravidelne, colors } from '../data/akce';
+import { prostory, sluzby } from '../data/prostory';
+import { url } from '../data/url';
+import heroImg from '../assets/bar-atmosphere.webp';
+import promoImg from '../assets/drinks/drink-04.webp';
+
+const today = new Date().toISOString().slice(0, 10);
+const nadchazejici = terminy
+  .filter((t) => (t.until ?? t.date) >= today)
+  .sort((a, b) => a.date.localeCompare(b.date));
+const datum = (iso: string) =>
+  new Date(iso + 'T12:00:00').toLocaleDateString('cs-CZ', { weekday: 'short', day: 'numeric', month: 'numeric' });
+
+const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'Soukromá párty', 'Jiné'];
+---
+<Base
+  title="Music Bar Bourák – hudba, drinky a zábava | Praha 4 – Háje"
+  description="Music Bar Bourák na Hájích v Praze 4: chytrý kvíz, disco 80ky & 90ky, živé koncerty, speciální drinky a soukromé akce. Rezervujte si stůl."
+>
+  <Header />
+
+  <main id="main">
+    <section id="hero" class="hero" aria-label="Úvod">
+      <div class="hero__media" aria-hidden="true">
+        <Image src={heroImg} alt="" class="hero__photo" widths={[600, 1100]} sizes="(max-width: 700px) 100vw, 55vw" loading="eager" fetchpriority="high" />
+      </div>
+      <div class="hero__overlay" aria-hidden="true"></div>
+
+      <div class="hero__content">
+        <h1 class="hero__title">{site.name} – místo, kde žije <em>hudba a zábava</em></h1>
+        <ul class="hero__features">
+          <li><span aria-hidden="true">🍺</span> Skvělé drinky a pivo</li>
+          <li><span aria-hidden="true">🧠</span> Chytrý kvíz</li>
+          <li><span aria-hidden="true">🎤</span> Živé koncerty</li>
+          <li><span aria-hidden="true">🎉</span> Soukromé akce</li>
+          <li><span aria-hidden="true">🕺</span> Disco pátek &amp; sobota</li>
+          <li><span aria-hidden="true">🎊</span> Firemní akce</li>
+        </ul>
+        <div class="hero__actions">
+          <a href={tel(site.phone)} class="btn btn--primary"><span aria-hidden="true">📞</span> Zavolat a rezervovat</a>
+          <a href={url('napojovy-listek/')} class="btn btn--outline">Nápojový lístek</a>
+        </div>
+        <p class="hero__today" id="openToday" hidden></p>
+      </div>
+    </section>
+
+    <div class="type-divider" aria-hidden="true">
+      <span class="type-divider__text">HUDBA&nbsp;·&nbsp;DRINKY&nbsp;·&nbsp;ZÁBAVA</span>
+      <span class="type-divider__ring"></span>
+    </div>
+
+    <section id="akce" class="section" aria-label="Co u nás můžete zažít">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title">Co u nás můžete zažít</h2>
+          <div class="carousel-controls">
+            <button type="button" class="carousel-btn" id="eventsPrev" aria-label="Předchozí akce">←</button>
+            <button type="button" class="carousel-btn" id="eventsNext" aria-label="Další akce">→</button>
+          </div>
+        </div>
+
+        <div class="events-viewport" id="eventsViewport" tabindex="0" aria-label="Seznam akcí, posuvník">
+          {nadchazejici.map((ev) => (
+            <article class="event-card reveal" data-until={ev.until ?? ev.date}>
+              <div class="event-card__poster" style={`background:${colors[ev.color].bg}`} aria-hidden="true">{ev.title.toUpperCase()}</div>
+              <div class="event-card__body">
+                <h3 class="event-card__title">{ev.title}</h3>
+                <div class="event-card__date">
+                  <time datetime={ev.date}>{datum(ev.date)}</time>{ev.until && <> – <time datetime={ev.until}>{datum(ev.until)}</time></>}{ev.time && `, ${ev.time}`}
+                </div>
+                <p class="event-card__desc">{ev.desc}</p>
+                <span class="event-card__tag" style={`color:${colors[ev.color].tag};background:${colors[ev.color].tagBg}`}>{ev.tag}</span>
+              </div>
+            </article>
+          ))}
+          {pravidelne.map((ev) => (
+            <article class="event-card reveal">
+              <div class="event-card__poster" style={`background:${colors[ev.color].bg}`} aria-hidden="true">{ev.title.toUpperCase()}</div>
+              <div class="event-card__body">
+                <h3 class="event-card__title">{ev.title}</h3>
+                <div class="event-card__date">{ev.when}</div>
+                <p class="event-card__desc">{ev.desc}</p>
+                <span class="event-card__tag" style={`color:${colors[ev.color].tag};background:${colors[ev.color].tagBg}`}>{ev.tag}</span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="napoje" class="section section--dark" aria-label="Nápojový lístek">
+      <div class="container">
+        <h2 class="section-title section-title--light">Nápojový lístek</h2>
+        <div class="napoje-layout">
+          <div class="napoje-list">
+            <div class="napoje-list__columns">
+              {napoje.map((cat) => (
+                <div class="napoje-category">
+                  <div class="napoje-category__head">
+                    <span class="napoje-category__icon" aria-hidden="true">{cat.icon}</span>
+                    <h3 class="napoje-category__title">{cat.title}</h3>
+                  </div>
+                  {cat.items.slice(0, nahled).map((it) => (
+                    <div class="napoje-row">
+                      <span>{it.name}{it.volume && ` ${it.volume}`}</span>
+                      <span class="napoje-row__leader" aria-hidden="true"></span>
+                      <span class="napoje-row__price">{kc(it.price)}</span>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+            <a href={url('napojovy-listek/')} class="napoje-list__cta">Zobrazit celý nápojový lístek →</a>
+          </div>
+
+          <a href={url('specialni-drinky/')} class="napoje-promo reveal">
+            <div class="napoje-promo__media" aria-hidden="true">
+              <Image src={promoImg} alt="" widths={[400, 800]} sizes="(max-width: 900px) 100vw, 33vw" />
+            </div>
+            <div class="napoje-promo__scrim" aria-hidden="true"></div>
+            <div class="napoje-promo__body">
+              <h3 class="napoje-promo__title">Speciální drinky pro speciální akce</h3>
+              <p class="napoje-promo__text">Tematické drinky, limitované nabídky a speciály připravené pro naše akce.</p>
+              <span class="napoje-promo__cta">Prohlédnout speciální drinky →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="signature" class="section signature" aria-label="Speciální drink Bouráku – Bouráček">
+      <div class="container">
+        <div class="signature__inner">
+          <div class="signature__media">
+            <Image src={signature.img} alt="Bouráček – speciální drink Music Bar Bourák" widths={[500, 900]} sizes="(max-width: 900px) 100vw, 40vw" />
+          </div>
+          <div class="signature__content">
+            <span class="signature__badge">Speciální drink Bouráku</span>
+            <h2 class="signature__title">{signature.name}</h2>
+            <p class="signature__tagline"><strong>{signature.tagline}.</strong></p>
+            {signature.price && <div class="signature__price">{kc(signature.price)}</div>}
+            <a href={url('specialni-drinky/')} class="signature__link">Objevit další speciální drinky →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="prostory" class="section" aria-label="Prostory a zážitky">
+      <div class="container">
+        <h2 class="section-title">Prostory a zážitky</h2>
+        <div class="spaces-grid">
+          {prostory.map((p) => (
+            <div class="space-card reveal">
+              <div class="space-card__photo" style={`background:${p.bg}`}><p>Foto: {p.photo}</p></div>
+              <span class="space-card__icon" aria-hidden="true">{p.icon}</span>
+              <div class="space-card__overlay">
+                <h3 class="space-card__title">{p.title}</h3>
+                <p class="space-card__desc">{p.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="sluzby" class="section section--dark" aria-label="Služby navíc">
+      <div class="container">
+        <h2 class="section-title section-title--light">Služby navíc</h2>
+        <div class="services-grid">
+          {sluzby.map((s) => (
+            <div class="service-card reveal">
+              <div class="service-card__icon" aria-hidden="true">{s.icon}</div>
+              <h3 class="service-card__title">{s.title}</h3>
+              <p class="service-card__desc">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="rezervace" class="section rezervace" aria-label="Rezervace">
+      <div class="container rezervace__inner">
+        <div class="rezervace__call">
+          <h2 class="section-title">Rezervace</h2>
+          <p class="rezervace__lead">Stůl na dnešní večer? Nejrychleji to vyřešíte telefonem.</p>
+          <a href={tel(site.phone)} class="btn btn--primary rezervace__phone"><span aria-hidden="true">📞</span> {site.phone}</a>
+          <p class="rezervace__note">Volejte v otevírací době, nebo napište na <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+        </div>
+
+        <form class="rezervace-form" id="rezervaceForm" data-email={site.email} novalidate>
+          <h3 class="rezervace-form__title">Oslava, firemní akce nebo párty?</h3>
+          <p class="rezervace-form__lead">Napište, co plánujete, a ozveme se vám s nabídkou.</p>
+          <div class="rezervace-form__grid">
+            <label>Jméno<input name="jmeno" required autocomplete="name" /></label>
+            <label>Telefon<input name="telefon" type="tel" required autocomplete="tel" /></label>
+            <label>Datum<input name="datum" type="date" required min={today} /></label>
+            <label>Počet osob<input name="osob" type="number" min="1" inputmode="numeric" required /></label>
+            <label class="rezervace-form__full">Typ akce
+              <select name="typ">{typyAkci.map((t) => <option>{t}</option>)}</select>
+            </label>
+            <label class="rezervace-form__full">Poznámka<textarea name="zprava" rows="3" placeholder="Čas, jídlo, hudba, speciální přání…"></textarea></label>
+          </div>
+          <button type="submit" class="btn btn--primary">Odeslat poptávku</button>
+          <p class="rezervace-form__hint">Otevře se váš e-mail s předvyplněnou zprávou, stačí ji odeslat.</p>
+          <p class="rezervace-form__error" id="rezervaceError" role="alert" hidden>Vyplňte prosím jméno, telefon, datum a počet osob.</p>
+        </form>
+      </div>
+    </section>
+
+    <section id="kontakt" class="section section--dark" aria-label="Kontakt a otevírací doba">
+      <div class="container">
+        <h2 class="section-title section-title--light">Kontakt a otevírací doba</h2>
+        <div class="contact-grid">
+          <div class="contact-info">
+            <div class="contact-details">
+              <div class="contact-details__row">
+                <span aria-hidden="true">📍</span>
+                <address><strong>{site.name}</strong><br />{site.street}<br />{site.district}, {site.zip}</address>
+              </div>
+              <div class="contact-details__row"><span aria-hidden="true">📞</span><a href={tel(site.phone)}>{site.phone}</a></div>
+              <div class="contact-details__row"><span aria-hidden="true">✉️</span><a href={`mailto:${site.email}`}>{site.email}</a></div>
+              <div class="contact-details__row"><span aria-hidden="true">📘</span><a href={site.facebook} target="_blank" rel="noopener">Facebook</a></div>
+              <div class="contact-details__row"><span aria-hidden="true">📷</span><a href={site.instagram} target="_blank" rel="noopener">Instagram</a></div>
+              {downloads.map((d) => (
+                <div class="contact-details__row"><span aria-hidden="true">📄</span><a href={url(d.file)}>{d.title} (PDF)</a></div>
+              ))}
+            </div>
+            <div>
+              <div class="hours-title">Otevírací doba</div>
+              <Hours />
+            </div>
+          </div>
+
+          <div class="map-box">
+            <div class="map-box__grid" aria-hidden="true"></div>
+            <span class="map-box__pin" aria-hidden="true">📍</span>
+            <a href={site.mapUrl} class="btn btn--primary btn--sm map-box__cta" target="_blank" rel="noopener">Zobrazit na mapě →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>

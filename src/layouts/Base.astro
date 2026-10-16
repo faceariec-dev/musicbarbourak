@@ -1,0 +1,83 @@
+---
+import '@fontsource/montserrat/400.css';
+import '@fontsource/montserrat/500.css';
+import '@fontsource/montserrat/600.css';
+import '@fontsource/montserrat/700.css';
+import '@fontsource/montserrat/800.css';
+import '../styles/style.css';
+import '../styles/extra.css';
+import { site, hours, tel } from '../data/site';
+import { url } from '../data/url';
+
+interface Props {
+  title: string;
+  description: string;
+  bodyClass?: string;
+  noindex?: boolean;
+}
+const { title, description, bodyClass, noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(url('images/logo-bourak.png'), Astro.site).href;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BarOrPub',
+  name: site.name,
+  description,
+  url: new URL(url(), Astro.site).href,
+  image: ogImage,
+  telephone: site.phone.replace(/\s/g, ''),
+  email: site.email,
+  servesCuisine: 'Pizza',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.street,
+    postalCode: site.zip.replace(' ', ''),
+    addressLocality: site.city,
+    addressCountry: 'CZ',
+  },
+  sameAs: [site.facebook, site.instagram],
+  openingHoursSpecification: hours.flatMap((h) =>
+    h.open.map(([opens, closes]) => ({
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: h.schema,
+      opens,
+      closes,
+    })),
+  ),
+};
+---
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#1a1816" />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex" />}
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={site.name} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:locale" content="cs_CZ" />
+
+  <link rel="icon" href={url('images/favicon.ico')} sizes="any" />
+  <link rel="icon" type="image/png" href={url('images/favicon-32.png')} sizes="32x32" />
+  <link rel="apple-touch-icon" href={url('images/favicon-180.png')} />
+
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <slot name="head" />
+</head>
+<body class={bodyClass}>
+  <a class="skip-link" href="#main">Přeskočit na obsah</a>
+  <slot />
+  <script>
+    import '../scripts/main.ts';
+  </script>
+</body>
+</html>

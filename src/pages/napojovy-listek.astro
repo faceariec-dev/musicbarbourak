@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { napoje, jidlo, kc, type Category } from '../data/napoje';
+import { downloads } from '../data/site';
+import { url } from '../data/url';
+
+const groups: { id: string; title: string; cats: Category[] }[] = [
+  { id: 'napoje', title: 'Nápoje', cats: napoje },
+  ...(jidlo.length ? [{ id: 'jidlo', title: "Jídlo – TOM'S Pizza", cats: jidlo }] : []),
+];
+const title = jidlo.length ? 'Jídelní a nápojový lístek' : 'Nápojový lístek';
+---
+<Base
+  title={`${title} – Music Bar Bourák | Praha 4 – Háje`}
+  description="Aktuální nápojový lístek Music Bar Bourák: pivo, destiláty, míchané drinky, stáčené víno a nealko s cenami."
+  bodyClass="listek-page"
+>
+  <Header />
+  <main id="main" class="section section--dark">
+    <div class="container">
+      <div class="listek-head">
+        <h1 class="section-title section-title--light">{title}</h1>
+        <div class="listek-head__actions">
+          {downloads.map((d) => <a class="btn btn--outline btn--sm" href={url(d.file)}>{d.title} (PDF)</a>)}
+          <button type="button" class="btn btn--outline btn--sm" id="printBtn">Vytisknout / uložit PDF</button>
+          <a class="btn btn--primary btn--sm" href={url('specialni-drinky/')}>Speciální drinky →</a>
+        </div>
+      </div>
+
+      <nav class="listek-nav" aria-label="Kategorie">
+        {groups.flatMap((g) => g.cats).map((c) => <a href={`#${c.id}`}>{c.icon} {c.title}</a>)}
+      </nav>
+
+      {groups.map((g) => (
+        <section aria-labelledby={`g-${g.id}`}>
+          {groups.length > 1 && <h2 class="listek-group-title" id={`g-${g.id}`}>{g.title}</h2>}
+          <div class="listek-grid">
+            {g.cats.map((cat) => (
+              <div class="napoje-category" id={cat.id}>
+                <div class="napoje-category__head">
+                  <span class="napoje-category__icon" aria-hidden="true">{cat.icon}</span>
+                  <h3 class="napoje-category__title">{cat.title}</h3>
+                </div>
+                {cat.items.map((it) => (
+                  <div class="napoje-row">
+                    <span>{it.name}{it.volume && ` ${it.volume}`}{it.note && <span class="napoje-row__note">{it.note}</span>}</span>
+                    <span class="napoje-row__leader" aria-hidden="true"></span>
+                    <span class="napoje-row__price">{kc(it.price)}</span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      <p class="listek-foot">Ceny jsou uvedeny v Kč. Informace o alergenech vám rádi sdělíme u baru.</p>
+    </div>
+  </main>
+  <Footer />
+</Base>

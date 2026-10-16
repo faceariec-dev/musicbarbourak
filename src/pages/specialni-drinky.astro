@@ -1,0 +1,83 @@
+---
+import { Image, getImage } from 'astro:assets';
+import barImg from '../assets/bar-atmosphere.webp';
+import '@fontsource/montserrat/900.css';
+import '@fontsource/permanent-marker';
+import Base from '../layouts/Base.astro';
+import { signature, drinky } from '../data/specialni-drinky';
+import { kc } from '../data/napoje';
+import { url } from '../data/url';
+const home = url();
+const bg = await getImage({ src: barImg, width: 900 });
+---
+<Base
+  title="Speciální drinky – Music Bar Bourák | Praha 4 – Háje"
+  description="Speciální drinky Music Bar Bourák: Bouráček a další koktejly – Mojito, Aperol Spritz, Espresso Martini a další. Vyber si, co ti dneska nabourá večer."
+  bodyClass="drinks-page"
+>
+  <div class="drinks-photo-bg" aria-hidden="true" style={`--photo-bg:url(${bg.src})`}></div>
+
+  <header class="drinks-nav">
+    <div class="container drinks-nav__inner">
+      <a class="drinks-nav__logo" href={home} aria-label="Music Bar Bourák – domů">
+        <img src={url('images/logo-bourak.png')} alt="Music Bar Bourák" width="180" height="43" />
+      </a>
+      <a href={`${home}#napoje`} class="drinks-nav__back">← Zpět na web</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="drinks-hero" aria-label="Speciální drinky">
+      <div class="container">
+        <p class="drinks-hero__eyebrow">Music Bar Bourák</p>
+        <h1 class="drinks-hero__title">Speciální drinky</h1>
+        <p class="drinks-hero__subtitle">Vyber si, co ti dneska nabourá večer.</p>
+      </div>
+    </section>
+
+    <section class="drinks-grid-section" aria-label="Nabídka speciálních drinků">
+      <div class="container">
+        <div class="drinks-grid">
+          <article class="drink-card drink-card--featured reveal">
+            <div class="drink-card__photo">
+              <Image src={signature.img} alt={signature.name} widths={[400, 700]} sizes="(max-width: 700px) 100vw, 50vw" />
+            </div>
+            <div class="drink-card__body">
+              <p class="drink-card__tagline">{signature.tagline}</p>
+              <h2 class="drink-card__name drink-card__name--featured">{signature.name.toUpperCase()}</h2>
+              <span class="drink-card__rule" aria-hidden="true"></span>
+              {signature.price && <p class="drink-card__tagline">{kc(signature.price)}</p>}
+            </div>
+          </article>
+
+          {drinky.map((d) => (
+            <article class={`drink-card drink-card--tone-${d.tone ?? 'brown'} reveal`}>
+              <div class="drink-card__photo">
+                <Image src={d.img} alt={d.name} widths={[300, 600]} sizes="(max-width: 700px) 50vw, 25vw" />
+              </div>
+              <div class="drink-card__body">
+                <h3 class="drink-card__name">{d.name.toUpperCase()}</h3>
+                <span class="drink-card__rule" aria-hidden="true"></span>
+                <ul class="drink-card__ingredients">{d.ingredients.map((i) => <li>{i}</li>)}</ul>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="drinks-cta" aria-label="Rezervace">
+      <div class="container">
+        <h2 class="drinks-cta__title">Dneska to nabouráme.</h2>
+        <a href={`${home}#rezervace`} class="btn btn--primary"><span aria-hidden="true">📅</span> Rezervovat stůl</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="drinks-footer">
+    <div class="container drinks-footer__inner">
+      <span>© {new Date().getFullYear()} Music Bar Bourák</span>
+      <a href={home}>← Zpět na hlavní web</a>
+    </div>
+  </footer>
+</Base>

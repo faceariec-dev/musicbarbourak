@@ -1,0 +1,58 @@
+---
+import { site, tel, downloads } from '../data/site';
+import { jidlo } from '../data/napoje';
+import { url } from '../data/url';
+const home = url();
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src={url('images/logo-bourak.png')} alt="Music Bar Bourák" width="180" height="43" loading="lazy" />
+        <p>{site.name} – {site.claim}. Těšíme se na vás!</p>
+        <div class="footer-social">
+          <a href={site.facebook} aria-label="Music Bar Bourák na Facebooku" target="_blank" rel="noopener"><span aria-hidden="true">📘</span></a>
+          <a href={site.instagram} aria-label="Music Bar Bourák na Instagramu" target="_blank" rel="noopener"><span aria-hidden="true">📷</span></a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Rychlé odkazy</div>
+        <div class="footer-links">
+          <a href={`${home}#akce`}>Akce</a>
+          <a href={`${home}#napoje`}>Nápoje</a>
+          <a href={`${home}#prostory`}>Prostory</a>
+          <a href={`${home}#sluzby`}>Služby</a>
+          <a href={`${home}#kontakt`}>Kontakt</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Lístky a rezervace</div>
+        <div class="footer-links">
+          <a href={url('napojovy-listek/')}>Nápojový lístek</a>
+          {jidlo.length > 0 && <a href={url('napojovy-listek/#jidlo')}>Jídelní lístek</a>}
+          <a href={url('specialni-drinky/')}>Speciální drinky</a>
+          {downloads.map((d) => <a href={url(d.file)}>{d.title} (PDF)</a>)}
+          <a href={`${home}#rezervace`}>Rezervace</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Ozvěte se</div>
+        <div class="footer-links">
+          <a href={tel(site.phone)}>{site.phone}</a>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          <a href={site.facebook} target="_blank" rel="noopener">Facebook</a>
+          <a href={site.instagram} target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© {year} {site.name}. Všechna práva vyhrazena.</span>
+      <span>Webdesign by StudioWeb</span>
+    </div>
+  </div>
+</footer>

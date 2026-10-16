@@ -1,0 +1,43 @@
+---
+import { url } from '../data/url';
+import { jidlo } from '../data/napoje';
+
+const home = url();
+const links = [
+  ['hero', 'Úvod'],
+  ['akce', 'Akce'],
+  ['napoje', 'Nápoje'],
+  ['prostory', 'Prostory'],
+  ['rezervace', 'Rezervace'],
+  ['kontakt', 'Kontakt'],
+];
+const listekLabel = jidlo.length ? 'Jídelní / Nápojový lístek' : 'Nápojový lístek';
+---
+<header class="site-header">
+  <nav class="nav" aria-label="Hlavní navigace">
+    <a class="nav__logo" href={home} aria-label="Music Bar Bourák – domů">
+      <img src={url('images/logo-bourak.png')} alt="Music Bar Bourák" width="240" height="58" />
+    </a>
+
+    <ul class="nav__links">
+      {links.map(([id, label]) => <li><a href={`${home}#${id}`}>{label}</a></li>)}
+    </ul>
+
+    <div class="nav__actions">
+      <a href={`${home}#rezervace`} class="btn btn--primary btn--sm"><span aria-hidden="true">📅</span> Rezervace</a>
+      <a href={url('napojovy-listek/')} class="btn btn--outline btn--sm"><span aria-hidden="true">☰</span> {listekLabel}</a>
+    </div>
+
+    <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Otevřít menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span id="hamburgerIcon" aria-hidden="true">☰</span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    {links.map(([id, label]) => <a href={`${home}#${id}`}>{label}</a>)}
+    <div class="mobile-menu__actions">
+      <a href={`${home}#rezervace`} class="btn btn--primary btn--block"><span aria-hidden="true">📅</span> Rezervace</a>
+      <a href={url('napojovy-listek/')} class="btn btn--outline btn--block"><span aria-hidden="true">☰</span> {listekLabel}</a>
+    </div>
+  </div>
+</header>

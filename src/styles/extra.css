@@ -1,0 +1,159 @@
+/* =========================================================
+   Doplňky k style.css pro Astro verzi: fotka v hero, rezervace,
+   celý nápojový lístek a tisk.
+   ========================================================= */
+
+/* ---------- Hero: skutečná fotka vpravo ---------- */
+.hero__photo {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 58%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+}
+.hero__today {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dark-text-muted-2);
+}
+.hero__today strong { color: #fff; }
+.hero__today .is-open { color: #6fdc8c; }
+@media (max-width: 1180px) {
+  .hero__photo { width: 100%; }
+}
+
+/* ---------- Otevírací doba: dnešní den ---------- */
+.hours-list__row.is-today span { color: var(--color-orange); font-weight: 700; }
+
+/* ---------- Služby: libovolný počet karet ---------- */
+.services-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+/* ---------- Rezervace ---------- */
+.rezervace__inner {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 40px;
+  align-items: start;
+}
+.rezervace__lead { font-size: 17px; color: var(--color-text-soft); margin: 0 0 20px; }
+.rezervace__phone { font-size: 20px; padding: 16px 26px; }
+.rezervace__note { font-size: 13.5px; color: var(--color-text-mute-2); margin: 16px 0 0; }
+
+.rezervace-form {
+  background: #f7f5f3;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+}
+.rezervace-form__title { margin: 0 0 4px; font-size: 18px; }
+.rezervace-form__lead { margin: 0 0 18px; font-size: 14px; color: var(--color-text-mute-2); }
+.rezervace-form__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.rezervace-form__full { grid-column: 1 / -1; }
+.rezervace-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-soft);
+}
+.rezervace-form input,
+.rezervace-form select,
+.rezervace-form textarea {
+  font: inherit;
+  font-weight: 500;
+  font-size: 15px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border-3);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: var(--color-text);
+}
+.rezervace-form input:focus,
+.rezervace-form select:focus,
+.rezervace-form textarea:focus {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 1px;
+}
+.rezervace-form [aria-invalid='true'] { border-color: #c0392b; }
+.rezervace-form button { border: none; }
+.rezervace-form__hint { font-size: 12.5px; color: var(--color-text-mute-2); margin: 10px 0 0; }
+.rezervace-form__error { font-size: 13px; color: #c0392b; font-weight: 600; margin: 8px 0 0; }
+
+@media (max-width: 900px) {
+  .rezervace__inner { grid-template-columns: 1fr; gap: 28px; }
+}
+@media (max-width: 520px) {
+  .rezervace-form__grid { grid-template-columns: 1fr; }
+  .rezervace__phone { width: 100%; }
+}
+
+/* ---------- Celý nápojový lístek ---------- */
+.listek-page { background: var(--color-charcoal); color: var(--dark-text); }
+.listek-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.listek-head .section-title { margin: 0; }
+.listek-head__actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.listek-nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.listek-nav a {
+  padding: 8px 14px;
+  border: 1px solid var(--dark-border);
+  border-radius: 999px;
+  color: var(--dark-text-muted-2);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.listek-nav a:hover { border-color: var(--color-orange); color: #fff; }
+.listek-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 12px 48px;
+}
+.listek-grid .napoje-category { break-inside: avoid; scroll-margin-top: calc(var(--header-height) + 16px); }
+.listek-group-title {
+  font-size: 22px;
+  margin: 40px 0 20px;
+  padding-top: 24px;
+  border-top: 1px solid var(--dark-border);
+  scroll-margin-top: var(--header-height);
+}
+.napoje-row__note {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--dark-text-muted);
+}
+.listek-foot { font-size: 12.5px; color: var(--dark-text-muted); margin-top: 32px; }
+
+/* ---------- Tisk (Ctrl+P → uložit jako PDF) ---------- */
+@media print {
+  .site-header, .site-footer, .skip-link, .listek-head__actions, .listek-nav { display: none !important; }
+  body, .listek-page, .section--dark { background: #fff !important; color: #000 !important; }
+  .section { padding: 0 !important; }
+  .section-title, .napoje-category__title, .listek-group-title { color: #000 !important; }
+  .napoje-row, .napoje-row span, .napoje-row__note { color: #000 !important; }
+  .napoje-row__leader { border-color: #999 !important; }
+  .listek-grid { grid-template-columns: 1fr 1fr; gap: 6px 32px; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @page { margin: 14mm; }
+}
+.listek-head__actions .btn--outline { color: #fff; border-color: var(--dark-border); background: transparent; }
+.listek-head__actions .btn--outline:hover { border-color: var(--color-orange); }
