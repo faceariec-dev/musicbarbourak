@@ -214,18 +214,7 @@
 }
 .akce-hlavni__title { margin: 0; font-size: clamp(28px, 4vw, 40px); font-weight: 800; line-height: 1.05; }
 .akce-hlavni__desc { margin: 0 0 6px; font-size: 14.5px; line-height: 1.55; color: rgba(255, 255, 255, .85); }
-.akce-hlavni__plakat {
-  position: absolute;
-  z-index: 1;
-  right: 24px;
-  top: 24px;
-  width: 30%;
-  max-width: 220px;
-  height: auto;
-  border-radius: 6px;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, .55);
-  transform: rotate(3deg);
-}
+
 
 .tyden {
   background: var(--color-charcoal);
@@ -270,30 +259,7 @@
 @media (max-width: 600px) {
   .akce-hlavni { min-height: 460px; }
   .akce-hlavni__body { max-width: 100%; padding: 20px; }
-  .akce-hlavni__plakat { width: 38%; right: 16px; top: 16px; }
-}
-
-/* ---------- Bouráček: skutečná fotka přes studiovou ---------- */
-.signature__real {
-  position: absolute;
-  right: 18px;
-  bottom: 18px;
-  width: 34%;
-  max-width: 190px;
-  margin: 0;
-  background: #fff;
-  padding: 7px 7px 10px;
-  border-radius: 4px;
-  box-shadow: 0 16px 34px rgba(0, 0, 0, .45);
-  transform: rotate(-4deg);
-}
-.signature__real img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
-.signature__real figcaption {
-  font-family: 'Permanent Marker', cursive;
-  font-size: 13px;
-  color: var(--color-text);
-  text-align: center;
-  margin-top: 6px;
+  .akce-hlavni__plakat { width: 40%; right: 14px; top: 14px; }
 }
 
 /* ---------- Prostory: mozaika s fotkami ---------- */
@@ -341,9 +307,10 @@
 }
 .drink-card__real img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
 .drink-card__real figcaption {
-  font-family: 'Permanent Marker', cursive;
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
   color: #1c1c1c;
-  font-size: 12.5px;
+  font-size: 17px;
   text-align: center;
   margin-top: 4px;
 }
@@ -464,3 +431,165 @@
 }
 .hero__kicker:hover { background: var(--color-orange-dark); color: #fff; }
 .hero__title { font-size: clamp(30px, 3.4vw, 42px); }
+
+/* =========================================================
+   Motiv „nástěnka v baru“: polaroidy s izolepou a zkosené karty
+   ========================================================= */
+:root {
+  --paper: #fbf9f4;
+  --tape: rgba(246, 226, 170, .78);
+  --cut: 18px;
+  --seam: clamp(24px, 3.5vw, 56px);
+}
+
+.polaroid {
+  position: relative;
+  margin: 0;
+  background: var(--paper);
+  padding: 10px 10px 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .18), 0 14px 30px rgba(0, 0, 0, .28);
+  rotate: var(--tilt, -3deg);
+  transition: rotate .25s ease, scale .25s ease, box-shadow .25s ease;
+}
+.polaroid img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: var(--ratio, 4 / 5);
+  object-fit: cover;
+  background: #ddd;
+  filter: saturate(1.05) contrast(1.03);
+}
+.polaroid figcaption {
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 1.1;
+  color: #222;
+  text-align: center;
+  padding: 10px 4px 14px;
+}
+.polaroid--tape::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: -12px;
+  left: 50%;
+  width: 38%;
+  max-width: 96px;
+  height: 24px;
+  background: var(--tape);
+  translate: -50% 0;
+  rotate: calc(var(--tilt, -3deg) * -1.4);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .12);
+}
+a:hover .polaroid,
+.polaroid:hover { rotate: 0deg; scale: 1.03; box-shadow: 0 2px 4px rgba(0, 0, 0, .2), 0 22px 44px rgba(0, 0, 0, .32); z-index: 3; }
+
+/* Hero: dva polaroidy přes fotku, šikmá spodní hrana */
+.hero { clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--seam)), 0 100%); padding-bottom: var(--seam); }
+.hero__polaroids {
+  position: absolute;
+  z-index: 2;
+  right: clamp(24px, 5vw, 80px);
+  bottom: calc(var(--seam) + 28px);
+  display: flex;
+  align-items: flex-end;
+}
+.hero__polaroids .polaroid { width: 170px; }
+.hero__polaroids .polaroid + .polaroid { margin-left: -36px; margin-bottom: 40px; }
+@media (max-width: 1180px) { .hero__polaroids { display: none; } }
+
+/* Zkosené (ustřižené) rohy karet */
+.event-card,
+.space-card,
+.akce-hlavni,
+.tyden,
+.napoje-promo,
+.service-card,
+.rezervace-form,
+.map-box,
+.drink-card {
+  clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%);
+}
+.akce-hlavni,
+.space-card--velka,
+.drink-card--featured { --cut: 36px; }
+/* plakát na kartě akce šikmo seříznutý dole */
+.event-card__poster { clip-path: polygon(0 0, 100% 0, 100% 82%, 0 100%); padding-bottom: 24px; }
+
+/* Šikmé přechody tmavých sekcí */
+.section--dark,
+.signature {
+  clip-path: polygon(0 var(--seam), 100% 0, 100% 100%, 0 100%);
+  padding-top: calc(var(--section-pad-y) + var(--seam));
+  margin-top: calc(var(--seam) * -1);
+  position: relative;
+}
+.section--dark + .section--dark { clip-path: none; margin-top: 0; padding-top: var(--section-pad-y); }
+.signature { clip-path: polygon(0 0, 100% var(--seam), 100% 100%, 0 calc(100% - var(--seam))); padding-bottom: calc(var(--section-pad-y) + var(--seam)); }
+
+/* Polaroid plakátu na kartě kvízu */
+.akce-hlavni__plakat {
+  position: absolute;
+  z-index: 1;
+  right: 26px;
+  top: 30px;
+  width: 30%;
+  max-width: 220px;
+  padding: 8px 8px 0;
+}
+.akce-hlavni__plakat figcaption { font-size: 18px; padding: 7px 2px 10px; }
+
+/* Bouráček: polaroid přes studiovou fotku */
+.signature__media { overflow: visible; }
+.signature__media > img { border-radius: var(--radius-lg); }
+.signature__real {
+  position: absolute;
+  right: -14px;
+  bottom: -26px;
+  width: 36%;
+  max-width: 190px;
+  z-index: 2;
+  padding: 8px 8px 0;
+}
+.signature__real figcaption { font-size: 18px; padding: 7px 2px 10px; }
+
+/* Nástěnka Ze života Bouráku */
+.galerie {
+  background:
+    radial-gradient(circle at 1px 1px, rgba(0, 0, 0, .07) 1px, transparent 0) 0 0 / 14px 14px,
+    #efe9df;
+}
+.galerie .section-head { margin-bottom: 36px; }
+.galerie__wall {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 28px;
+  align-items: start;
+  padding-inline: 8px;
+}
+.galerie__wall .polaroid:nth-child(even) { margin-top: 34px; }
+.galerie__wall .polaroid:nth-child(3n) { margin-top: 12px; }
+@media (max-width: 1000px) {
+  .galerie__wall { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 640px) {
+  .galerie__wall {
+    display: flex;
+    overflow-x: auto;
+    gap: 22px;
+    padding: 20px 8px 28px;
+    scroll-snap-type: x mandatory;
+  }
+  .galerie__wall .polaroid { flex: 0 0 70%; scroll-snap-align: center; margin-top: 0 !important; }
+}
+
+/* Reveal nesmí přepsat natočení polaroidu (rotate je samostatná vlastnost) */
+@media (prefers-reduced-motion: reduce) {
+  .polaroid { transition: none; }
+}
+@media (max-width: 1180px) {
+  .hero { align-items: flex-start; }
+  .hero__content { padding-top: 32px; padding-bottom: 40px; }
+}

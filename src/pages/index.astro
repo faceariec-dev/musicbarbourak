@@ -4,6 +4,10 @@ import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Hours from '../components/Hours.astro';
+import Polaroid from '../components/Polaroid.astro';
+import { galerie } from '../data/galerie';
+import barFoto from '../assets/foto/bar-counter.jpg';
+import shotyFoto from '../assets/foto/shots-tray.jpg';
 import { site, tel, downloads, hours } from '../data/site';
 import { napoje, nahled, kc } from '../data/napoje';
 import { signature } from '../data/specialni-drinky';
@@ -48,6 +52,10 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
         <Image src={heroImg} alt="" class="hero__photo" widths={[600, 1100]} sizes="(max-width: 700px) 100vw, 55vw" loading="eager" fetchpriority="high" />
       </div>
       <div class="hero__overlay" aria-hidden="true"></div>
+      <div class="hero__polaroids" aria-hidden="true">
+        <Polaroid src={barFoto} alt="" caption="Na baru" tilt={-7} width={200} />
+        <Polaroid src={shotyFoto} alt="" caption="Bouráčky!" tilt={5} width={200} ratio="1" />
+      </div>
 
       <div class="hero__content">
         <a href="#akce" class="hero__kicker"><span aria-hidden="true">🧠</span> Každé úterý Chytrý kvíz →</a>
@@ -87,7 +95,7 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
                 <p class="akce-hlavni__desc">{hlavni.desc}</p>
                 <a href="#rezervace" class="btn btn--primary btn--sm">Zarezervovat stůl na kvíz</a>
               </div>
-              <Image src={ukazkovyPlakat} alt="Plakát Chytrého kvízu" class="akce-hlavni__plakat" widths={[220, 440]} sizes="220px" />
+              <Polaroid src={ukazkovyPlakat} alt="Plakát Chytrého kvízu" caption="Přihlas tým přes QR" tilt={4} width={220} class="akce-hlavni__plakat" />
             </article>
 
             <div class="tyden reveal" aria-label="Týden v Bouráku">
@@ -190,10 +198,7 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
         <div class="signature__inner">
           <div class="signature__media">
             <Image src={signature.img} alt="Bouráček – speciální drink Music Bar Bourák" widths={[500, 900]} sizes="(max-width: 900px) 100vw, 40vw" />
-            <figure class="signature__real">
-              <Image src={signature.foto} alt="Tác Bouráčků na baru" widths={[200, 400]} sizes="200px" />
-              <figcaption>Takhle se nosí u nás</figcaption>
-            </figure>
+            <Polaroid src={signature.foto} alt="Tác Bouráčků na baru" caption="Takhle se nosí u nás" tilt={-5} width={190} ratio="1" class="signature__real" />
           </div>
           <div class="signature__content">
             <span class="signature__badge">Speciální drink Bouráku</span>
@@ -221,6 +226,20 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
                 <p class="space-card__desc">{p.desc}</p>
               </div>
             </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="galerie" class="section galerie" aria-label="Ze života Bouráku">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title">Ze života Bouráku</h2>
+          <a href={site.facebook} class="section-link" target="_blank" rel="noopener">Další fotky na Facebooku →</a>
+        </div>
+        <div class="galerie__wall">
+          {galerie.map((g, i) => (
+            <Polaroid src={g.foto} alt={g.alt} caption={g.popisek} ratio={g.pomer} tilt={[-4, 3, -2, 5, -3, 2][i % 6]} width={300} class="reveal" />
           ))}
         </div>
       </div>
