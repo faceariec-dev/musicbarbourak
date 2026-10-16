@@ -107,3 +107,34 @@
 @media print {
   .listek-banner { display: none; }
 }
+
+/* ---------- Bohatý bar: tři fotky ---------- */
+.bar-tri { list-style: none; margin: 0 0 clamp(36px, 5vw, 56px); padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.bar-tri__item { display: flex; flex-direction: column; }
+.bar-tri__img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%); }
+.bar-tri__title { margin: 18px 0 6px; font-family: var(--font-display); font-weight: 400; text-transform: uppercase; font-size: clamp(24px, 2.4vw, 32px); line-height: 1.08; color: var(--ink); }
+.bar-tri__item p { margin: 0; color: var(--color-text-muted); font-size: 15.5px; line-height: 1.55; max-width: 38ch; }
+
+/* ---------- Kvíz: speciální kvízy ---------- */
+.h-kviz__special { margin: 18px 0 0; padding: 14px 18px; border-left: 3px solid var(--color-orange); background: rgba(255, 255, 255, .05); color: rgba(255, 255, 255, .85); font-size: 15.5px; line-height: 1.55; max-width: 56ch; }
+.h-kviz__special strong { color: #fff; }
+
+/* ---------- Obsluha a recenze ---------- */
+.obsluha .h-title { max-width: 14ch; }
+.obsluha__skore { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.obsluha__skore strong { font-family: var(--font-display); font-size: 64px; line-height: 1; color: #fff; }
+.obsluha__skore span { color: #ffb347; letter-spacing: 2px; }
+.obsluha__skore small { color: rgba(255, 255, 255, .65); font-size: 13px; }
+.recenze { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.recenze__item { display: flex; flex-direction: column; gap: 12px; padding: 26px; background: rgba(255, 255, 255, .05); border-top: 3px solid var(--color-orange); }
+.recenze__hvezdy { color: #ffb347; letter-spacing: 2px; }
+.recenze__item blockquote { margin: 0; font-size: 16.5px; line-height: 1.55; color: #fff; }
+.recenze__autor { margin-top: auto; font-size: 13.5px; font-weight: 700; color: rgba(255, 255, 255, .6); }
+.recenze-cta { display: flex; align-items: center; justify-content: space-between; gap: 18px 28px; flex-wrap: wrap; padding: 26px 28px; border: 1px dashed rgba(255, 255, 255, .25); }
+.recenze-cta p { margin: 0; font-size: 16px; color: rgba(255, 255, 255, .8); }
+.recenze-cta strong { color: #fff; }
+
+@media (max-width: 800px) {
+  .bar-tri { grid-template-columns: 1fr; }
+  .obsluha__skore { align-items: flex-start; }
+}
