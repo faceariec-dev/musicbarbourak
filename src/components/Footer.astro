@@ -20,10 +20,10 @@ const year = new Date().getFullYear();
       <div>
         <div class="footer-col-title">Rychlé odkazy</div>
         <div class="footer-links">
-          <a href={`${home}#akce`}>Akce</a>
+          <a href={`${home}#program`}>Program</a>
+          <a href={`${home}#kviz`}>Chytrý kvíz</a>
           <a href={`${home}#napoje`}>Nápoje</a>
-          <a href={`${home}#prostory`}>Prostory</a>
-          <a href={`${home}#sluzby`}>Služby</a>
+          <a href={`${home}#akce-na-miru`}>Oslavy a firemní akce</a>
           <a href={`${home}#kontakt`}>Kontakt</a>
         </div>
       </div>
@@ -33,7 +33,7 @@ const year = new Date().getFullYear();
         <div class="footer-links">
           <a href={url('napojovy-listek/')}>Nápojový lístek</a>
           {jidlo.length > 0 && <a href={url('napojovy-listek/#jidlo')}>Jídelní lístek</a>}
-          <a href={url('specialni-drinky/')}>Speciální drinky</a>
+          <a href={url('specialni-drinky/')}>Koktejlový lístek</a>
           {downloads.map((d) => <a href={url(d.file)}>{d.title} (PDF)</a>)}
           <a href={`${home}#rezervace`}>Rezervace</a>
         </div>

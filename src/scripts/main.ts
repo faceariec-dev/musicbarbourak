@@ -114,16 +114,27 @@ function initOpeningHours() {
   const day = now.getDay(); // 0 = neděle
   const todayRow = rows.find((r) => r.dataset.day === String(day));
   todayRow?.classList.add('is-today');
-  document.querySelector(`.tyden__den[data-day="${day}"]`)?.classList.add('is-today');
+  const progRow = document.querySelector<HTMLElement>(`.program__day[data-day="${day}"]`);
+  progRow?.classList.add('is-today');
+
+  if (!todayRow) return;
+  const text = todayRow.lastElementChild?.textContent ?? '';
+  const closed = text === 'zavřeno';
+  const program = [...(progRow?.querySelectorAll('.program__what a') ?? [])].map((a) => a.textContent).join(', ');
 
   const out = document.getElementById('openToday');
-  if (!out || !todayRow) return;
-  const text = todayRow.lastElementChild?.textContent ?? '';
-  out.innerHTML =
-    text === 'zavřeno'
+  if (out) {
+    out.innerHTML = closed
       ? 'Dnes máme <strong>zavřeno</strong>.'
       : `Dnes otevřeno: <strong class="is-open">${text}</strong>`;
-  out.hidden = false;
+    out.hidden = false;
+  }
+  const bar = document.getElementById('infobarToday');
+  if (bar) {
+    bar.innerHTML = closed
+      ? 'Dnes máme zavřeno'
+      : `Dnes otevřeno <strong>${text}</strong>${program ? ` · ${program}` : ''}`;
+  }
 }
 
 // Poptávka akce → předvyplněný e-mail (zatím bez serveru)
