@@ -6,10 +6,10 @@ import Footer from '../components/Footer.astro';
 import Hours from '../components/Hours.astro';
 import Polaroid from '../components/Polaroid.astro';
 import Ticker from '../components/Ticker.astro';
-import { site, tel, downloads, hours } from '../data/site';
+import { site, tel, downloads } from '../data/site';
 import { napoje, kc } from '../data/napoje';
 import { signature } from '../data/specialni-drinky';
-import { terminy, pravidelne } from '../data/akce';
+import { terminy, pravidelne, colors } from '../data/akce';
 import { kviz } from '../data/kviz';
 import { prostory, sluzby } from '../data/prostory';
 import { galerie } from '../data/galerie';
@@ -21,23 +21,11 @@ const today = new Date().toISOString().slice(0, 10);
 const nadchazejici = terminy
   .filter((t) => (t.until ?? t.date) >= today)
   .sort((a, b) => a.date.localeCompare(b.date));
-const datum = (iso: string) =>
-  new Date(iso + 'T12:00:00').toLocaleDateString('cs-CZ', { weekday: 'short', day: 'numeric', month: 'numeric' });
 
-const cas = (open: [string, string][]) => open.map(([a, b]) => `${a.replace(/^0/, '')}–${b.replace(/^0/, '')}`).join(', ');
-const dnyNazvy = ['Neděle', 'Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota'];
-// Týden v Bouráku: po–ne, otevírací doba + co se ten den děje
-const tyden = [1, 2, 3, 4, 5, 6, 0].map((d) => {
-  const h = hours[(d + 6) % 7];
-  return {
-    d,
-    den: dnyNazvy[d],
-    zavreno: h.open.length === 0,
-    cas: cas(h.open),
-    program: pravidelne.filter((a) => a.dny?.includes(d)),
-  };
-});
-const dalsiAkce = pravidelne.filter((a) => !a.dny);
+// Pravidelný program (úterý kvíz, pá+so disco) a konkrétní akce s datem
+const kazdyTyden = pravidelne.filter((a) => a.dny);
+const den = (iso: string) => new Date(iso + 'T12:00:00').toLocaleDateString('cs-CZ', { weekday: 'short' });
+const mesic = (iso: string) => new Date(iso + 'T12:00:00').toLocaleDateString('cs-CZ', { month: 'short' });
 
 const ticker = [
   'Úterý · Chytrý kvíz',
@@ -85,49 +73,48 @@ const typyAkci = ['Stůl na večer', 'Stůl na kvíz', 'Narozeninová oslava', '
     <!-- ============ PROGRAM ============ -->
     <section id="program" class="h-section" aria-labelledby="program-title">
       <div class="container">
-        <header class="h-head">
-          <p class="eyebrow">Co se kdy děje</p>
-          <h2 class="h-title" id="program-title">Týden v Bouráku</h2>
+        <header class="h-head h-head--row">
+          <div>
+            <p class="eyebrow">Co se kdy děje</p>
+            <h2 class="h-title" id="program-title">Program</h2>
+          </div>
+          <a href={site.facebook} class="h-link" target="_blank" rel="noopener">Novinky na Facebooku →</a>
         </header>
 
-        <div class="program">
-          <ol class="program__week">
-            {tyden.map((t) => (
-              <li class:list={['program__day', { 'is-closed': t.zavreno, 'has-program': t.program.length }]} data-day={t.d}>
-                <span class="program__name">{t.den}</span>
-                <span class="program__what">
-                  {t.program.length
-                    ? t.program.map((p) => <a href={p.hlavni ? '#kviz' : '#program'}>{p.title}</a>)
-                    : <span class="program__none">{t.zavreno ? 'Zavřeno' : 'Bar otevřen'}</span>}
-                </span>
-                <span class="program__time">{t.zavreno ? '—' : t.cas}</span>
-              </li>
-            ))}
-          </ol>
+        <h3 class="program-label">Každý týden</h3>
+        <ul class="tydne">
+          {kazdyTyden.map((a) => (
+            <li class:list={['tydne__item', { 'tydne__item--hlavni': a.hlavni }]} data-dny={a.dny!.join(' ')}>
+              <span class="tydne__den">{a.den ?? a.when}</span>
+              <a class="tydne__nazev" href={a.hlavni ? '#kviz' : '#zazitky'}>{a.title}</a>
+              <span class="tydne__popis">{a.desc}</span>
+            </li>
+          ))}
+        </ul>
 
-          <aside class="program__side">
-            {nadchazejici.length > 0 && (
-              <div class="program__dated">
-                <h3 class="program__side-title">Nejbližší akce</h3>
-                <ul>
-                  {nadchazejici.map((ev) => (
-                    <li data-until={ev.until ?? ev.date}>
-                      <time datetime={ev.date}>{datum(ev.date)}{ev.time && `, ${ev.time}`}</time>
-                      <strong>{ev.title}</strong>
-                      <span>{ev.desc}</span>
-                    </li>
-                  ))}
-                </ul>
+        <h3 class="program-label">Nejbližší akce</h3>
+        <ul class="akce-list" id="akceList">
+          {nadchazejici.map((ev) => (
+            <li class="akce-karta" data-until={ev.until ?? ev.date}>
+              <time class="akce-karta__datum" datetime={ev.date}>
+                <span class="akce-karta__den">{den(ev.date)}</span>
+                <span class="akce-karta__cislo">{new Date(ev.date + 'T12:00:00').getDate()}.</span>
+                <span class="akce-karta__mesic">{mesic(ev.date)}</span>
+              </time>
+              <div class="akce-karta__text">
+                <span class="akce-karta__tag" style={`--tag:${colors[ev.color].tag}`}>{ev.tag}{ev.time && ` · ${ev.time}`}</span>
+                <strong>{ev.title}</strong>
+                <span>{ev.desc}</span>
               </div>
-            )}
-            <h3 class="program__side-title">A k tomu</h3>
-            <ul class="program__extra">
-              {dalsiAkce.map((a) => (
-                <li><strong>{a.title}</strong><span>{a.when} · {a.desc}</span></li>
-              ))}
-            </ul>
-          </aside>
-        </div>
+            </li>
+          ))}
+          <li class="akce-karta akce-karta--prazdna" id="akceEmpty" hidden={nadchazejici.length > 0}>
+            <div class="akce-karta__text">
+              <strong>Další akce právě chystáme</strong>
+              <span>Koncerty, tematické večery a dětské dny oznamujeme na <a href={site.facebook} target="_blank" rel="noopener">Facebooku</a> a <a href={site.instagram} target="_blank" rel="noopener">Instagramu</a>.</span>
+            </div>
+          </li>
+        </ul>
       </div>
     </section>
 

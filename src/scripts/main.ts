@@ -106,6 +106,18 @@ function initEventsCarousel() {
   );
 }
 
+// Program: akce s datem, které skončily po posledním sestavení webu, schovat
+function initAkceList() {
+  const list = document.getElementById('akceList');
+  if (!list) return;
+  const today = new Date().toLocaleDateString('sv-SE');
+  list.querySelectorAll<HTMLElement>('[data-until]').forEach((card) => {
+    if ((card.dataset.until ?? '') < today) card.remove();
+  });
+  const empty = document.getElementById('akceEmpty');
+  if (empty) empty.hidden = list.querySelector('[data-until]') !== null;
+}
+
 // Dnešní den v otevírací době + „Dnes otevřeno do…“ v úvodu
 function initOpeningHours() {
   const rows = [...document.querySelectorAll<HTMLElement>('.hours-list__row')];
@@ -114,19 +126,26 @@ function initOpeningHours() {
   const day = now.getDay(); // 0 = neděle
   const todayRow = rows.find((r) => r.dataset.day === String(day));
   todayRow?.classList.add('is-today');
-  const progRow = document.querySelector<HTMLElement>(`.program__day[data-day="${day}"]`);
-  progRow?.classList.add('is-today');
+  // Co se dnes děje: pravidelný program (data-dny) a akce s dnešním datem
+  const dnes = now.toLocaleDateString('sv-SE');
+  const pravidelne = [...document.querySelectorAll<HTMLElement>('[data-dny]')].filter((el) =>
+    (el.dataset.dny ?? '').split(' ').includes(String(day)),
+  );
+  pravidelne.forEach((el) => el.classList.add('is-today'));
+  const dnesAkce = [...document.querySelectorAll<HTMLElement>('.akce-karta time[datetime]')]
+    .filter((t) => t.dateTime === dnes)
+    .map((t) => t.closest('.akce-karta')?.querySelector('strong')?.textContent);
 
   if (!todayRow) return;
   const text = todayRow.lastElementChild?.textContent ?? '';
   const closed = text === 'zavřeno';
-  const program = [...(progRow?.querySelectorAll('.program__what a') ?? [])].map((a) => a.textContent).join(', ');
+  const program = [...pravidelne.map((el) => el.querySelector('.tydne__nazev')?.textContent), ...dnesAkce].filter(Boolean).join(', ');
 
   const out = document.getElementById('openToday');
   if (out) {
     out.innerHTML = closed
       ? 'Dnes máme <strong>zavřeno</strong>.'
-      : `Dnes otevřeno: <strong class="is-open">${text}</strong>`;
+      : `Dnes otevřeno: <strong class="is-open">${text}</strong>${program ? ` · <strong>${program}</strong>` : ''}`;
     out.hidden = false;
   }
   const bar = document.getElementById('infobarToday');
@@ -204,6 +223,7 @@ function initReveal() {
 initMobileMenu();
 initActiveNav();
 initEventsCarousel();
+initAkceList();
 initOpeningHours();
 initReservationForm();
 initPrint();

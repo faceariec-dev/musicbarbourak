@@ -28,6 +28,7 @@ export interface Pravidelna {
   color: Color;
   dny?: number[]; // dny v týdnu pro „Týden v Bouráku“: 1 = pondělí … 6 = sobota, 0 = neděle
   kratce?: string; // krátký název do týdenního přehledu
+  den?: string; // dny v pruhu „Každý týden“, např. 'Úterý'
   foto?: ImageMetadata;
   hlavni?: boolean; // velká karta vedle týdenního přehledu
 }
@@ -45,11 +46,12 @@ export const pravidelne: Pravidelna[] = [
     tag: 'KVÍZ',
     color: 'orange',
     dny: [2],
+    den: 'Úterý',
     kratce: 'Chytrý kvíz',
     foto: kvizFoto,
     hlavni: true,
   },
-  { title: 'Disco 80ky & 90ky', when: 'Každý pátek a sobotu', desc: 'Největší hity, tanec a atmosféra až do noci.', tag: 'DISCO', color: 'pink', dny: [5, 6], kratce: 'Disco do 5 ráno' },
+  { title: 'Disco 80ky & 90ky', when: 'Každý pátek a sobotu', desc: 'Největší hity, tanec a parket až do 5:00 ráno.', tag: 'DISCO', color: 'pink', dny: [5, 6], den: 'Pátek a sobota', kratce: 'Disco do 5 ráno' },
   { title: 'Live koncerty', when: 'Pravidelně', desc: 'Živá hudba a koncertní večery.', tag: 'HUDBA', color: 'violet' },
   { title: 'Dětský den', when: 'Sezónně', desc: 'Tematické a speciální akce pro děti a rodiny.', tag: 'ZÁBAVA', color: 'yellow' },
   { title: 'Soukromé a tematické akce', when: 'Na míru', desc: 'Soukromé večírky, narozeninové oslavy či tematické večery.', tag: 'AKCE', color: 'wine' },

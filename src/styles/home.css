@@ -1,6 +1,6 @@
 /* =========================================================
    Úvodní stránka – nová struktura (inspirace: londýnské a berlínské
-   bary): velká fotka, program týdne jako hlavní prvek, rozdělené
+   bary): velká fotka, program (každý týden + akce s datem), rozdělené
    sekce text + fotka místo mřížek karet, plakátové písmo Anton.
    ========================================================= */
 :root {
@@ -159,47 +159,50 @@
 @media (prefers-reduced-motion: reduce) { .ticker__track { animation: none; } }
 
 /* ---------- Program ---------- */
-.program { display: grid; grid-template-columns: 1.6fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: start; }
-.program__week { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
-.program__day {
-  display: grid;
-  grid-template-columns: 170px 1fr auto;
-  gap: 20px;
-  align-items: center;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--line-light);
+.program-label { margin: 0 0 16px; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--color-orange); font-weight: 800; }
+.tydne { list-style: none; margin: 0 0 clamp(40px, 5vw, 64px); padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+.tydne__item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 26px 28px;
+  background: var(--ink);
+  color: #fff;
+  clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%);
 }
-.program__name { font-family: var(--font-display); text-transform: uppercase; font-size: 28px; line-height: 1.15; color: var(--ink); }
-.program__what { display: flex; flex-direction: column; gap: 2px; }
-.program__what a { font-weight: 800; font-size: 18px; color: var(--ink); }
-.program__what a:hover { color: var(--color-orange); }
-.program__none { color: var(--color-text-mute-2); font-size: 15px; }
-.program__time { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--color-text-muted); font-size: 15px; white-space: nowrap; }
-.program__day.has-program .program__name { color: var(--color-orange); }
-.program__day.is-closed { opacity: .45; }
-.program__day.is-today { background: linear-gradient(90deg, rgba(219, 74, 31, .08), transparent 70%); }
-.program__day.is-today .program__name::after {
+.tydne__item--hlavni { background: var(--color-orange); }
+.tydne__den { font-size: 12.5px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #ffb08f; }
+.tydne__item--hlavni .tydne__den { color: rgba(255, 255, 255, .85); }
+.tydne__nazev { font-family: var(--font-display); text-transform: uppercase; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.05; padding-top: .06em; color: #fff; }
+.tydne__nazev:hover { color: #fff; text-decoration: underline; text-decoration-thickness: 2px; }
+.tydne__nazev::before { content: ""; position: absolute; inset: 0; }
+.tydne__popis { color: rgba(255, 255, 255, .78); font-size: 15px; line-height: 1.5; max-width: 44ch; }
+.tydne__item.is-today::after {
   content: "dnes";
-  font-family: var(--font-body);
+  position: absolute;
+  top: 22px;
+  right: 40px;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 1px;
   text-transform: uppercase;
-  vertical-align: middle;
-  margin-left: 10px;
-  padding: 3px 7px;
-  border-radius: 3px;
-  background: var(--color-orange);
-  color: #fff;
+  padding: 3px 8px;
+  background: #fff;
+  color: var(--ink);
 }
-.program__side { background: var(--cream); padding: 28px; clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%); }
-.program__side-title { margin: 0 0 14px; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--color-orange); font-weight: 800; }
-.program__side ul { list-style: none; margin: 0 0 24px; padding: 0; }
-.program__side li { display: flex; flex-direction: column; gap: 2px; padding: 12px 0; border-bottom: 1px solid var(--line-light); }
-.program__side li:last-child { border-bottom: 0; }
-.program__side strong { font-size: 16px; color: var(--ink); }
-.program__side span, .program__side time { font-size: 14px; color: var(--color-text-muted); line-height: 1.45; }
-.program__extra { margin-bottom: 0 !important; }
+
+.akce-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+.akce-karta { display: flex; gap: 20px; align-items: flex-start; padding: 22px 24px; background: var(--cream); }
+.akce-karta__datum { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; min-width: 64px; padding: 8px 6px; border: 2px solid var(--ink); line-height: 1; text-transform: uppercase; }
+.akce-karta__den { font-size: 11px; font-weight: 800; letter-spacing: 1px; color: var(--color-orange); }
+.akce-karta__cislo { font-family: var(--font-display); font-size: 36px; color: var(--ink); padding-top: 4px; }
+.akce-karta__mesic { font-size: 12px; font-weight: 700; color: var(--color-text-muted); }
+.akce-karta__text { display: flex; flex-direction: column; gap: 4px; }
+.akce-karta__tag { font-size: 11.5px; font-weight: 800; letter-spacing: 1.5px; color: var(--tag, var(--color-orange)); }
+.akce-karta strong { font-size: 18px; color: var(--ink); }
+.akce-karta span { font-size: 14.5px; color: var(--color-text-muted); line-height: 1.5; }
+.akce-karta--prazdna { grid-column: 1 / -1; border-left: 4px solid var(--color-orange); }
 
 /* ---------- Kvíz ---------- */
 .h-kviz { position: relative; overflow: hidden; }
@@ -303,7 +306,6 @@
 @media (max-width: 1100px) {
   .h-hero__inner { grid-template-columns: 1fr; }
   .h-hero__photos { display: none; }
-  .program { grid-template-columns: 1fr; }
   .h-split, .drinks-split, .kontakt { grid-template-columns: 1fr; }
   .h-split--reverse .h-split__media { order: 0; }
   .h-kviz__collage { min-height: 460px; max-width: 520px; width: 100%; margin-inline: auto; }
@@ -313,10 +315,6 @@
   .h-hero { min-height: 0; }
   .h-hero__inner { padding-block: 72px 48px; }
   .h-hero__actions .btn { flex: 1 1 100%; }
-  .program__day { grid-template-columns: 1fr auto; gap: 4px 12px; padding: 14px 0; }
-  .program__name { font-size: 24px; grid-column: 1; }
-  .program__time { grid-column: 2; grid-row: 1; }
-  .program__what { grid-column: 1 / -1; }
   .menu-preview { grid-template-columns: 1fr; }
   .features { grid-template-columns: 1fr; }
   .bouracek { min-height: 440px; }
