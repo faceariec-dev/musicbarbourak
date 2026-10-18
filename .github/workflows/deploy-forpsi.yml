@@ -1,13 +1,54 @@
 name: Deploy to FORPSI
 
+# Spouští se ručně (Actions → Deploy to FORPSI → Run workflow).
+# 1) Sestaví Astro web z vybrané větve.
+# 2) Hotový web (složka dist/) uloží do větve `forpsi-web`.
+# 3) Server na FORPSI si tu větev stáhne do složky bourak/.
+
 on:
   workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-forpsi
+  cancel-in-progress: false
+
+env:
+  WEB_BRANCH: forpsi-web
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Build website
+        run: |
+          npm ci
+          npm run build
+        env:
+          SITE: https://www.pension48.cz
+          BASE: /bourak/
+
+      - name: Publish build to branch
+        shell: bash
+        run: |
+          cd dist
+          git init -q -b "$WEB_BRANCH"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Web z ${GITHUB_SHA::7}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "HEAD:$WEB_BRANCH"
+
       - name: Prepare SSH
         shell: bash
         run: |
@@ -27,7 +68,7 @@ jobs:
 
           TARGET="/web/htdocs/www.pension48.cz/home/www/bourak"
           REPO="https://github.com/faceariec-dev/musicbarbourak.git"
-          BRANCH="claude/music-bar-bourak-html-pk43km"
+          BRANCH="forpsi-web"
 
           mkdir -p "$TARGET"
           cd "$TARGET"
@@ -39,8 +80,10 @@ jobs:
             fi
             git clone --depth 1 --branch "$BRANCH" "$REPO" .
           else
-            git fetch origin "$BRANCH"
-            git reset --hard "origin/$BRANCH"
+            # Funguje i když složka dřív obsahovala jinou větev (zdrojáky)
+            git fetch --depth 1 origin "$BRANCH"
+            git reset --hard FETCH_HEAD
+            git clean -fd
           fi
 
           echo "FORPSI deployment finished."

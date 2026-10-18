@@ -1,0 +1,20 @@
+---
+// Fotka jako polaroid s izolepou. `tilt` = natočení ve stupních.
+import { Image } from 'astro:assets';
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  caption?: string;
+  tilt?: number;
+  tape?: boolean;
+  ratio?: string; // poměr stran fotky, např. '4 / 5' nebo '1'
+  width?: number;
+  class?: string;
+}
+const { src, alt, caption, tilt = -3, tape = true, ratio = '4 / 5', width = 320, class: cls } = Astro.props;
+---
+<figure class:list={['polaroid', { 'polaroid--tape': tape }, cls]} style={`--tilt:${tilt}deg;--ratio:${ratio}`}>
+  <Image src={src} alt={alt} widths={[width, width * 2]} sizes={`${width}px`} />
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

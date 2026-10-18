@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { url } from '../data/url';
+---
+<Base title="Stránka nenalezena – Music Bar Bourák" description="Tahle stránka neexistuje." noindex>
+  <Header />
+  <main id="main" class="section">
+    <div class="container">
+      <h1 class="section-title">Tahle stránka se nám někam zatoulala</h1>
+      <p><a class="btn btn--primary" href={url()}>Zpět na úvod</a></p>
+    </div>
+  </main>
+  <Footer />
+</Base>

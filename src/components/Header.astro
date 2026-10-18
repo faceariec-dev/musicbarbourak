@@ -1,0 +1,51 @@
+---
+import { url } from '../data/url';
+import { jidlo } from '../data/napoje';
+import { site, tel } from '../data/site';
+
+const home = url();
+const links = [
+  ['napoje', 'Bar'],
+  ['program', 'Program'],
+  ['kviz', 'Kvíz'],
+  ['akce-na-miru', 'Oslavy a firemní akce'],
+  ['kontakt', 'Kontakt'],
+];
+const listekLabel = jidlo.length ? 'Jídelní / Nápojový lístek' : 'Nápojový lístek';
+---
+<div class="infobar" id="infobar">
+  <div class="infobar__inner">
+    <span id="infobarToday">Music Bar Bourák · Praha 4 – Háje</span>
+    <a href={tel(site.phone)} class="infobar__phone">{site.phone}</a>
+  </div>
+</div>
+<header class="site-header">
+  <nav class="nav" aria-label="Hlavní navigace">
+    <a class="nav__logo" href={home} aria-label="Music Bar Bourák – domů">
+      <img src={url('images/logo-bourak.png')} alt="Music Bar Bourák" width="240" height="58" />
+    </a>
+
+    <ul class="nav__links">
+      {links.map(([id, label]) => <li><a href={`${home}#${id}`}>{label}</a></li>)}
+    </ul>
+
+    <div class="nav__actions">
+      <a href={url('napojovy-listek/')} class="btn btn--ghost btn--sm">{listekLabel}</a>
+      <a href={`${home}#rezervace`} class="btn btn--primary btn--sm">Rezervace</a>
+    </div>
+
+    <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Otevřít menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span id="hamburgerIcon" aria-hidden="true">☰</span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    {links.map(([id, label]) => <a href={`${home}#${id}`}>{label}</a>)}
+    <a href={url('napojovy-listek/')}>{listekLabel}</a>
+    <a href={url('specialni-drinky/')}>Koktejlový lístek</a>
+    <div class="mobile-menu__actions">
+      <a href={`${home}#rezervace`} class="btn btn--primary btn--block">Rezervace</a>
+      <a href={tel(site.phone)} class="btn btn--outline btn--block">Zavolat {site.phone}</a>
+    </div>
+  </div>
+</header>
