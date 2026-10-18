@@ -1,0 +1,47 @@
+name: Deploy to FORPSI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Prepare SSH
+        shell: bash
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.FORPSI_SSH_KEY }}" > ~/.ssh/id_forpsi
+          chmod 600 ~/.ssh/id_forpsi
+          ssh-keyscan -p 2222 -H "${{ secrets.FORPSI_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Deploy website
+        shell: bash
+        env:
+          FORPSI_HOST: ${{ secrets.FORPSI_HOST }}
+          FORPSI_USER: ${{ secrets.FORPSI_USER }}
+        run: |
+          ssh -i ~/.ssh/id_forpsi -p 2222 "${FORPSI_USER}@${FORPSI_HOST}" <<'EOF'
+          set -e
+
+          TARGET="/web/htdocs/www.pension48.cz/home/www/bourak"
+          REPO="https://github.com/faceariec-dev/musicbarbourak.git"
+          BRANCH="claude/music-bar-bourak-html-pk43km"
+
+          mkdir -p "$TARGET"
+          cd "$TARGET"
+
+          if [ ! -d .git ]; then
+            if [ -n "$(ls -A . 2>/dev/null)" ]; then
+              echo "Target directory is not empty. Initial deployment stopped for safety."
+              exit 1
+            fi
+            git clone --depth 1 --branch "$BRANCH" "$REPO" .
+          else
+            git fetch origin "$BRANCH"
+            git reset --hard "origin/$BRANCH"
+          fi
+
+          echo "FORPSI deployment finished."
+          EOF
