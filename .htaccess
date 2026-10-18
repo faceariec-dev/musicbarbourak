@@ -1,0 +1,4 @@
+# Složku .git (nasazení přes git na FORPSI) nesmí být vidět z webu
+RedirectMatch 404 /\.git
+
+ErrorDocument 404 /bourak/404.html
