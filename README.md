@@ -6,7 +6,7 @@ Statický web v [Astru](https://astro.build): jednostránkový úvod, celý náp
 
 ```bash
 npm ci
-npm run dev        # vývoj na http://localhost:4321/musicbarbourak/
+npm run dev        # vývoj na http://localhost:4321/bourak/
 npm run build      # statický výstup do dist/
 npm run preview    # náhled sestaveného webu
 ```
@@ -31,8 +31,14 @@ Telefon je hlavní cesta. Formulář pro oslavy a firemní akce zatím otevře e
 
 ## Adresa webu
 
-Výchozí nastavení počítá s podsložkou `https://www.pension48.cz/musicbarbourak/`. Pro vlastní doménu stačí při buildu nastavit:
+Výchozí nastavení počítá s podsložkou `https://www.pension48.cz/bourak/`. Pro vlastní doménu stačí při buildu nastavit:
 
 ```bash
 SITE=https://www.vase-domena.cz BASE=/ npm run build
 ```
+
+## Nasazení na FORPSI
+
+Web běží na `https://www.pension48.cz/bourak/`. Nasazuje se ručně v GitHubu: **Actions → Deploy to FORPSI → Run workflow** (vyberte větev, ze které se má web sestavit).
+
+Workflow web sestaví (`npm run build`), hotovou složku `dist/` uloží do větve `forpsi-web` a server na FORPSI si ji přes SSH stáhne do `/www/bourak`. Potřebuje v nastavení repozitáře secrets `FORPSI_HOST`, `FORPSI_USER` a `FORPSI_SSH_KEY`. Větev `forpsi-web` se přepisuje při každém nasazení, ručně do ní nic nepište.
