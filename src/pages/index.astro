@@ -39,7 +39,7 @@ const ticker = [
   "TOM'S Pizza",
 ]
 
-const nahledNapoju = napoje.map((c) => ({ ...c, items: c.items.slice(0, 3) }));
+const nahledNapoju = napoje.filter((c) => c.naUvod).map((c) => ({ ...c, items: c.items.slice(0, 3) }));
 const typyAkci = ['Stůl na večer', 'Stůl na kvíz', 'Narozeninová oslava', 'Firemní akce', 'Soukromá párty', 'Jiné'];
 ---
 <Base
