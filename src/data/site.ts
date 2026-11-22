@@ -5,7 +5,7 @@ export const site = {
   claim: 'místo, kde žije hudba a zábava',
 
   street: 'Ke Kateřinkám 1411/17',
-  district: 'Praha 4, Háje',
+  district: 'Praha – Chodov',
   city: 'Praha',
   zip: '149 00',
 
@@ -18,7 +18,7 @@ export const site = {
 
   mapUrl:
     'https://www.google.com/maps/search/?api=1&query=' +
-    encodeURIComponent('Music Bar Bourák, Ke Kateřinkám 1411/17, Praha 4'),
+    encodeURIComponent('Music Bar Bourák, Ke Kateřinkám 1411/17, 149 00 Praha – Chodov'),
 };
 
 export const tel = (phone: string) => 'tel:' + phone.replace(/\s/g, '');
