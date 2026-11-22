@@ -36,6 +36,9 @@ const maArchiv = archiv.some((t) => (t.until ?? t.date) < today);
 // Úvod patří akcím (nejbližší dvě); novinky z baru jsou jen v sekci Bohatý bar a v pruhu
 // V úvodu jsou připravené všechny budoucí akce; skript ukáže dvě nejbližší, které ještě neskončily
 const heroAkce = nadchazejici;
+// bez skriptu: dvě nejbližší akce, stejný název jen jednou
+const heroVidet: typeof nadchazejici = [];
+for (const t of nadchazejici) if (heroVidet.length < 2 && !heroVidet.some((v) => v.title === t.title)) heroVidet.push(t);
 const maNovinky = heroAkce.length > 0;
 const datumDlouze = (iso: string) => new Date(iso + 'T12:00:00').toLocaleDateString('cs-CZ', { weekday: 'long', day: 'numeric', month: 'numeric' });
 
@@ -84,7 +87,7 @@ const typyAkci = ['Stůl na večer', 'Stůl na kvíz', 'Narozeninová oslava', '
         {maNovinky && (
           <div class="hero-news" id="heroNews" aria-label="Nejbližší akce v Bouráku">
             {heroAkce.map((ev, i) => (
-              <a class:list={['hero-news__item', { 'hero-news__item--velka': i === 0 }]} href="#program" data-until={ev.until ?? ev.date} hidden={i > 1}>
+              <a class:list={['hero-news__item', { 'hero-news__item--velka': ev === heroVidet[0] }]} href="#program" data-until={ev.until ?? ev.date} hidden={!heroVidet.includes(ev)}>
                 {ev.plakat && <Image src={ev.plakat} alt="" class="hero-news__img" widths={[200, 400]} sizes="160px" />}
                 <span class="hero-news__text">
                   <span class="hero-news__label" data-kdy={ev.date}>{datumDlouze(ev.date)}{ev.time && ` · ${ev.time}`}</span>
