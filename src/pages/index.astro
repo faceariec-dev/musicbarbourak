@@ -7,7 +7,7 @@ import Hours from '../components/Hours.astro';
 import Polaroid from '../components/Polaroid.astro';
 import Ticker from '../components/Ticker.astro';
 import { site, tel, downloads } from '../data/site';
-import { napoje, kc } from '../data/napoje';
+import { doporucujeme, kc } from '../data/napoje';
 import { signature } from '../data/specialni-drinky';
 import { terminy, pravidelne, colors } from '../data/akce';
 import { kviz } from '../data/kviz';
@@ -59,7 +59,6 @@ const ticker = [
   "TOM'S Pizza",
 ].filter((t, i, all) => all.indexOf(t) === i)
 
-const nahledNapoju = napoje.filter((c) => c.naUvod).map((c) => ({ ...c, items: c.items.slice(0, 3) }));
 const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'Soukromá párty', 'Jiné'];
 ---
 <Base
@@ -157,13 +156,14 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
           </a>
 
           <div class="menu-preview">
-            {nahledNapoju.map((cat) => (
+            <p class="menu-preview__nadpis">Doporučujeme</p>
+            {doporucujeme.map((cat) => (
               <div class="menu-preview__cat">
                 <h3>{cat.title}</h3>
                 <ul>
                   {cat.items.map((it) => (
                     <li>
-                      <span>{it.name}{it.volume && <small> {it.volume}</small>}</span>
+                      <span>{it.name.replace(' (dle nabídky)', '')}{it.volume && <small> {it.volume}</small>}{it.note === 'Novinka' && <span class="menu-preview__novinka">Novinka</span>}</span>
                       <span class="menu-preview__dots" aria-hidden="true"></span>
                       <span class="menu-preview__price">{kc(it.price)}</span>
                     </li>
@@ -171,7 +171,11 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
                 </ul>
               </div>
             ))}
-            {downloads.map((d) => <a class="menu-preview__pdf" href={url(d.file)}>{d.title} (PDF)</a>)}
+            <div class="menu-preview__dalsi">
+              <a href={url('napojovy-listek/')} class="btn btn--dark">Celý nápojový lístek →</a>
+              <span>Další rumy, whisky, gin, tequila, likéry a lahvové pivo najdete v lístku.</span>
+              {downloads.map((d) => <a class="menu-preview__pdf" href={url(d.file)}>{d.title} (PDF)</a>)}
+            </div>
           </div>
         </div>
       </div>
