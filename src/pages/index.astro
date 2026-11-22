@@ -365,6 +365,10 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
           </ol>
           <a href={kviz.prihlaska} class="btn btn--primary btn--lg" target="_blank" rel="noopener">Přihlásit tým na chytrykviz.cz</a>
         </div>
+        <div class="h-kviz__collage" aria-hidden="true">
+          <Polaroid src={kviz.plakat} alt="" caption="Přihlas tým přes QR" tilt={4} width={300} />
+          <Polaroid src={kviz.atmosfera} alt="" caption="Úterý = přemýšlení" tilt={-5} width={240} />
+        </div>
         <div class="kviz-specialy" id="kvizSpecialy">
           <h3 class="kviz-specialy__nadpis">Máme pro vás speciály</h3>
           <p class="kviz-specialy__lead">{kviz.specialni} <a href={kviz.specialniOdkaz} target="_blank" rel="noopener">kvizovespecialy.cz</a>.</p>
@@ -378,16 +382,12 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
                 )}
                 <div class="kviz-special__text">
                   <time class="kviz-special__datum" datetime={ev.date} data-akce-datum={ev.date} data-nazev={ev.title} data-cas={ev.time}><span data-kdy={ev.date} class="kviz-special__kdy" hidden></span>{datumDlouze(ev.date)}{ev.time && ` · od ${ev.time}`}</time>
-                  <strong class="kviz-special__nazev">{ev.title}</strong>
+                  <strong class="kviz-special__nazev">{ev.title.replace(/^Chytrý kvíz:\s*/i, '')}</strong>
                   {ev.odkaz && <a class="btn btn--primary btn--sm" href={ev.odkaz} target="_blank" rel="noopener">{ev.odkazText ?? 'Přihlásit tým'}</a>}
                 </div>
               </li>
             ))}
           </ul>
-        </div>
-        <div class="h-kviz__collage" aria-hidden="true">
-          <Polaroid src={kviz.plakat} alt="" caption="Přihlas tým přes QR" tilt={4} width={300} />
-          <Polaroid src={kviz.atmosfera} alt="" caption="Úterý = přemýšlení" tilt={-5} width={240} />
         </div>
       </div>
     </section>
