@@ -380,6 +380,12 @@
   .hero-news { justify-self: start; max-width: 560px; }
 }
 @media (max-width: 700px) {
+  /* Na mobilu musí být novinky vidět hned bez posouvání: kratší úvod */
+  .h-hero--novinky .h-hero__inner { padding-block: 36px 32px; gap: 24px; }
+  .h-hero--novinky .h-hero__lead { display: none; }
+  .h-hero--novinky .h-hero__actions { margin-top: 22px; }
+  .h-hero--novinky .h-hero__actions .btn { flex: 1 1 0; padding-inline: 10px; }
+  .h-hero--novinky .h-hero__today { display: none; }
   .hero-news { gap: 10px; }
   .hero-news__item { padding: 10px; gap: 14px; }
   .hero-news__img { width: 64px; height: 80px; }
@@ -398,11 +404,11 @@
 
 /* ---------- Archiv koncertů ---------- */
 .archiv { margin-top: 48px; }
-.archiv[hidden], .archiv__item[hidden] { display: none; }
+.archiv[hidden], .archiv__item[hidden], .akce-karta[hidden] { display: none; }
 .archiv__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 22px; }
 .archiv__item { display: flex; flex-direction: column; gap: 4px; }
 .archiv__plakat { display: block; margin-bottom: 8px; background: var(--ink); }
-.archiv__plakat img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; display: block; filter: grayscale(.35); transition: filter .2s ease; }
+.archiv__plakat img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; display: block; filter: grayscale(.35); transition: filter .2s ease; }
 .archiv__plakat:hover img { filter: none; }
 .archiv__item time { font-size: 12px; font-weight: 800; letter-spacing: 1.2px; color: var(--color-orange); }
 .archiv__item strong { font-size: 16px; color: var(--ink); }

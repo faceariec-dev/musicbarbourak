@@ -64,7 +64,7 @@ const typyAkci = ['Stůl na večer', 'Stůl na kvíz', 'Narozeninová oslava', '
 
   <main id="main">
     <!-- ============ HERO ============ -->
-    <section id="uvod" class="h-hero" aria-label="Úvod">
+    <section id="uvod" class:list={['h-hero', { 'h-hero--novinky': maNovinky }]} aria-label="Úvod">
       <Image src={ilustrace.barPolice} alt="" class="h-hero__bg" widths={[800, 1400, 2000]} sizes="100vw" loading="eager" fetchpriority="high" />
       <div class="h-hero__shade" aria-hidden="true"></div>
       <div class="container h-hero__inner">
