@@ -34,7 +34,8 @@ const archiv = terminy
   .sort((a, b) => b.date.localeCompare(a.date));
 const maArchiv = archiv.some((t) => (t.until ?? t.date) < today);
 // Úvod patří akcím (nejbližší dvě); novinky z baru jsou jen v sekci Bohatý bar a v pruhu
-const heroAkce = nadchazejici.slice(0, 2);
+// V úvodu jsou připravené všechny budoucí akce; skript ukáže dvě nejbližší, které ještě neskončily
+const heroAkce = nadchazejici;
 const maNovinky = heroAkce.length > 0;
 const datumDlouze = (iso: string) => new Date(iso + 'T12:00:00').toLocaleDateString('cs-CZ', { weekday: 'long', day: 'numeric', month: 'numeric' });
 
@@ -83,13 +84,13 @@ const typyAkci = ['Stůl na večer', 'Stůl na kvíz', 'Narozeninová oslava', '
         {maNovinky && (
           <div class="hero-news" id="heroNews" aria-label="Nejbližší akce v Bouráku">
             {heroAkce.map((ev, i) => (
-              <a class:list={['hero-news__item', { 'hero-news__item--velka': i === 0 }]} href="#program" data-until={ev.until ?? ev.date}>
+              <a class:list={['hero-news__item', { 'hero-news__item--velka': i === 0 }]} href="#program" data-until={ev.until ?? ev.date} hidden={i > 1}>
                 {ev.plakat && <Image src={ev.plakat} alt="" class="hero-news__img" widths={[200, 400]} sizes="160px" />}
                 <span class="hero-news__text">
                   <span class="hero-news__label" data-kdy={ev.date}>{datumDlouze(ev.date)}{ev.time && ` · ${ev.time}`}</span>
                   <strong class="hero-news__title">{ev.title}</strong>
                   <span class="hero-news__meta">{ev.tag.toLowerCase()}{ev.vstupne && ` · vstupné ${ev.vstupne}`}</span>
-                  {i === 0 && <span class="hero-news__vice">Více v programu →</span>}
+                  <span class="hero-news__vice">Více v programu →</span>
                 </span>
               </a>
             ))}
