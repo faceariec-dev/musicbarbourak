@@ -19,6 +19,10 @@ import kvizPlakat from '../assets/foto/quiz-poster.jpg';
 import jenBlbni from '../assets/akce/jen-blbni-rock-2026-11-21.jpg';
 import kvizMarvel from '../assets/akce/kviz-marvel-2026-11.jpg';
 import kvizPohadkovy from '../assets/akce/kviz-pohadkovy-2026-12-13.jpg';
+import kvizRetro from '../assets/akce/kviz-retro-2026-10.jpg';
+import kvizCestovatelsky from '../assets/akce/kviz-cestovatelsky-2026-04-19.jpg';
+import kvizHerni from '../assets/akce/kviz-herni-2026-03-29.jpg';
+import bluesrock from '../assets/akce/bluesrock-cannonade-2026-04-10.jpg';
 
 export type Color = 'orange' | 'pink' | 'violet' | 'yellow' | 'wine';
 
@@ -90,6 +94,52 @@ export const terminy: Termin[] = [
     color: 'violet',
     vstupne: '200 Kč',
     plakat: jenBlbni,
+    archiv: true,
+  },
+  // ---- odehrané (zůstávají kvůli archivu koncertů a přehledu proběhlých speciálů) ----
+  {
+    date: '2026-10-07',
+    title: 'Chytrý kvíz: Retro kvíz',
+    desc: 'Retro speciál Chytrého kvízu: tamagoči, Nokia, Bravo a 90. léta.',
+    tag: 'KVÍZ',
+    color: 'orange',
+    plakat: kvizRetro,
+  },
+  {
+    date: '2026-10-11',
+    title: 'Chytrý kvíz: Retro kvíz',
+    desc: 'Retro speciál Chytrého kvízu: tamagoči, Nokia, Bravo a 90. léta.',
+    tag: 'KVÍZ',
+    color: 'orange',
+    plakat: kvizRetro,
+  },
+  {
+    date: '2026-04-19',
+    time: '18:00',
+    title: 'Chytrý kvíz: Cestovatelský speciál',
+    desc: '55 otázek ze světa cestování, nejlepší tým získá odměnu z podniku.',
+    tag: 'KVÍZ',
+    color: 'orange',
+    plakat: kvizCestovatelsky,
+  },
+  {
+    date: '2026-03-29',
+    time: '18:00',
+    title: 'Chytrý kvíz: Herní speciál',
+    desc: '55 otázek ze světa her, nejlepší tým získá odměnu z podniku.',
+    tag: 'KVÍZ',
+    color: 'orange',
+    plakat: kvizHerni,
+  },
+  {
+    date: '2026-04-10',
+    time: '19:00',
+    title: 'Bluesrock Cannonade',
+    desc: 'London rocker Buzz and friends.',
+    tag: 'KONCERT',
+    color: 'violet',
+    vstupne: 'dobrovolné',
+    plakat: bluesrock,
     archiv: true,
   },
 ];
