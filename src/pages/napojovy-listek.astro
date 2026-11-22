@@ -34,10 +34,6 @@ const title = jidlo.length ? 'Jídelní a nápojový lístek' : 'Nápojový lís
         </div>
       </div>
 
-      <nav class="listek-nav" aria-label="Kategorie">
-        {groups.flatMap((g) => g.cats).map((c) => <a href={`#${c.id}`}>{c.icon} {c.title}</a>)}
-      </nav>
-
       {groups.map((g) => (
         <section aria-labelledby={`g-${g.id}`}>
           {groups.length > 1 && <h2 class="listek-group-title" id={`g-${g.id}`}>{g.title}</h2>}
