@@ -426,3 +426,5 @@
   .hero-news__item--velka .hero-news__img { width: 96px; height: 120px; }
   .hero-news__item--velka .hero-news__title { font-size: 32px; }
 }
+.hero-news__item[hidden] { display: none; }
+.hero-news__item:not(.hero-news__item--velka) .hero-news__vice { display: none; }

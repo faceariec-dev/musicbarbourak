@@ -145,8 +145,13 @@ function initAkceList() {
     }
   });
 
-  // Když už v úvodu nic aktuálního není, vrátit fotky
+  // Úvod: ukázat dvě nejbližší akce, které ještě neskončily; první je velká
   const news = document.getElementById('heroNews');
+  news?.querySelectorAll<HTMLElement>('.hero-news__item').forEach((el, i) => {
+    el.hidden = i > 1;
+    el.classList.toggle('hero-news__item--velka', i === 0);
+  });
+  // Když už v úvodu nic aktuálního není, vrátit fotky
   if (news && !news.querySelector('.hero-news__item')) {
     news.remove();
     const photos = document.getElementById('heroPhotos');
