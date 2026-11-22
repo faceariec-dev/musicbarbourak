@@ -564,7 +564,7 @@ a:hover .polaroid,
 .galerie .section-head { margin-bottom: 36px; }
 .galerie__wall {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 28px;
   align-items: start;
   padding-inline: 8px;
@@ -572,7 +572,7 @@ a:hover .polaroid,
 .galerie__wall .polaroid:nth-child(even) { margin-top: 34px; }
 .galerie__wall .polaroid:nth-child(3n) { margin-top: 12px; }
 @media (max-width: 1000px) {
-  .galerie__wall { grid-template-columns: repeat(3, 1fr); }
+  .galerie__wall { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 640px) {
   .galerie__wall {

@@ -16,6 +16,6 @@ export const galerie: { foto: ImageMetadata; alt: string; popisek: string; pomer
   { foto: bar, alt: 'Hosté u baru', popisek: 'U baru se nestojí sám', pomer: '4 / 5' },
   { foto: plakat, alt: 'Plakát Chytrého kvízu', popisek: 'Error All Stars', pomer: '4 / 5' },
   { foto: detskyDen, alt: 'Dětský den v Bouráku: téměř 300 zmrzlin a přes 100 dárečků', popisek: 'Dětský den se vydařil!', pomer: '4 / 5' },
-  { foto: rhum, alt: 'Rhum J.M Terroir Volcanique na baru', popisek: 'Z naší nabídky: Rhum J.M', pomer: '4 / 5' },
+  { foto: rhum, alt: 'Rhum J.M Terroir Volcanique na baru', popisek: 'Rhum J.M z naší nabídky', pomer: '4 / 5' },
   { foto: krusovice, alt: 'Krušovice Bohém na čepu', popisek: 'Stav se na jedno', pomer: '4 / 5' },
 ];
