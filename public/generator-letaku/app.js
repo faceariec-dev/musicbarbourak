@@ -236,7 +236,7 @@
           <text x="0" y="45" fill="#1f2022" font-family="Georgia, serif" font-size="31" font-style="italic" font-weight="700">Music Bar</text>
           <text x="0" y="105" fill="#1f2022" font-family="Arial Black, Arial, sans-serif" font-size="60" font-style="italic" font-weight="900">Bourák</text>
           <text x="0" y="153" fill="#2d2b2a" font-family="Arial, sans-serif" font-size="25">Ke Kateřinkám 1411/17</text>
-          <text x="0" y="187" fill="#2d2b2a" font-family="Arial, sans-serif" font-size="25">149 00 Praha 11–Chodov</text>
+          <text x="0" y="187" fill="#2d2b2a" font-family="Arial, sans-serif" font-size="25">149 00 Praha – Chodov</text>
           <text x="0" y="236" fill="#2d2b2a" font-family="Arial, sans-serif" font-size="23">● /musicbarbourak</text>
           <text x="0" y="269" fill="#2d2b2a" font-family="Arial, sans-serif" font-size="23">◎ @music_bar_bourak</text>
         </g>
