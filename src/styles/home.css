@@ -444,3 +444,8 @@
 .menu-preview__cat li { padding: 7px 0; }
 .menu-preview__nazev { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .menu-preview__dalsi { padding-top: 0; }
+
+/* Logo Chytrého kvízu */
+.h-kviz__logo { display: inline-block; width: clamp(180px, 22vw, 260px); margin: 0 0 18px -6px; transform: rotate(-3deg); transition: transform .2s; }
+.h-kviz__logo:hover { transform: rotate(0deg) scale(1.03); }
+.h-kviz__logo img { display: block; width: 100%; height: auto; filter: drop-shadow(0 8px 18px rgba(0, 0, 0, .45)); }
