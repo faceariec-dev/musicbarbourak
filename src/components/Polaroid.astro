@@ -11,10 +11,11 @@ interface Props {
   ratio?: string; // poměr stran fotky, např. '4 / 5' nebo '1'
   width?: number;
   class?: string;
+  zoom?: boolean; // po kliknutí zvětšit na obrazovce
 }
-const { src, alt, caption, tilt = -3, tape = true, ratio = '4 / 5', width = 320, class: cls } = Astro.props;
+const { src, alt, caption, tilt = -3, tape = true, ratio = '4 / 5', width = 320, class: cls, zoom = false } = Astro.props;
 ---
-<figure class:list={['polaroid', { 'polaroid--tape': tape }, cls]} style={`--tilt:${tilt}deg;--ratio:${ratio}`}>
+<figure class:list={['polaroid', { 'polaroid--tape': tape }, cls]} style={`--tilt:${tilt}deg;--ratio:${ratio}`} data-zoom={zoom ? src.src : undefined} data-zoom-popis={zoom ? (caption ?? alt) : undefined} tabindex={zoom ? 0 : undefined} role={zoom ? 'button' : undefined} aria-label={zoom ? `Zvětšit: ${caption ?? alt}` : undefined}>
   <Image src={src} alt={alt} widths={[width, width * 2]} sizes={`${width}px`} />
   {caption && <figcaption>{caption}</figcaption>}
 </figure>

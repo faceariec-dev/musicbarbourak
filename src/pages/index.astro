@@ -260,7 +260,7 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
         <ul class="akce-list" id="akceList">
           {hlavniAkce && (
             <li class="akce-velka" data-until={hlavniAkce.until ?? hlavniAkce.date}>
-              <a class="akce-velka__plakat" href={hlavniAkce.plakat!.src} target="_blank" rel="noopener">
+              <a class="akce-velka__plakat" href={hlavniAkce.plakat!.src} data-zoom={hlavniAkce.plakat!.src} data-zoom-popis={hlavniAkce.title}>
                 <Image src={hlavniAkce.plakat!} alt={`Plakát: ${hlavniAkce.title}`} widths={[400, 700]} sizes="(max-width: 700px) 100vw, 300px" />
               </a>
               <div class="akce-velka__body">
@@ -322,7 +322,7 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
               {archiv.map((ev) => (
                 <li class="archiv__item" data-po={ev.until ?? ev.date} hidden={(ev.until ?? ev.date) >= today}>
                   {ev.plakat && (
-                    <a class="archiv__plakat" href={ev.plakat.src} target="_blank" rel="noopener" aria-label={`Plakát: ${ev.title}`}>
+                    <a class="archiv__plakat" href={ev.plakat.src} data-zoom={ev.plakat.src} data-zoom-popis={ev.title} aria-label={`Plakát: ${ev.title}`}>
                       <Image src={ev.plakat} alt="" widths={[240, 480]} sizes="(max-width: 700px) 45vw, 200px" />
                     </a>
                   )}
@@ -385,7 +385,7 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
             {kvizySpecialy.map((ev) => (
               <li class="kviz-special" data-until={ev.until ?? ev.date}>
                 {ev.plakat && (
-                  <a class="kviz-special__plakat" href={ev.plakat.src} target="_blank" rel="noopener">
+                  <a class="kviz-special__plakat" href={ev.plakat.src} data-zoom={ev.plakat.src} data-zoom-popis={ev.title}>
                     <Image src={ev.plakat} alt={`Plakát: ${ev.title}`} widths={[200, 400]} sizes="120px" />
                   </a>
                 )}
@@ -402,7 +402,7 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
             <ul class="kviz-probehle__list">
               {probehleKvizy.map((k) => (
                 <li data-po={k.po} hidden={k.po >= today}>
-                  <a href={k.plakat.src} target="_blank" rel="noopener">
+                  <a href={k.plakat.src} data-zoom={k.plakat.src} data-zoom-popis={k.title}>
                     <Image src={k.plakat} alt={`Plakát: ${k.title}`} widths={[200, 400]} sizes="150px" />
                   </a>
                   <span class="kviz-probehle__kdy">{k.kdy}</span>
@@ -427,7 +427,7 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
         </header>
         <div class="galerie__wall">
           {galerie.map((g, i) => (
-            <Polaroid src={g.foto} alt={g.alt} caption={g.popisek} ratio={g.pomer} tilt={[-4, 3, -2, 5, -3, 2][i % 6]} width={300} />
+            <Polaroid src={g.foto} alt={g.alt} caption={g.popisek} ratio={g.pomer} tilt={[-4, 3, -2, 5, -3, 2][i % 6]} width={300} zoom />
           ))}
         </div>
       </div>
