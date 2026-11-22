@@ -1,11 +1,20 @@
 // Akce. Dvě skupiny:
 // 1) `terminy` – konkrétní akce s datem. Zobrazí se nahoře, seřazené podle data,
 //    a po skončení samy zmizí. Příklad:
-//    { date: '2026-11-07', time: '20:00', title: 'Koncert: Kapela XY', desc: 'Vstupné 150 Kč.', tag: 'HUDBA', color: 'violet' },
+//    { date: '2026-11-07', time: '19:00', title: 'Jen Blbni Rock', desc: 'Cover verze známých rockových skladeb.',
+//      tag: 'KONCERT', color: 'violet', vstupne: '200 Kč', plakat: jenBlbni },
+//    Plakát (na výšku) dejte do src/assets/akce/ a nahoře ho importujte, např.
+//    import jenBlbni from '../assets/akce/jen-blbni-rock.jpg';
+//    Nejbližší akce s plakátem se ukáže v úvodu webu a jako velká karta v Programu.
+//    U kvízových speciálů přidejte odkaz na přihlášky:
+//      odkaz: 'https://www.kvizovespecialy.cz', odkazText: 'Přihlásit tým'
+//    Koncerty mají `archiv: true` – po skončení se přesunou do archivu „Už u nás hráli“.
+//    Ostatní akce (kvízy…) po skončení prostě zmizí. Odehrané akce ze seznamu nemažte.
 // 2) `pravidelne` – co se u nás děje pořád (kvíz, disco…).
 
 import kvizFoto from '../assets/foto/quiz-winners.jpg';
 import kvizPlakat from '../assets/foto/quiz-poster.jpg';
+import jenBlbni from '../assets/akce/jen-blbni-rock-2026-11-21.jpg';
 
 export type Color = 'orange' | 'pink' | 'violet' | 'yellow' | 'wine';
 
@@ -17,7 +26,11 @@ export interface Termin {
   desc: string;
   tag: string;
   color: Color;
-  plakat?: ImageMetadata; // plakát akce (na výšku), jinak barevná plocha s názvem
+  plakat?: ImageMetadata; // plakát akce (na výšku)
+  vstupne?: string; // např. '200 Kč' nebo 'zdarma'
+  odkaz?: string; // přihláška, vstupenky…
+  odkazText?: string; // text tlačítka, výchozí „Více informací“
+  archiv?: boolean; // po skončení přesunout do archivu „Už u nás hráli“ (koncerty); bez toho akce po skončení zmizí
 }
 
 export interface Pravidelna {
@@ -33,7 +46,19 @@ export interface Pravidelna {
   hlavni?: boolean; // velká karta vedle týdenního přehledu
 }
 
-export const terminy: Termin[] = [];
+export const terminy: Termin[] = [
+  {
+    date: '2026-11-21',
+    time: '19:00',
+    title: 'Jen Blbni Rock',
+    desc: 'Cover verze známých českých a zahraničních rockových skladeb.',
+    tag: 'KONCERT',
+    color: 'violet',
+    vstupne: '200 Kč',
+    plakat: jenBlbni,
+    archiv: true,
+  },
+];
 
 // Ukázkový plakát (ilustrační, z dřívějšího kvízu)
 export const ukazkovyPlakat = kvizPlakat;

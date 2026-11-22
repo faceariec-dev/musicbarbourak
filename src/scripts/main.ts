@@ -106,16 +106,52 @@ function initEventsCarousel() {
   );
 }
 
-// Program: akce s datem, které skončily po posledním sestavení webu, schovat
+// Akce a novinky, které skončily po posledním sestavení webu, schovat
+// a u nejbližší akce doplnit „Dnes“ / „Zítra“.
+const isoDen = (d: Date) => d.toLocaleDateString('sv-SE');
+const zitraIso = () => {
+  const d = new Date();
+  d.setDate(d.getDate() + 1);
+  return isoDen(d);
+};
+
 function initAkceList() {
-  const list = document.getElementById('akceList');
-  if (!list) return;
-  const today = new Date().toLocaleDateString('sv-SE');
-  list.querySelectorAll<HTMLElement>('[data-until]').forEach((card) => {
-    if ((card.dataset.until ?? '') < today) card.remove();
+  const today = isoDen(new Date());
+  document.querySelectorAll<HTMLElement>('#akceList [data-until], #heroNews [data-until], .bar-novinka[data-until]').forEach((el) => {
+    if ((el.dataset.until ?? '') < today) el.remove();
   });
+  // Odehrané koncerty do archivu
+  const archiv = document.getElementById('archiv');
+  if (archiv) {
+    archiv.querySelectorAll<HTMLElement>('[data-po]').forEach((el) => {
+      el.hidden = (el.dataset.po ?? '') >= today;
+    });
+    archiv.hidden = !archiv.querySelector('[data-po]:not([hidden])');
+  }
+  const list = document.getElementById('akceList');
   const empty = document.getElementById('akceEmpty');
-  if (empty) empty.hidden = list.querySelector('[data-until]') !== null;
+  if (list && empty) empty.hidden = list.querySelector('[data-until]') !== null;
+
+  const zitra = zitraIso();
+  document.querySelectorAll<HTMLElement>('[data-kdy]').forEach((el) => {
+    const kdy = el.dataset.kdy === today ? 'Dnes' : el.dataset.kdy === zitra ? 'Už zítra' : '';
+    if (!kdy) return;
+    if (el.classList.contains('hero-news__label')) {
+      el.textContent = kdy + (el.textContent?.includes('·') ? ' ·' + el.textContent.split('·').slice(1).join('·') : '');
+      el.classList.add('is-brzy');
+    } else {
+      el.textContent = kdy;
+      el.hidden = false;
+    }
+  });
+
+  // Když už v úvodu nic aktuálního není, vrátit fotky
+  const news = document.getElementById('heroNews');
+  if (news && !news.querySelector('.hero-news__item')) {
+    news.remove();
+    const photos = document.getElementById('heroPhotos');
+    if (photos) photos.hidden = false;
+  }
 }
 
 // Dnešní den v otevírací době + „Dnes otevřeno do…“ v úvodu
@@ -132,27 +168,38 @@ function initOpeningHours() {
     (el.dataset.dny ?? '').split(' ').includes(String(day)),
   );
   pravidelne.forEach((el) => el.classList.add('is-today'));
-  const dnesAkce = [...document.querySelectorAll<HTMLElement>('.akce-karta time[datetime]')]
-    .filter((t) => t.dateTime === dnes)
-    .map((t) => t.closest('.akce-karta')?.querySelector('strong')?.textContent);
+  const akce = [...document.querySelectorAll<HTMLElement>('[data-akce-datum]')];
+  const popis = (t: HTMLElement) => `${t.dataset.nazev}${t.dataset.cas ? ` od ${t.dataset.cas}` : ''}`;
+  const dnesAkce = akce.filter((t) => t.dataset.akceDatum === dnes).map(popis);
+  const zitra = zitraIso();
+  const zitraAkce = akce.filter((t) => t.dataset.akceDatum === zitra).map(popis);
+  const zitraText = zitraAkce.length ? `Zítra: ${zitraAkce.join(', ')}` : '';
 
   if (!todayRow) return;
   const text = todayRow.lastElementChild?.textContent ?? '';
-  const closed = text === 'zavřeno';
+  const closed = text === 'zavřeno' && dnesAkce.length === 0;
   const program = [...pravidelne.map((el) => el.querySelector('.tydne__nazev')?.textContent), ...dnesAkce].filter(Boolean).join(', ');
 
   const out = document.getElementById('openToday');
   if (out) {
-    out.innerHTML = closed
+    const dnesText = closed
       ? 'Dnes máme <strong>zavřeno</strong>.'
-      : `Dnes otevřeno: <strong class="is-open">${text}</strong>${program ? ` · <strong>${program}</strong>` : ''}`;
+      : text === 'zavřeno'
+        ? `Dnes: <strong>${program}</strong>`
+        : `Dnes otevřeno: <strong class="is-open">${text}</strong>${program ? ` · <strong>${program}</strong>` : ''}`;
+    out.innerHTML = dnesText + (zitraText ? ` <span class="h-hero__zitra">${zitraText.replace('Zítra: ', 'Zítra: <strong>')}</strong></span>` : '');
     out.hidden = false;
   }
   const bar = document.getElementById('infobarToday');
   if (bar) {
-    bar.innerHTML = closed
+    const dnesText = closed
       ? 'Dnes máme zavřeno'
-      : `Dnes otevřeno <strong>${text}</strong>${program ? ` · ${program}` : ''}`;
+      : text === 'zavřeno'
+        ? `Dnes: <strong>${program}</strong>`
+        : `Dnes otevřeno <strong>${text}</strong>${program ? ` · ${program}` : ''}`;
+    bar.innerHTML = zitraText
+      ? `<a href="#program" class="infobar__akce"><strong>${zitraText}</strong></a> · ${dnesText}`
+      : dnesText;
   }
 }
 

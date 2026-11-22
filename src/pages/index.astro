@@ -11,6 +11,7 @@ import { napoje, kc } from '../data/napoje';
 import { signature } from '../data/specialni-drinky';
 import { terminy, pravidelne, colors } from '../data/akce';
 import { kviz } from '../data/kviz';
+import { aktualni } from '../data/novinky';
 import { prostory, sluzby } from '../data/prostory';
 import { galerie } from '../data/galerie';
 import { ilustrace, vecery, bar } from '../data/ilustrace';
@@ -22,6 +23,18 @@ const today = new Date().toISOString().slice(0, 10);
 const nadchazejici = terminy
   .filter((t) => (t.until ?? t.date) >= today)
   .sort((a, b) => a.date.localeCompare(b.date));
+// Nejbližší akce s plakátem = velká karta v Programu a upoutávka v úvodu
+const hlavniAkce = nadchazejici.find((t) => t.plakat);
+const dalsiAkce = nadchazejici.filter((t) => t !== hlavniAkce);
+const novinkyTed = aktualni(today);
+// Archiv koncertů: odehrané akce s `archiv: true`, nejnovější první.
+// Budoucí koncerty jsou v archivu připravené skryté a skript je odkryje po skončení.
+const archiv = terminy
+  .filter((t) => t.archiv)
+  .sort((a, b) => b.date.localeCompare(a.date));
+const maArchiv = archiv.some((t) => (t.until ?? t.date) < today);
+const maNovinky = Boolean(hlavniAkce) || novinkyTed.length > 0;
+const datumDlouze = (iso: string) => new Date(iso + 'T12:00:00').toLocaleDateString('cs-CZ', { weekday: 'long', day: 'numeric', month: 'numeric' });
 
 // Pravidelný program (úterý kvíz, pá+so disco) a konkrétní akce s datem
 const kazdyTyden = pravidelne.filter((a) => a.dny);
@@ -29,16 +42,16 @@ const den = (iso: string) => new Date(iso + 'T12:00:00').toLocaleDateString('cs-
 const mesic = (iso: string) => new Date(iso + 'T12:00:00').toLocaleDateString('cs-CZ', { month: 'short' });
 
 const ticker = [
+  ...novinkyTed.map((n) => `Novinka: ${n.nazev}`),
   'Krušovice na čepu',
   'Radler grep & pomelo',
   'Prémiové rumy, whisky a giny',
   `${signature.name} · ${kc(signature.price)}`,
-  'Novinka: Sarti Spritz',
   'Úterý · Chytrý kvíz',
   'Pátek & sobota · Disco do 5:00',
   'Beer pong · šipky · deskovky',
   "TOM'S Pizza",
-]
+].filter((t, i, all) => all.indexOf(t) === i)
 
 const nahledNapoju = napoje.filter((c) => c.naUvod).map((c) => ({ ...c, items: c.items.slice(0, 3) }));
 const typyAkci = ['Stůl na večer', 'Stůl na kvíz', 'Narozeninová oslava', 'Firemní akce', 'Soukromá párty', 'Jiné'];
@@ -65,7 +78,31 @@ const typyAkci = ['Stůl na večer', 'Stůl na kvíz', 'Narozeninová oslava', '
           </div>
           <p class="h-hero__today" id="openToday" hidden></p>
         </div>
-        <div class="h-hero__photos" aria-hidden="true">
+        {maNovinky && (
+          <div class="hero-news" id="heroNews" aria-label="Novinky v Bouráku">
+            {hlavniAkce && (
+              <a class="hero-news__item hero-news__item--akce" href="#program" data-until={hlavniAkce.until ?? hlavniAkce.date}>
+                <Image src={hlavniAkce.plakat!} alt="" class="hero-news__img" widths={[160, 320]} sizes="120px" />
+                <span class="hero-news__text">
+                  <span class="hero-news__label" data-kdy={hlavniAkce.date}>{datumDlouze(hlavniAkce.date)}{hlavniAkce.time && ` · ${hlavniAkce.time}`}</span>
+                  <strong class="hero-news__title">{hlavniAkce.title}</strong>
+                  <span class="hero-news__meta">{hlavniAkce.tag.toLowerCase()}{hlavniAkce.vstupne && ` · vstupné ${hlavniAkce.vstupne}`}</span>
+                </span>
+              </a>
+            )}
+            {novinkyTed.map((n) => (
+              <a class="hero-news__item" href="#novinka" data-until={n.do}>
+                {n.foto && <Image src={n.foto} alt="" class="hero-news__img hero-news__img--ctverec" widths={[160, 320]} sizes="120px" />}
+                <span class="hero-news__text">
+                  <span class="hero-news__label">Novinka na baru</span>
+                  <strong class="hero-news__title">{n.nazev}</strong>
+                  {n.cena && <span class="hero-news__meta">{kc(n.cena)}</span>}
+                </span>
+              </a>
+            ))}
+          </div>
+        )}
+        <div class="h-hero__photos" aria-hidden="true" id="heroPhotos" hidden={maNovinky}>
           <Polaroid src={barFoto} alt="" caption="U baru se nestojí sám" tilt={-6} width={260} ratio="4 / 3" />
           <Polaroid src={signature.foto} alt="" caption="Tác Bouráčků, prosím!" tilt={5} width={220} ratio="1" />
         </div>
@@ -88,6 +125,18 @@ const typyAkci = ['Stůl na večer', 'Stůl na kvíz', 'Narozeninová oslava', '
             <a href={url('specialni-drinky/')} class="btn btn--dark">Koktejlový lístek</a>
           </div>
         </header>
+
+        {novinkyTed.map((n, i) => (
+          <div class="bar-novinka" id={i === 0 ? 'novinka' : undefined} data-until={n.do}>
+            {n.foto && <Image src={n.foto} alt={n.nazev} class="bar-novinka__img" widths={[200, 400]} sizes="150px" />}
+            <div>
+              <span class="bar-novinka__stitek">Novinka na baru</span>
+              <h3 class="bar-novinka__nazev">{n.nazev}</h3>
+              <p>{n.popis}</p>
+            </div>
+            {n.cena && <span class="bar-novinka__cena">{kc(n.cena)}</span>}
+          </div>
+        ))}
 
         <ul class="bar-tri">
           {bar.map((b) => (
@@ -191,9 +240,33 @@ const typyAkci = ['Stůl na večer', 'Stůl na kvíz', 'Narozeninová oslava', '
 
         <h3 class="program-label">Nejbližší akce</h3>
         <ul class="akce-list" id="akceList">
-          {nadchazejici.map((ev) => (
-            <li class="akce-karta" data-until={ev.until ?? ev.date}>
-              <time class="akce-karta__datum" datetime={ev.date}>
+          {hlavniAkce && (
+            <li class="akce-velka" data-until={hlavniAkce.until ?? hlavniAkce.date}>
+              <a class="akce-velka__plakat" href={hlavniAkce.plakat!.src} target="_blank" rel="noopener">
+                <Image src={hlavniAkce.plakat!} alt={`Plakát: ${hlavniAkce.title}`} widths={[400, 700]} sizes="(max-width: 700px) 100vw, 300px" />
+              </a>
+              <div class="akce-velka__body">
+                <p class="akce-velka__termin">
+                  <span class="akce-velka__kdy" data-kdy={hlavniAkce.date} hidden></span>
+                  <time class="akce-velka__datum" datetime={hlavniAkce.date} data-akce-datum={hlavniAkce.date} data-nazev={hlavniAkce.title} data-cas={hlavniAkce.time}>{datumDlouze(hlavniAkce.date)}{hlavniAkce.time && ` · od ${hlavniAkce.time}`} · {hlavniAkce.tag.toLowerCase()}</time>
+                </p>
+                <h4 class="akce-velka__nazev">{hlavniAkce.title}</h4>
+                <p class="akce-velka__popis">{hlavniAkce.desc}</p>
+                <div class="akce-velka__fakta">
+                  {hlavniAkce.time && <span><b>Začátek</b>{hlavniAkce.time}</span>}
+                  {hlavniAkce.vstupne && <span><b>Vstupné</b>{hlavniAkce.vstupne}</span>}
+                  <span><b>Kde</b>{site.street}</span>
+                </div>
+                <div class="akce-velka__tlacitka">
+                  {hlavniAkce.odkaz && <a class="btn btn--primary" href={hlavniAkce.odkaz} target="_blank" rel="noopener">{hlavniAkce.odkazText ?? 'Více informací'}</a>}
+                  <a class:list={['btn', hlavniAkce.odkaz ? 'akce-velka__btn-obrys' : 'btn--primary']} href="#rezervace">Rezervovat stůl</a>
+                </div>
+              </div>
+            </li>
+          )}
+          {dalsiAkce.map((ev) => (
+            <li class:list={['akce-karta', { 'akce-karta--odkaz': ev.odkaz }]} data-until={ev.until ?? ev.date}>
+              <time class="akce-karta__datum" datetime={ev.date} data-akce-datum={ev.date} data-nazev={ev.title} data-cas={ev.time}>
                 <span class="akce-karta__den">{den(ev.date)}</span>
                 <span class="akce-karta__cislo">{new Date(ev.date + 'T12:00:00').getDate()}.</span>
                 <span class="akce-karta__mesic">{mesic(ev.date)}</span>
@@ -201,8 +274,10 @@ const typyAkci = ['Stůl na večer', 'Stůl na kvíz', 'Narozeninová oslava', '
               <div class="akce-karta__text">
                 <span class="akce-karta__tag" style={`--tag:${colors[ev.color].tag}`}>{ev.tag}{ev.time && ` · ${ev.time}`}</span>
                 <strong>{ev.title}</strong>
-                <span>{ev.desc}</span>
+                <span>{ev.desc}{ev.vstupne && ` Vstupné ${ev.vstupne}.`}</span>
+                {ev.odkaz && <a class="akce-karta__odkaz" href={ev.odkaz} target="_blank" rel="noopener">{ev.odkazText ?? 'Více informací'} →</a>}
               </div>
+              {ev.plakat && <Image src={ev.plakat} alt="" class="akce-karta__plakat" widths={[120, 240]} sizes="92px" />}
             </li>
           ))}
           <li class="akce-karta akce-karta--prazdna" id="akceEmpty" hidden={nadchazejici.length > 0}>
@@ -212,6 +287,25 @@ const typyAkci = ['Stůl na večer', 'Stůl na kvíz', 'Narozeninová oslava', '
             </div>
           </li>
         </ul>
+
+        {archiv.length > 0 && (
+          <div class="archiv" id="archiv" hidden={!maArchiv}>
+            <h3 class="program-label">Už u nás hráli</h3>
+            <ul class="archiv__list">
+              {archiv.map((ev) => (
+                <li class="archiv__item" data-po={ev.until ?? ev.date} hidden={(ev.until ?? ev.date) >= today}>
+                  {ev.plakat && (
+                    <a class="archiv__plakat" href={ev.plakat.src} target="_blank" rel="noopener" aria-label={`Plakát: ${ev.title}`}>
+                      <Image src={ev.plakat} alt="" widths={[240, 480]} sizes="(max-width: 700px) 45vw, 200px" />
+                    </a>
+                  )}
+                  <time datetime={ev.date}>{new Date(ev.date + 'T12:00:00').toLocaleDateString('cs-CZ', { day: 'numeric', month: 'numeric', year: 'numeric' })}</time>
+                  <strong>{ev.title}</strong>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </section>
 
