@@ -268,13 +268,22 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
                 <span class="akce-karta__cislo">{new Date(ev.date + 'T12:00:00').getDate()}.</span>
                 <span class="akce-karta__mesic">{mesic(ev.date)}</span>
               </time>
-              <div class="akce-karta__text">
-                <span class="akce-karta__tag" style={`--tag:${colors[ev.color].tag}`}>{ev.tag}{ev.time && ` · ${ev.time}`}</span>
-                <strong>{ev.title}</strong>
-                <span>{ev.desc}{ev.vstupne && ` Vstupné ${ev.vstupne}.`}</span>
-                {ev.odkaz && <a class="akce-karta__odkaz" href={ev.odkaz} target="_blank" rel="noopener">{ev.odkazText ?? 'Více informací'} →</a>}
-              </div>
-              {ev.plakat && <Image src={ev.plakat} alt="" class="akce-karta__plakat" widths={[120, 240]} sizes="92px" />}
+              {ev.archiv ? (
+                <>
+                  <div class="akce-karta__text">
+                    <span class="akce-karta__tag" style={`--tag:${colors[ev.color].tag}`}>{ev.tag}{ev.time && ` · ${ev.time}`}</span>
+                    <strong>{ev.title}</strong>
+                    <span>{ev.desc}{ev.vstupne && ` Vstupné ${ev.vstupne}.`}</span>
+                    {ev.odkaz && <a class="akce-karta__odkaz" href={ev.odkaz} target="_blank" rel="noopener">{ev.odkazText ?? 'Více informací'} →</a>}
+                  </div>
+                  {ev.plakat && <Image src={ev.plakat} alt="" class="akce-karta__plakat" widths={[120, 240]} sizes="92px" />}
+                </>
+              ) : (
+                <div class="akce-karta__text akce-karta__text--kratce">
+                  <strong>{ev.odkaz ? <a href={ev.odkaz} target="_blank" rel="noopener">{ev.title}</a> : ev.title}</strong>
+                  {ev.time && <span>{ev.time}</span>}
+                </div>
+              )}
             </li>
           ))}
           <li class="akce-karta akce-karta--prazdna" id="akceEmpty" hidden={nadchazejici.length > 0}>

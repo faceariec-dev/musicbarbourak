@@ -428,3 +428,6 @@
 }
 .hero-news__item[hidden] { display: none; }
 .hero-news__item:not(.hero-news__item--velka) .hero-news__vice { display: none; }
+.akce-karta__text--kratce { justify-content: center; align-self: center; }
+.akce-karta__text--kratce a { color: inherit; text-decoration: none; }
+.akce-karta__text--kratce a:hover { color: var(--color-orange); text-decoration: underline; }
