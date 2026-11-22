@@ -4,7 +4,7 @@
 //    { date: '2026-11-07', time: '19:00', title: 'Jen Blbni Rock', desc: 'Cover verze známých rockových skladeb.',
 //      tag: 'KONCERT', color: 'violet', vstupne: '200 Kč', plakat: jenBlbni },
 //    Plakát (na výšku) dejte do src/assets/akce/ a nahoře ho importujte, např.
-//    import jenBlbni from '../assets/akce/jen-blbni-rock.jpg';
+import jenBlbni from '../assets/akce/jen-blbni-rock.jpg';
 //    Nejbližší akce s plakátem se ukáže v úvodu webu a jako velká karta v Programu.
 //    U kvízových speciálů přidejte odkaz na přihlášky:
 //      odkaz: 'https://www.kvizovespecialy.cz', odkazText: 'Přihlásit tým'
@@ -47,6 +47,8 @@ export interface Pravidelna {
 }
 
 export const terminy: Termin[] = [
+  { date: '2026-11-23', time: '19:00', title: 'Jen Blbni Rock', desc: 'Cover verze známých českých a zahraničních rockových skladeb. Živě v Bouráku.', tag: 'KONCERT', color: 'violet', vstupne: '200 Kč', plakat: jenBlbni, archiv: true },
+  { date: '2026-11-25', time: '19:00', title: 'Chytrý kvíz: Literární speciál', desc: 'Speciální kolo Chytrého kvízu o knihách a spisovatelích.', tag: 'KVÍZ', color: 'orange', odkaz: 'https://www.kvizovespecialy.cz', odkazText: 'Přihlásit tým' },
   {
     date: '2026-11-21',
     time: '19:00',
