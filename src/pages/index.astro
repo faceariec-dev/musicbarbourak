@@ -20,9 +20,13 @@ import { url } from '../data/url';
 import barFoto from '../assets/foto/bar-counter.jpg';
 
 const today = new Date().toISOString().slice(0, 10);
-const nadchazejici = terminy
+// Speciální kvízy (tag KVÍZ) mají místo v sekci Chytrý kvíz; Program a úvod patří koncertům a jiným akcím.
+const jeKviz = (t: { tag: string }) => t.tag === 'KVÍZ';
+const budouci = terminy
   .filter((t) => (t.until ?? t.date) >= today)
   .sort((a, b) => a.date.localeCompare(b.date));
+const nadchazejici = budouci.filter((t) => !jeKviz(t));
+const kvizySpecialy = budouci.filter(jeKviz);
 // Nejbližší akce s plakátem = velká karta v Programu a upoutávka v úvodu
 const hlavniAkce = nadchazejici.find((t) => t.plakat);
 const dalsiAkce = nadchazejici.filter((t) => t !== hlavniAkce);
@@ -351,10 +355,9 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
       <div class="container h-split">
         <div class="h-split__text">
           <p class="eyebrow">{kviz.kdy}{kviz.zacatek && ` od ${kviz.zacatek}`}</p>
-          <h2 class="h-title h-title--light" id="kviz-title">{kviz.nazev}</h2>
+          <h2 class="h-kviz__logo" id="kviz-title"><Image src={kviz.logo} alt={kviz.nazev} widths={[300, 600]} sizes="300px" /></h2>
           <p class="h-kviz__motto">„{kviz.motto}“</p>
           <p class="h-lead h-lead--light">{kviz.popis}</p>
-          <p class="h-kviz__special"><strong>Speciální kvízy:</strong> {kviz.specialni} <a href={kviz.specialniOdkaz} target="_blank" rel="noopener">kvizovespecialy.cz</a>.</p>
           <ol class="steps">
             {kviz.kroky.map((k) => (
               <li><strong>{k.nadpis}</strong><span>{k.text}</span></li>
@@ -365,6 +368,26 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
         <div class="h-kviz__collage" aria-hidden="true">
           <Polaroid src={kviz.plakat} alt="" caption="Přihlas tým přes QR" tilt={4} width={300} />
           <Polaroid src={kviz.atmosfera} alt="" caption="Úterý = přemýšlení" tilt={-5} width={240} />
+        </div>
+        <div class="kviz-specialy" id="kvizSpecialy">
+          <h3 class="kviz-specialy__nadpis">Máme pro vás speciály</h3>
+          <p class="kviz-specialy__lead">{kviz.specialni} <a href={kviz.specialniOdkaz} target="_blank" rel="noopener">kvizovespecialy.cz</a>.</p>
+          <ul class="kviz-specialy__list">
+            {kvizySpecialy.map((ev) => (
+              <li class="kviz-special" data-until={ev.until ?? ev.date}>
+                {ev.plakat && (
+                  <a class="kviz-special__plakat" href={ev.plakat.src} target="_blank" rel="noopener">
+                    <Image src={ev.plakat} alt={`Plakát: ${ev.title}`} widths={[200, 400]} sizes="120px" />
+                  </a>
+                )}
+                <div class="kviz-special__text">
+                  <time class="kviz-special__datum" datetime={ev.date} data-akce-datum={ev.date} data-nazev={ev.title} data-cas={ev.time}><span data-kdy={ev.date} class="kviz-special__kdy" hidden></span>{datumDlouze(ev.date)}{ev.time && ` · od ${ev.time}`}</time>
+                  <strong class="kviz-special__nazev">{ev.title.replace(/^Chytrý kvíz:\s*/i, '')}</strong>
+                  {ev.odkaz && <a class="btn btn--primary btn--sm" href={ev.odkaz} target="_blank" rel="noopener">{ev.odkazText ?? 'Přihlásit tým'}</a>}
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

@@ -6,6 +6,8 @@
 //    Plakát (na výšku) dejte do src/assets/akce/ a nahoře ho importujte, např.
 //    import jenBlbni from '../assets/akce/jen-blbni-rock.jpg';
 //    Nejbližší akce s plakátem se ukáže v úvodu webu a jako velká karta v Programu.
+//    Akce s tag: 'KVÍZ' (speciální kvízy) se neukazují v úvodu ani v Programu, ale v sekci
+//    Chytrý kvíz v bloku „Máme pro vás speciály“ (leták, datum, tlačítko na přihlášku).
 //    U kvízových speciálů přidejte odkaz na přihlášky:
 //      odkaz: 'https://www.kvizovespecialy.cz', odkazText: 'Přihlásit tým'
 //    Koncerty mají `archiv: true` – po skončení se přesunou do archivu „Už u nás hráli“.

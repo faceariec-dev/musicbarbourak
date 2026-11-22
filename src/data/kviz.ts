@@ -3,6 +3,7 @@
 import plakat from '../assets/foto/quiz-poster.jpg';
 import vitezove from '../assets/foto/quiz-winners.jpg';
 import atmosfera from '../assets/foto/quiz-crowd.jpg';
+import logo from '../assets/kviz/chytry-kviz-logo.webp';
 
 export const kviz = {
   nazev: 'Chytrý kvíz',
@@ -20,6 +21,7 @@ export const kviz = {
     { nadpis: 'Přihlaste se', text: 'Tým se hlásí předem na chytrykviz.cz, odkaz najdete i v QR kódu na plakátu. Stoly na kvíz se nerezervují.' },
     { nadpis: 'Hrajte o vítězství', text: 'Několik kol otázek, průběžné výsledky a vyhlášení na konci večera.' },
   ],
+  logo,
   plakat,
   vitezove,
   atmosfera,
