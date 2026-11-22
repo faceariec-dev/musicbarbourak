@@ -117,7 +117,7 @@ const zitraIso = () => {
 
 function initAkceList() {
   const today = isoDen(new Date());
-  document.querySelectorAll<HTMLElement>('#akceList [data-until], #heroNews [data-until], .bar-novinka[data-until]').forEach((el) => {
+  document.querySelectorAll<HTMLElement>('#akceList [data-until], #heroNews [data-until], #kvizSpecialy [data-until], .bar-novinka[data-until]').forEach((el) => {
     if ((el.dataset.until ?? '') < today) el.remove();
   });
   // Odehrané koncerty do archivu
@@ -128,6 +128,8 @@ function initAkceList() {
     });
     archiv.hidden = !archiv.querySelector('[data-po]:not([hidden])');
   }
+  const specialy = document.querySelector<HTMLElement>('#kvizSpecialy .kviz-specialy__list');
+  if (specialy) specialy.hidden = !specialy.querySelector('[data-until]');
   const list = document.getElementById('akceList');
   const empty = document.getElementById('akceEmpty');
   if (list && empty) empty.hidden = list.querySelector('[data-until]') !== null;
