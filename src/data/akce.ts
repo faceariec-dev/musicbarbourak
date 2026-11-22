@@ -32,7 +32,7 @@ export interface Termin {
   vstupne?: string; // např. '200 Kč' nebo 'zdarma'
   odkaz?: string; // přihláška, vstupenky…
   odkazText?: string; // text tlačítka, výchozí „Více informací“
-  archiv?: boolean; // po skončení přesunout do archivu „Už u nás hráli“ (koncerty); bez toho akce po skončení zmizí
+  archiv?: boolean; // koncert: tlačítko Rezervovat stůl a po skončení přesunout do archivu „Už u nás hráli“ (koncerty); bez toho akce po skončení zmizí
 }
 
 export interface Pravidelna {

@@ -14,9 +14,10 @@ export const kviz = {
     'Pravidelný týmový kvíz v Bouráku. Sestavte partu, přijďte včas, objednejte si pivo a hrajte o slávu. Každý týden nové otázky a nové téma.',
   specialni: 'Kromě úterního kvízu u nás hostíme i tematické speciály Chytrého kvízu, třeba literární nebo Hazbin Hotel. Termíny a přihlášky najdete na',
   specialniOdkaz: 'https://www.kvizovespecialy.cz',
+  prihlaska: 'https://chytrykviz.cz', // přihlášky týmů (stoly na kvíz se nerezervují)
   kroky: [
     { nadpis: 'Sestavte tým', text: 'Kamarádi, kolegové nebo rodina. Vymyslete jméno, které se bude dobře vyhlašovat.' },
-    { nadpis: 'Přihlaste se', text: 'Přes QR kód na plakátu nebo na baru. Stůl si můžete předem zarezervovat telefonem.' },
+    { nadpis: 'Přihlaste se', text: 'Tým se hlásí předem na chytrykviz.cz, odkaz najdete i v QR kódu na plakátu. Stoly na kvíz se nerezervují.' },
     { nadpis: 'Hrajte o vítězství', text: 'Několik kol otázek, průběžné výsledky a vyhlášení na konci večera.' },
   ],
   plakat,
