@@ -288,6 +288,58 @@ function initReveal() {
   window.addEventListener('load', () => setTimeout(() => document.querySelectorAll('.reveal:not(.is-visible)').forEach(show), 1500));
 }
 
+// Zvětšení fotek a plakátů přímo na stránce: klik zvětší, další klik (nebo Esc) zmenší
+function initZoom() {
+  let overlay: HTMLDivElement | null = null;
+  let posledni: HTMLElement | null = null;
+  const zavrit = () => {
+    if (!overlay) return;
+    overlay.classList.remove('is-open');
+    document.body.classList.remove('zoom-otevreno');
+    const o = overlay;
+    overlay = null;
+    setTimeout(() => o.remove(), 200);
+    posledni?.focus({ preventScroll: true });
+  };
+  const otevrit = (el: HTMLElement) => {
+    posledni = el;
+    overlay = document.createElement('div');
+    overlay.className = 'zoom';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-label', el.dataset.zoomPopis ?? 'Fotka');
+    const img = document.createElement('img');
+    img.src = el.dataset.zoom!;
+    img.alt = el.dataset.zoomPopis ?? '';
+    overlay.append(img);
+    if (el.dataset.zoomPopis) {
+      const p = document.createElement('p');
+      p.textContent = el.dataset.zoomPopis;
+      overlay.append(p);
+    }
+    overlay.tabIndex = -1;
+    overlay.addEventListener('click', zavrit);
+    document.body.append(overlay);
+    document.body.classList.add('zoom-otevreno');
+    requestAnimationFrame(() => overlay?.classList.add('is-open'));
+    overlay.focus({ preventScroll: true });
+  };
+  document.addEventListener('click', (e) => {
+    const t = e.target;
+    const el = t instanceof Element ? t.closest<HTMLElement>('[data-zoom]') : null;
+    if (!el || e.metaKey || e.ctrlKey) return;
+    e.preventDefault();
+    otevrit(el);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') zavrit();
+    const t = e.target;
+    const el = t instanceof HTMLElement ? t.closest<HTMLElement>('figure[data-zoom]') : null;
+    if (el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); otevrit(el); }
+  });
+}
+
+initZoom();
 initMobileMenu();
 initActiveNav();
 initEventsCarousel();
