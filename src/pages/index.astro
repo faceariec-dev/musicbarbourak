@@ -60,7 +60,7 @@ const ticker = [
 ].filter((t, i, all) => all.indexOf(t) === i)
 
 const nahledNapoju = napoje.filter((c) => c.naUvod).map((c) => ({ ...c, items: c.items.slice(0, 3) }));
-const typyAkci = ['Stůl na večer', 'Stůl na kvíz', 'Narozeninová oslava', 'Firemní akce', 'Soukromá párty', 'Jiné'];
+const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'Soukromá párty', 'Jiné'];
 ---
 <Base
   title="Music Bar Bourák – bohatý bar na Hájích | Praha 4"
@@ -256,7 +256,7 @@ const typyAkci = ['Stůl na večer', 'Stůl na kvíz', 'Narozeninová oslava', '
                 </div>
                 <div class="akce-velka__tlacitka">
                   {hlavniAkce.odkaz && <a class="btn btn--primary" href={hlavniAkce.odkaz} target="_blank" rel="noopener">{hlavniAkce.odkazText ?? 'Více informací'}</a>}
-                  <a class:list={['btn', hlavniAkce.odkaz ? 'akce-velka__btn-obrys' : 'btn--primary']} href="#rezervace">Rezervovat stůl</a>
+                  {hlavniAkce.archiv && <a class:list={['btn', hlavniAkce.odkaz ? 'akce-velka__btn-obrys' : 'btn--primary']} href="#rezervace">Rezervovat stůl</a>}
                 </div>
               </div>
             </li>
@@ -343,7 +343,7 @@ const typyAkci = ['Stůl na večer', 'Stůl na kvíz', 'Narozeninová oslava', '
               <li><strong>{k.nadpis}</strong><span>{k.text}</span></li>
             ))}
           </ol>
-          <a href="#rezervace" class="btn btn--primary btn--lg">Rezervovat stůl na kvíz</a>
+          <a href={kviz.prihlaska} class="btn btn--primary btn--lg" target="_blank" rel="noopener">Přihlásit tým na chytrykviz.cz</a>
         </div>
         <div class="h-kviz__collage" aria-hidden="true">
           <Polaroid src={kviz.plakat} alt="" caption="Přihlas tým přes QR" tilt={4} width={300} />
@@ -398,7 +398,7 @@ const typyAkci = ['Stůl na večer', 'Stůl na kvíz', 'Narozeninová oslava', '
         <div class="rezervace__call">
           <p class="eyebrow">Rezervace</p>
           <h2 class="h-title" id="rezervace-title">Stůl na dnešek? Zavolejte.</h2>
-          <p class="rezervace__lead">Nejrychleji to vyřešíte telefonem, hlavně v úterý před kvízem a o víkendu.</p>
+          <p class="rezervace__lead">Nejrychleji to vyřešíte telefonem, hlavně o víkendu a na koncerty. Na kvízy se týmy hlásí na chytrykviz.cz.</p>
           <a href={tel(site.phone)} class="btn btn--primary rezervace__phone">{site.phone}</a>
           <p class="rezervace__note">Nebo napište na <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
         </div>
