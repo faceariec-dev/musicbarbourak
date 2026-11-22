@@ -340,6 +340,7 @@ const vyber: { title: string; polozky: Odkaz[] }[] = [
       ['rum', 'Don Papa'],
       ['rum', 'Flor de Caña Centenario 12 yo', undefined, 'Flor de Caña 12 yo'],
       ['rum', 'Ron Abuelo Añejo 12 Años', undefined, 'Ron Abuelo 12 Años'],
+      ['rum', 'Legendario Elixir de Cuba 7 yo', undefined, 'Legendario 7 yo'],
     ],
   },
   {
