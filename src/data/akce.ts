@@ -56,7 +56,7 @@ export const terminy: Termin[] = [
     tag: 'KVÍZ',
     color: 'orange',
     plakat: kvizMarvel,
-    odkaz: 'https://www.kvizovespecialy.cz',
+    odkaz: 'https://chytrykviz.cz/specialy/marvel-special-25-11',
     odkazText: 'Přihlásit tým',
   },
   {
@@ -66,7 +66,7 @@ export const terminy: Termin[] = [
     tag: 'KVÍZ',
     color: 'orange',
     plakat: kvizMarvel,
-    odkaz: 'https://www.kvizovespecialy.cz',
+    odkaz: 'https://chytrykviz.cz/specialy/marvel-special-29-11',
     odkazText: 'Přihlásit tým',
   },
   {
@@ -76,7 +76,7 @@ export const terminy: Termin[] = [
     tag: 'KVÍZ',
     color: 'orange',
     plakat: kvizPohadkovy,
-    odkaz: 'https://www.kvizovespecialy.cz',
+    odkaz: 'https://chytrykviz.cz/rezervace/77758',
     odkazText: 'Přihlásit tým',
   },
   {
