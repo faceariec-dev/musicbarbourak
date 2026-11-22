@@ -1,7 +1,7 @@
 // Koktejlový lístek (stránka /specialni-drinky/).
 // Fotky jsou v src/assets/drinks/. Drink bez fotky se zobrazí jako řádek lístku,
 // drink s `doporucujeme: true` (a fotkou) jako velká karta nahoře.
-// Názvy a ceny odpovídají nápojovému lístku (src/data/napoje.ts) – při změně ceny upravte obojí.
+// Zatím ilustrační obsah – nahradí se skutečnou koktejlovou kartou.
 import bouracek from '../assets/drinks/bouracek-signature.webp';
 import d02 from '../assets/drinks/drink-02.webp';
 import d03 from '../assets/drinks/drink-03.webp';
@@ -49,31 +49,29 @@ export const signature = {
 export const drinky: Drink[] = [
   // Bourákovky
   { name: 'Sezónní speciál', kategorie: 'signature', img: d05, tone: 'green', ingredients: ['Podle aktuální nabídky baru'], sezonni: true, doporucujeme: true },
+  { name: 'Bourák Mojito', kategorie: 'signature', ingredients: ['Bílý rum', 'Limeta', 'Máta', 'Třtinový cukr', 'Tajná přísada'], price: 125, novinka: true },
 
   // Klasiky
-  { name: 'Mojito', kategorie: 'klasiky', img: d06, tone: 'blue', ingredients: ['Bílý rum', 'Limeta', 'Máta', 'Třtinový cukr', 'Soda'], price: 135, doporucujeme: true },
-  { name: 'Piña Colada', kategorie: 'klasiky', img: d02, tone: 'brown', ingredients: ['Bílý rum', 'Kokos', 'Ananas'], price: 135 },
+  { name: 'Espresso Martini', kategorie: 'klasiky', img: d10, tone: 'purple', ingredients: ['Vodka', 'Kávový likér', 'Espresso'], doporucujeme: true },
+  { name: 'Piña Colada', kategorie: 'klasiky', img: d02, tone: 'brown', ingredients: ['Bílý rum', 'Kokos', 'Ananas'] },
+  { name: 'Mojito', kategorie: 'klasiky', img: d06, tone: 'blue', ingredients: ['Bílý rum', 'Limeta', 'Máta', 'Třtinový cukr', 'Soda'], price: 125 },
   { name: 'Sex on the Beach', kategorie: 'klasiky', img: d09, tone: 'orange', ingredients: ['Vodka', 'Broskvový likér', 'Pomeranč', 'Brusinky'], price: 125 },
-  { name: 'White Russian', kategorie: 'klasiky', ingredients: ['Vodka', 'Kávový likér', 'Smetana'], price: 90 },
-  { name: 'Margarita', kategorie: 'klasiky', ingredients: ['Tequila', 'Triple sec', 'Limeta'], price: 170 },
-  { name: 'Caipirinha', kategorie: 'klasiky', ingredients: ['Cachaça', 'Limeta', 'Třtinový cukr'], price: 95 },
-  { name: 'Tequila Sunrise', kategorie: 'klasiky', img: d10, tone: 'orange', ingredients: ['Tequila', 'Pomerančový džus', 'Grenadina'], price: 125 },
-  { name: 'Moscow Mule', kategorie: 'klasiky', ingredients: ['Vodka', 'Zázvorové pivo', 'Limeta'], price: 115 },
+  { name: 'Margarita', kategorie: 'klasiky', ingredients: ['Tequila', 'Triple sec', 'Limeta'] },
+  { name: 'Daiquiri', kategorie: 'klasiky', ingredients: ['Bílý rum', 'Limeta', 'Cukr'] },
 
   // Long drinky
   { name: 'Sarti Spritz', kategorie: 'long', ingredients: ['Sarti Rosa', 'Prosecco', 'Soda', 'Limeta'], price: 135, novinka: true },
-  { name: 'Aperol Spritz', kategorie: 'long', img: d03, tone: 'orange', ingredients: ['Aperol', 'Prosecco', 'Soda'], price: 135, doporucujeme: true },
-  { name: 'Limoncello Spritz', kategorie: 'long', ingredients: ['Limoncello', 'Prosecco', 'Soda'], price: 135 },
-  { name: 'Long Island Iced Tea', kategorie: 'long', img: d07, tone: 'green', ingredients: ['Vodka', 'Gin', 'Rum', 'Tequila', 'Triple sec', 'Cola'], price: 165 },
-  { name: 'Gin & Tonic', kategorie: 'long', img: d08, tone: 'brown', ingredients: ['Gin', 'Tonic', 'Limeta'], price: 115 },
-  { name: 'Cuba Libre', kategorie: 'long', img: d11, tone: 'blue', ingredients: ['Rum', 'Cola', 'Limeta'], price: 115 },
-  { name: 'Dark & Stormy', kategorie: 'long', ingredients: ['Tmavý rum', 'Zázvorové pivo', 'Limeta'], price: 149 },
+  { name: 'Aperol Spritz', kategorie: 'long', img: d03, tone: 'orange', ingredients: ['Aperol', 'Prosecco', 'Soda'], price: 125, doporucujeme: true },
+  { name: 'Long Island Iced Tea', kategorie: 'long', img: d07, tone: 'green', ingredients: ['Vodka', 'Gin', 'Rum', 'Tequila', 'Triple sec', 'Cola'], price: 145 },
+  { name: 'Gin Tonic', kategorie: 'long', img: d08, tone: 'brown', ingredients: ['Gin', 'Tonic', 'Limeta', 'Jalovec'] },
+  { name: 'Cuba Libre', kategorie: 'long', img: d11, tone: 'blue', ingredients: ['Rum', 'Cola', 'Limeta'], price: 105 },
+  { name: 'Hugo', kategorie: 'long', ingredients: ['Prosecco', 'Bezový sirup', 'Máta', 'Soda'] },
 
   // Shoty
-  { name: 'B52', kategorie: 'shoty', ingredients: ['Kávový likér', 'Irský krémový likér', 'Pomerančový likér'], price: 95 },
-  { name: 'JägerBomba', kategorie: 'shoty', ingredients: ['Jägermeister', 'Energetický nápoj'], price: 95 },
+  { name: 'B-52', kategorie: 'shoty', ingredients: ['Kávový likér', 'Baileys', 'Grand Marnier'] },
+  { name: 'Kamikaze', kategorie: 'shoty', ingredients: ['Vodka', 'Triple sec', 'Limeta'] },
 
   // Nealko
-  { name: 'Mojito Virgin', kategorie: 'nealko', ingredients: ['Limeta', 'Máta', 'Třtinový cukr', 'Soda'], price: 95 },
-  { name: 'Bohemian Gin Pink & Tonic', kategorie: 'nealko', ingredients: ['Nealko gin', 'Tonic'], price: 95 },
+  { name: 'Virgin Mojito', kategorie: 'nealko', ingredients: ['Limeta', 'Máta', 'Třtinový cukr', 'Soda'] },
+  { name: 'Ovocná limonáda', kategorie: 'nealko', ingredients: ['Podle sezóny'], sezonni: true },
 ];
