@@ -1112,7 +1112,7 @@ body.drinks-page::after {
   font-weight: 900;
   letter-spacing: -.5px;
   margin: 0 0 12px;
-  line-height: 1.05;
+  line-height: 1.15;
 }
 .drinks-hero__subtitle {
   font-size: 15.5px;
@@ -1181,7 +1181,7 @@ body.drinks-page::after {
   font-size: 19px;
   font-weight: 900;
   letter-spacing: .3px;
-  line-height: 1.05;
+  line-height: 1.2;
   margin: 0 0 12px;
 }
 .drink-card__rule {
