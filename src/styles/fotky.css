@@ -138,3 +138,4 @@
   .bar-tri { grid-template-columns: 1fr; }
   .obsluha__skore { align-items: flex-start; }
 }
+.h-kviz__special a { color: #ffb347; text-decoration: underline; }
