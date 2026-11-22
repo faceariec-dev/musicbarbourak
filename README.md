@@ -25,6 +25,17 @@ npm run preview    # náhled sestaveného webu
 
 Nápojový lístek se dá vytisknout nebo uložit jako PDF přímo z prohlížeče (tlačítko na stránce lístku, tiskový styl je připravený).
 
+## Kam s novinkami
+
+| Novinka | Web | Sociální sítě |
+|---|---|---|
+| Koncert, veřejný nebo speciální kvíz | ano – řádek do `terminy` v `src/data/akce.ts` (s plakátem), po akci sám zmizí | ano |
+| Nový drink nebo nový alkohol v nabídce | ano – řádek do lístku (`napoje.ts`), u drinku i do `specialni-drinky.ts` s `novinka: true` | ano |
+| Reklama dodavatele, akce 2+1, „v pátek za 39 Kč“ | ne – platí krátce a rychle by zastarala | ano |
+| Soukromá akce se speciálním menu | ne – na webu je jen obecná nabídka „Oslavy a firemní akce“ | ne |
+
+Po změně je potřeba web nasadit (viz Nasazení na FORPSI).
+
 ## Rezervace
 
 Telefon je hlavní cesta. Formulář pro oslavy a firemní akce zatím otevře e-mail návštěvníka s předvyplněnou zprávou na `musicbarbourak@seznam.cz` – nepotřebuje server. Až bude jasný hosting, dá se přepnout na odesílání přes PHP jako u Penzionu 48.

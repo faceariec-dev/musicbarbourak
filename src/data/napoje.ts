@@ -81,7 +81,7 @@ export const napoje: Category[] = [
       { name: "White Russian", price: 90 },
       { name: "Aperol Spritz", price: 135 },
       { name: "Limoncello Spritz", price: 135 },
-      { name: "Sarti Spritz", price: 135 },
+      { name: "Sarti Spritz", price: 135, note: "Novinka" },
     ],
   },
   {
