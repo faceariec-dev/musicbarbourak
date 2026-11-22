@@ -413,3 +413,16 @@
 .archiv__item time { font-size: 12px; font-weight: 800; letter-spacing: 1.2px; color: var(--color-orange); }
 .archiv__item strong { font-size: 16px; color: var(--ink); }
 @media (max-width: 700px) { .archiv__list { grid-template-columns: repeat(2, 1fr); gap: 14px; } }
+
+/* Úvod: nejbližší akce výrazně, první karta větší */
+.hero-news { max-width: 540px; }
+.hero-news__item--velka { padding: 18px; gap: 22px; }
+.hero-news__item--velka .hero-news__img { width: 150px; height: 188px; }
+.hero-news__item--velka .hero-news__title { font-size: 46px; }
+.hero-news__item--velka .hero-news__meta { font-size: 15px; }
+.hero-news__vice { margin-top: 6px; font-weight: 800; font-size: 14px; color: #ffb08f; }
+@media (max-width: 700px) {
+  .hero-news__item--velka { padding: 12px; gap: 16px; }
+  .hero-news__item--velka .hero-news__img { width: 96px; height: 120px; }
+  .hero-news__item--velka .hero-news__title { font-size: 32px; }
+}
