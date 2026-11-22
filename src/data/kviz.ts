@@ -13,7 +13,7 @@ export const kviz = {
   motto: 'Kdo neví, ten se tváří chytře.',
   popis:
     'Pravidelný týmový kvíz v Bouráku. Sestavte partu, přijďte včas, objednejte si pivo a hrajte o slávu. Každý týden nové otázky a nové téma.',
-  specialni: 'Kromě úterního kvízu u nás hostíme i tematické speciály Chytrého kvízu, třeba literární nebo Hazbin Hotel. Termíny a přihlášky najdete na',
+  specialni: 'Kromě úterního kvízu u nás hostíme i tematické speciály Chytrého kvízu, třeba Marvel, pohádkový nebo literární. Termíny a přihlášky najdete na',
   specialniOdkaz: 'https://www.kvizovespecialy.cz',
   prihlaska: 'https://chytrykviz.cz', // přihlášky týmů (stoly na kvíz se nerezervují)
   kroky: [
