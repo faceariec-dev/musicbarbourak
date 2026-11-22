@@ -128,6 +128,13 @@ function initAkceList() {
     });
     archiv.hidden = !archiv.querySelector('[data-po]:not([hidden])');
   }
+  const probehle = document.getElementById('kvizProbehle');
+  if (probehle) {
+    probehle.querySelectorAll<HTMLElement>('[data-po]').forEach((el) => {
+      el.hidden = (el.dataset.po ?? '') >= today;
+    });
+    probehle.hidden = !probehle.querySelector('[data-po]:not([hidden])');
+  }
   const specialy = document.querySelector<HTMLElement>('#kvizSpecialy .kviz-specialy__list');
   if (specialy) specialy.hidden = !specialy.querySelector('[data-until]');
   const list = document.getElementById('akceList');

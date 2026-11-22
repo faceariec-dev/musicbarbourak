@@ -27,6 +27,15 @@ const budouci = terminy
   .sort((a, b) => a.date.localeCompare(b.date));
 const nadchazejici = budouci.filter((t) => !jeKviz(t));
 const kvizySpecialy = budouci.filter(jeKviz);
+// Proběhlé speciály: všechny kvízy s plakátem seskupené podle názvu; skript ukáže ty, jejichž poslední termín už je pryč
+const kvizSkupiny = new Map<string, typeof terminy>();
+for (const t of [...terminy].filter((t) => jeKviz(t) && t.plakat).sort((a, b) => a.date.localeCompare(b.date))) {
+  kvizSkupiny.set(t.title, [...(kvizSkupiny.get(t.title) ?? []), t]);
+}
+const kratkeDatum = (iso: string) => { const d = new Date(iso + 'T12:00:00'); return `${d.getDate()}. ${d.getMonth() + 1}.`; };
+const probehleKvizy = [...kvizSkupiny.values()]
+  .map((sk) => ({ title: sk[0].title.replace(/^Chytrý kvíz:\s*/i, ''), plakat: sk[0].plakat!, po: sk[sk.length - 1].until ?? sk[sk.length - 1].date, kdy: sk.map((t) => kratkeDatum(t.date)).join(' a ') + ' ' + sk[0].date.slice(0, 4) }))
+  .sort((a, b) => b.po.localeCompare(a.po));
 // Nejbližší akce s plakátem = velká karta v Programu a upoutávka v úvodu
 const hlavniAkce = nadchazejici.find((t) => t.plakat);
 const dalsiAkce = nadchazejici.filter((t) => t !== hlavniAkce);
@@ -388,6 +397,20 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
               </li>
             ))}
           </ul>
+          <div class="kviz-probehle" id="kvizProbehle" hidden={!probehleKvizy.some((k) => k.po < today)}>
+            <h4 class="kviz-probehle__nadpis">Už u nás proběhly</h4>
+            <ul class="kviz-probehle__list">
+              {probehleKvizy.map((k) => (
+                <li data-po={k.po} hidden={k.po >= today}>
+                  <a href={k.plakat.src} target="_blank" rel="noopener">
+                    <Image src={k.plakat} alt={`Plakát: ${k.title}`} widths={[200, 400]} sizes="150px" />
+                  </a>
+                  <span class="kviz-probehle__kdy">{k.kdy}</span>
+                  <strong>{k.title}</strong>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>

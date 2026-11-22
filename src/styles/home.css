@@ -463,3 +463,15 @@
 .kviz-special__datum { font-size: 12.5px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #ffb08f; }
 .kviz-special__kdy:not([hidden]) { color: #fff; margin-right: 6px; }
 .kviz-special__nazev { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; font-size: 26px; line-height: 1.2; color: #fff; }
+
+/* Proběhlé kvízové speciály */
+.kviz-probehle { margin-top: clamp(32px, 4vw, 48px); }
+.kviz-probehle[hidden] { display: none; }
+.kviz-probehle__nadpis { margin: 0 0 14px; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: #ffb08f; font-weight: 800; }
+.kviz-probehle__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 18px; }
+.kviz-probehle__list li { display: flex; flex-direction: column; gap: 4px; }
+.kviz-probehle__list li[hidden] { display: none; }
+.kviz-probehle__list img { display: block; width: 100%; height: auto; opacity: .85; transition: opacity .2s; }
+.kviz-probehle__list a:hover img { opacity: 1; }
+.kviz-probehle__kdy { margin-top: 6px; font-size: 12px; font-weight: 800; letter-spacing: 1px; color: rgba(255, 255, 255, .6); }
+.kviz-probehle__list strong { color: #fff; font-size: 14.5px; line-height: 1.3; }
