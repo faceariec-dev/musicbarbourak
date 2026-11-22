@@ -300,6 +300,67 @@ export const napoje: Category[] = [
   },
 ];
 
+// „Doporučujeme“ na úvodní stránce. Odkazuje na položky lístku výše podle kategorie a názvu
+// (případně objemu), takže ceny se berou z lístku a nikdy se nerozejdou.
+// Výběr změníte úpravou řádků níže; položka, která v lístku není, se jen vynechá.
+type Odkaz = [kategorie: string, nazev: string, objem?: string];
+
+const vyber: { title: string; polozky: Odkaz[] }[] = [
+  {
+    title: 'Pivo z čepu',
+    polozky: [
+      ['cepovane-pivo', 'Krušovice Bohém', '0,5 l'],
+      ['cepovane-pivo', 'Pivní speciál'],
+      ['cepovane-pivo', 'Zlatopramen Radler nealko', '0,5 l'],
+    ],
+  },
+  {
+    title: 'Rumy, které stojí za to',
+    polozky: [
+      ['rum', 'Ron Zacapa 23 Centenario'],
+      ['rum', 'Santiago de Cuba Extra Añejo 11 yo'],
+      ['rum', 'Don Papa'],
+      ['rum', 'Flor de Caña Centenario 12 yo'],
+      ['rum', 'Ron Abuelo Añejo 12 Años'],
+    ],
+  },
+  {
+    title: 'Míchané drinky',
+    polozky: [
+      ['michane', 'Sarti Spritz'],
+      ['michane', 'Aperol Spritz'],
+      ['michane', 'Mojito'],
+      ['michane', 'Cuba Libre'],
+      ['michane', 'Gin & Tonic'],
+    ],
+  },
+  {
+    title: 'Víno',
+    polozky: [
+      ['vino', 'Rozlévané bílé víno (dle nabídky)'],
+      ['vino', 'Rozlévané červené víno (dle nabídky)'],
+      ['sekt', 'Prosecco', '0,1 l'],
+    ],
+  },
+  {
+    title: 'Bez alkoholu',
+    polozky: [
+      ['mocktail', 'Mojito Virgin'],
+      ['nealko', 'Domácí limonáda (dle nabídky)'],
+      ['mocktail', 'Bohemian Gin Pink & Tonic'],
+    ],
+  },
+];
+
+export const doporucujeme = vyber
+  .map((sk) => ({
+    title: sk.title,
+    items: sk.polozky
+      .map(([k, n, o]) => napoje.find((c) => c.id === k)?.items.find((i) => i.name === n && (!o || i.volume === o)))
+      .filter((i): i is Item => Boolean(i)),
+  }))
+  .filter((sk) => sk.items.length > 0);
+
 // Jídelní lístek (TOM'S Pizza). Dokud je prázdný, na webu se nezobrazuje.
 export const jidlo: Category[] = [];
 
