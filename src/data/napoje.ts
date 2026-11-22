@@ -303,27 +303,10 @@ export const napoje: Category[] = [
 // „Doporučujeme“ na úvodní stránce. Odkazuje na položky lístku výše podle kategorie a názvu
 // (případně objemu), takže ceny se berou z lístku a nikdy se nerozejdou.
 // Výběr změníte úpravou řádků níže; položka, která v lístku není, se jen vynechá.
-type Odkaz = [kategorie: string, nazev: string, objem?: string];
+type Odkaz = [kategorie: string, nazev: string, objem?: string, naWebu?: string];
 
+// Pořadí skupin = pořadí na webu; prvních `doporucujemeVlevo` skupin je v levém sloupci.
 const vyber: { title: string; polozky: Odkaz[] }[] = [
-  {
-    title: 'Pivo z čepu',
-    polozky: [
-      ['cepovane-pivo', 'Krušovice Bohém', '0,5 l'],
-      ['cepovane-pivo', 'Pivní speciál'],
-      ['cepovane-pivo', 'Zlatopramen Radler nealko', '0,5 l'],
-    ],
-  },
-  {
-    title: 'Rumy, které stojí za to',
-    polozky: [
-      ['rum', 'Ron Zacapa 23 Centenario'],
-      ['rum', 'Santiago de Cuba Extra Añejo 11 yo'],
-      ['rum', 'Don Papa'],
-      ['rum', 'Flor de Caña Centenario 12 yo'],
-      ['rum', 'Ron Abuelo Añejo 12 Años'],
-    ],
-  },
   {
     title: 'Míchané drinky',
     polozky: [
@@ -335,28 +318,52 @@ const vyber: { title: string; polozky: Odkaz[] }[] = [
     ],
   },
   {
+    title: 'Pivo z čepu',
+    polozky: [
+      ['cepovane-pivo', 'Krušovice Bohém', '0,5 l'],
+      ['cepovane-pivo', 'Pivní speciál'],
+      ['cepovane-pivo', 'Zlatopramen Radler nealko', '0,5 l', 'Radler nealko'],
+    ],
+  },
+  {
     title: 'Víno',
     polozky: [
-      ['vino', 'Rozlévané bílé víno (dle nabídky)'],
-      ['vino', 'Rozlévané červené víno (dle nabídky)'],
-      ['sekt', 'Prosecco', '0,1 l'],
+      ['vino', 'Rozlévané bílé víno (dle nabídky)', undefined, 'Bílé víno'],
+      ['vino', 'Rozlévané červené víno (dle nabídky)', undefined, 'Červené víno'],
+    ],
+  },
+  {
+    title: 'Prémiové rumy',
+    polozky: [
+      ['rum', 'Ron Zacapa 23 Centenario', undefined, 'Ron Zacapa 23'],
+      ['rum', 'Santiago de Cuba Extra Añejo 11 yo', undefined, 'Santiago de Cuba 11 yo'],
+      ['rum', 'Don Papa'],
+      ['rum', 'Flor de Caña Centenario 12 yo', undefined, 'Flor de Caña 12 yo'],
+      ['rum', 'Ron Abuelo Añejo 12 Años', undefined, 'Ron Abuelo 12 Años'],
+      ['rum', 'Legendario Elixir de Cuba 7 yo', undefined, 'Legendario 7 yo'],
     ],
   },
   {
     title: 'Bez alkoholu',
     polozky: [
       ['mocktail', 'Mojito Virgin'],
-      ['nealko', 'Domácí limonáda (dle nabídky)'],
-      ['mocktail', 'Bohemian Gin Pink & Tonic'],
+      ['nealko', 'Domácí limonáda (dle nabídky)', undefined, 'Domácí limonáda'],
+      ['mocktail', 'Bohemian Gin Pink & Tonic', undefined, 'Gin Pink & Tonic nealko'],
+      ['nealko', 'Red Bull'],
     ],
   },
 ];
+
+export const doporucujemeVlevo = 3;
 
 export const doporucujeme = vyber
   .map((sk) => ({
     title: sk.title,
     items: sk.polozky
-      .map(([k, n, o]) => napoje.find((c) => c.id === k)?.items.find((i) => i.name === n && (!o || i.volume === o)))
+      .map(([k, n, o, web]) => {
+        const i = napoje.find((c) => c.id === k)?.items.find((i) => i.name === n && (!o || i.volume === o));
+        return i && { ...i, name: web ?? i.name };
+      })
       .filter((i): i is Item => Boolean(i)),
   }))
   .filter((sk) => sk.items.length > 0);

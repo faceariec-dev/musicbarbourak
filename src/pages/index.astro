@@ -7,7 +7,7 @@ import Hours from '../components/Hours.astro';
 import Polaroid from '../components/Polaroid.astro';
 import Ticker from '../components/Ticker.astro';
 import { site, tel, downloads } from '../data/site';
-import { doporucujeme, kc } from '../data/napoje';
+import { doporucujeme, doporucujemeVlevo, kc } from '../data/napoje';
 import { signature } from '../data/specialni-drinky';
 import { terminy, pravidelne, colors } from '../data/akce';
 import { kviz } from '../data/kviz';
@@ -157,18 +157,22 @@ const typyAkci = ['Stůl na večer', 'Narozeninová oslava', 'Firemní akce', 'S
 
           <div class="menu-preview">
             <p class="menu-preview__nadpis">Doporučujeme</p>
-            {doporucujeme.map((cat) => (
-              <div class="menu-preview__cat">
-                <h3>{cat.title}</h3>
-                <ul>
-                  {cat.items.map((it) => (
-                    <li>
-                      <span>{it.name.replace(' (dle nabídky)', '')}{it.volume && <small> {it.volume}</small>}{it.note === 'Novinka' && <span class="menu-preview__novinka">Novinka</span>}</span>
-                      <span class="menu-preview__dots" aria-hidden="true"></span>
-                      <span class="menu-preview__price">{kc(it.price)}</span>
-                    </li>
-                  ))}
-                </ul>
+            {[doporucujeme.slice(0, doporucujemeVlevo), doporucujeme.slice(doporucujemeVlevo)].map((sloupec) => (
+              <div class="menu-preview__sloupec">
+                {sloupec.map((cat) => (
+                  <div class="menu-preview__cat">
+                    <h3>{cat.title}</h3>
+                    <ul>
+                      {cat.items.map((it) => (
+                        <li>
+                          <span class="menu-preview__nazev">{it.name}{it.volume && <small> {it.volume}</small>}{it.note === 'Novinka' && <span class="menu-preview__novinka">Novinka</span>}</span>
+                          <span class="menu-preview__dots" aria-hidden="true"></span>
+                          <span class="menu-preview__price">{kc(it.price)}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </div>
             ))}
             <div class="menu-preview__dalsi">
