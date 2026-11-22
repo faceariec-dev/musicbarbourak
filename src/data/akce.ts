@@ -15,6 +15,8 @@
 import kvizFoto from '../assets/foto/quiz-winners.jpg';
 import kvizPlakat from '../assets/foto/quiz-poster.jpg';
 import jenBlbni from '../assets/akce/jen-blbni-rock-2026-11-21.jpg';
+import kvizMarvel from '../assets/akce/kviz-marvel-2026-11.jpg';
+import kvizPohadkovy from '../assets/akce/kviz-pohadkovy-2026-12-13.jpg';
 
 export type Color = 'orange' | 'pink' | 'violet' | 'yellow' | 'wine';
 
@@ -47,6 +49,36 @@ export interface Pravidelna {
 }
 
 export const terminy: Termin[] = [
+  {
+    date: '2026-11-25',
+    title: 'Chytrý kvíz: Marvel speciál',
+    desc: 'Tematický speciál Chytrého kvízu ze světa Marvelu. Sestavte tým a přihlaste se předem.',
+    tag: 'KVÍZ',
+    color: 'orange',
+    plakat: kvizMarvel,
+    odkaz: 'https://www.kvizovespecialy.cz',
+    odkazText: 'Přihlásit tým',
+  },
+  {
+    date: '2026-11-29',
+    title: 'Chytrý kvíz: Marvel speciál',
+    desc: 'Tematický speciál Chytrého kvízu ze světa Marvelu. Sestavte tým a přihlaste se předem.',
+    tag: 'KVÍZ',
+    color: 'orange',
+    plakat: kvizMarvel,
+    odkaz: 'https://www.kvizovespecialy.cz',
+    odkazText: 'Přihlásit tým',
+  },
+  {
+    date: '2026-12-13',
+    title: 'Chytrý kvíz: Pohádkový speciál',
+    desc: 'Pohádkový speciál Chytrého kvízu, od českých pohádek po Disney a Pixar. Sestavte tým a přihlaste se předem.',
+    tag: 'KVÍZ',
+    color: 'orange',
+    plakat: kvizPohadkovy,
+    odkaz: 'https://www.kvizovespecialy.cz',
+    odkazText: 'Přihlásit tým',
+  },
   {
     date: '2026-11-21',
     time: '19:00',

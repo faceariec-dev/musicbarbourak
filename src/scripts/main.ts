@@ -147,9 +147,16 @@ function initAkceList() {
 
   // Úvod: ukázat dvě nejbližší akce, které ještě neskončily; první je velká
   const news = document.getElementById('heroNews');
-  news?.querySelectorAll<HTMLElement>('.hero-news__item').forEach((el, i) => {
-    el.hidden = i > 1;
-    el.classList.toggle('hero-news__item--velka', i === 0);
+  // (stejná akce s více termíny se v úvodu ukáže jen jednou, s nejbližším datem)
+  const videne = new Set<string>();
+  let n = 0;
+  news?.querySelectorAll<HTMLElement>('.hero-news__item').forEach((el) => {
+    const nazev = el.querySelector('.hero-news__title')?.textContent ?? '';
+    const ukazat = n < 2 && !videne.has(nazev);
+    videne.add(nazev);
+    el.hidden = !ukazat;
+    el.classList.toggle('hero-news__item--velka', ukazat && n === 0);
+    if (ukazat) n++;
   });
   // Když už v úvodu nic aktuálního není, vrátit fotky
   if (news && !news.querySelector('.hero-news__item')) {
